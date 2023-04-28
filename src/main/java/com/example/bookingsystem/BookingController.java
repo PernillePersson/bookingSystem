@@ -66,8 +66,12 @@ public class BookingController {
 
     @FXML
     void mondayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(mandagPane);
+        try {
+            y_end = event.getY();
+            addStack(mandagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
 
     @FXML
@@ -81,8 +85,12 @@ public class BookingController {
 
     @FXML
     void tuesdayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(tirsdagPane);
+        try {
+            y_end = event.getY();
+            addStack(tirsdagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
     @FXML
     void wednesdayDrag(MouseEvent event) {}
@@ -95,8 +103,12 @@ public class BookingController {
 
     @FXML
     void wednesdayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(onsdagPane);
+        try {
+            y_end = event.getY();
+            addStack(onsdagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
 
     @FXML
@@ -110,8 +122,12 @@ public class BookingController {
 
     @FXML
     void thursdayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(torsdagPane);
+        try {
+            y_end = event.getY();
+            addStack(torsdagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
     @FXML
     void fridayDrag(MouseEvent event) {}
@@ -124,8 +140,12 @@ public class BookingController {
 
     @FXML
     void fridayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(fredagPane);
+        try {
+            y_end = event.getY();
+            addStack(fredagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
 
 
@@ -140,8 +160,12 @@ public class BookingController {
 
     @FXML
     void saturdayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(lørdagPane);
+        try {
+            y_end = event.getY();
+            addStack(lørdagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
 
 
@@ -156,8 +180,12 @@ public class BookingController {
 
     @FXML
     void sundayRelease(MouseEvent event) {
-        y_end = event.getY();
-        addStack(søndagPane);
+        try {
+            y_end = event.getY();
+            addStack(søndagPane);
+        }catch (IndexOutOfBoundsException e){
+            System.err.println("Kan ikke oprette booking udenfor kalenderen");
+        }
     }
 
     public void addStack(Pane p){
