@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userBooking.Controllers.DoneController">
+   <children>
+      <Label layoutX="161.0" layoutY="192.0" text="Your booking is done and we are eager to meet you!" />
+      <Button layoutX="154.0" layoutY="269.0" mnemonicParsing="false" text="Close" />
+      <Button layoutX="359.0" layoutY="269.0" mnemonicParsing="false" text="Print receipt" />
+   </children>
+</Pane>

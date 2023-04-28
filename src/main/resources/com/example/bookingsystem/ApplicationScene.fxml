@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userBooking.Controllers.ApplicationController">
+   <children>
+      <TextArea fx:id="fornavn" focusTraversable="false" layoutX="105.0" layoutY="131.0" prefHeight="27.0" prefWidth="200.0" />
+      <TextArea fx:id="efternavn" focusTraversable="false" layoutX="345.0" layoutY="131.0" prefHeight="27.0" prefWidth="200.0" />
+      <TextArea fx:id="email" focusTraversable="false" layoutX="105.0" layoutY="245.0" prefHeight="39.0" prefWidth="200.0" />
+      <TextArea fx:id="startTidspunkt" disable="true" editable="false" focusTraversable="false" layoutX="345.0" layoutY="354.0" prefHeight="39.0" prefWidth="200.0" />
+      <TextArea fx:id="slutTidspunkt" disable="true" editable="false" focusTraversable="false" layoutX="345.0" layoutY="478.0" prefHeight="39.0" prefWidth="200.0" />
+      <Button layoutX="729.0" layoutY="561.0" mnemonicParsing="false" onAction="#switchToDoneScene" text="Book time" />
+      <Label layoutX="105.0" layoutY="109.0" text="Fornavn" />
+      <Label layoutX="345.0" layoutY="109.0" text="Efternavn" />
+      <Label layoutX="105.0" layoutY="221.0" text="Email" />
+      <Label layoutX="345.0" layoutY="332.0" text="Start tidspunkt" />
+      <Label layoutX="345.0" layoutY="455.0" text="Slut tidspunkt" />
+      <DatePicker layoutX="105.0" layoutY="354.0" onAction="#chooseTheTime" />
+   </children>
+</Pane>
