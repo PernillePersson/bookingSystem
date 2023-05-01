@@ -106,9 +106,9 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public void addNote(Booking b, String s) {
         try {
-            PreparedStatement ps = con.prepareStatement("UPDATE Booking set note = ? WHERE bookingID = ?;");
-            ps.setString(1, s);
-            ps.setInt(2, b.getId());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Note VALUES (?, ?);");
+            ps.setInt(1, b.getId());
+            ps.setString(2, s);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Kunne ikke tilføje note " + e.getMessage());
