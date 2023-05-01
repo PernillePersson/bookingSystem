@@ -4,9 +4,14 @@ import com.example.bookingsystem.model.Booking;
 import com.example.bookingsystem.model.BookingCode;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -42,9 +47,103 @@ public class BookingController {
 
     @FXML
     void notifikationKnap(ActionEvent event) {
+        recent.getItems().clear();
+        recent.setPrefHeight(200.0);
+        recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
+        recent.setOnMouseClicked(mouseEvent ->{
+            seKontaktInfo(recent);
+        });
+
+        List<Booking> rBooking = bdi.recentlyCreated();
+        for (Booking b : rBooking)
+        {
+            recent.getItems().add(b);
+        }
+
+        upcoming.getItems().clear();
+        upcoming.setPrefHeight(200.0);
+        upcoming.setStyle("-fx-font-family: monospace");
+        upcoming.setOnMouseClicked(mouseEvent ->{
+            seKontaktInfo(upcoming);
+        });
+
+        List<Booking> ucBooking = bdi.upcoming();
+        for (Booking b : ucBooking)
+        {
+            upcoming.getItems().add(b);
+        }
+
+        Label l1 = new Label("Nyoprettede bookings");
+        l1.setPadding(new Insets(4,0,0,4));
+        Label l2 = new Label("Kommende bookings");
+        l2.setPadding(new Insets(4,0,0,4));
+
+        VBox vb = new VBox(l1, recent, l2, upcoming);
+        vb.setSpacing(2);
+        Scene notiScene = new Scene(vb);
+        Stage notiStage = new Stage();
+        notiStage.setTitle("Notifikationer");
+        notiStage.setScene(notiScene);
+
+        // Set position of second window, related to primary window.
+        notiStage.setX(950.0);
+
+        notiStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                notiStage.hide(); // Hvis der klikkes udenfor vinduet, lukkes det
+            }
+        });
+
+        notiStage.show();
+
 
     }
 
+    public void seKontaktInfo(ListView l){
+        ObservableList valgtBooking = l.getSelectionModel().getSelectedIndices();
+        if (valgtBooking.isEmpty()){
+            System.out.println("Vælg booking");
+        }else
+            for (Object indeks : valgtBooking){
+                Booking b = (Booking) l.getItems().get((int) indeks);
+                //Åben scene med kontakt info
+                åbenKontaktInfo(b);
+            }
+    }
+
+    public void åbenKontaktInfo(Booking b){
+        Label n = new Label();
+        n.setText("Navn: ");
+        Label e = new Label();
+        e.setText("e-mail: ");
+        Label t = new Label();
+        t.setText("tlf.: ");
+        VBox vb1 = new VBox(n, e, t);
+        vb1.setSpacing(4.0);
+        Label navn = new Label();
+        navn.setText(b.getFirstName() + " " + b.getLastName());
+        Label email = new Label();
+        email.setText(b.getEmail());
+        Label tlf = new Label();
+        tlf.setText(String.valueOf(b.getPhoneNumber()));
+        VBox vb2 = new VBox(navn, email, tlf);
+        vb2.setSpacing(4.0);
+        HBox hb = new HBox(vb1, vb2);
+        hb.setSpacing(4.0);
+
+        Scene contScene = new Scene(hb, 400, 200);
+        Stage contStage = new Stage();
+        contStage.setTitle("Kontaktinformation");
+        contStage.setScene(contScene);
+
+        contStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                contStage.hide(); // Hvis der klikkes udenfor vinduet, lukkes det
+            }
+        });
+
+        contStage.show();
+    }
     @FXML
     void statestikKnap(ActionEvent event) {
 

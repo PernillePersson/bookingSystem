@@ -115,5 +115,77 @@ public class BookingDAOImpl implements BookingDAO {
         }
     } //kun til AS brug
 
+    @Override
+    public List<Booking> recentlyCreated() {
+        List<Booking> newBookings = new ArrayList<>();
+        try {
+            //Vælger de bookings der er oprettet inden for den seneste uge
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Booking WHERE dateCreated > DATEADD(week, -1, GETDATE()) ORDER BY dateCreated;");
+            ResultSet rs = ps.executeQuery();
+
+            Booking b;
+            while (rs.next()){
+                int id = rs.getInt(1);
+                String fName = rs.getString(2);
+                String lName = rs.getString(3);
+                String org = rs.getString(4);
+                String mail = rs.getString(5);
+                int phone = Integer.parseInt(rs.getString(6));
+                char bType = rs.getString(7).charAt(0);
+                char catering = rs.getString(8).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(9));
+                LocalDate created = LocalDate.parse(rs.getString(10));
+                String bCode = rs.getString(11);
+                Time startTime = rs.getTime(12);
+                Time endTime = rs.getTime(13);
+
+
+                b = new Booking(id, fName, lName, org, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime);
+                newBookings.add(b);
+
+            }
+        } catch (SQLException e){
+            System.err.println("Kan ikke finde booking " + e.getMessage());
+        }
+        return newBookings;
+    }
+
+    @Override
+    public List<Booking> upcoming() {
+        List<Booking> ucBookings = new ArrayList<>();
+        try {
+            //Vælger de bookings hvor bookingdate er mellem i dag, og en uge frem
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Booking WHERE bookingDate > getDate() AND bookingDate < DATEADD(week, 1, GETDATE()) ORDER BY bookingDate;");
+            ResultSet rs = ps.executeQuery();
+
+            Booking b;
+            while (rs.next()){
+                int id = rs.getInt(1);
+                String fName = rs.getString(2);
+                String lName = rs.getString(3);
+                String org = rs.getString(4);
+                String mail = rs.getString(5);
+                int phone = Integer.parseInt(rs.getString(6));
+                char bType = rs.getString(7).charAt(0);
+                char catering = rs.getString(8).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(9));
+                LocalDate created = LocalDate.parse(rs.getString(10));
+                String bCode = rs.getString(11);
+                Time startTime = rs.getTime(12);
+                Time endTime = rs.getTime(13);
+
+
+                b = new Booking(id, fName, lName, org, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime);
+                ucBookings.add(b);
+
+            }
+        } catch (SQLException e){
+            System.err.println("Kan ikke finde booking " + e.getMessage());
+        }
+        return ucBookings;
+    }
+
 
 }
