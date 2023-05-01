@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -96,7 +97,6 @@ public class BookingController {
 
         notiStage.show();
 
-
     }
 
     public void seKontaktInfo(ListView l){
@@ -113,13 +113,18 @@ public class BookingController {
 
     public void åbenKontaktInfo(Booking b){
         Label n = new Label();
+        n.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         n.setText("Navn: ");
         Label e = new Label();
+        e.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         e.setText("e-mail: ");
         Label t = new Label();
+        t.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         t.setText("tlf.: ");
         VBox vb1 = new VBox(n, e, t);
         vb1.setSpacing(4.0);
+        vb1.setAlignment(Pos.CENTER_LEFT);
+        vb1.setPadding(new Insets(0, 20, 0, 0));
         Label navn = new Label();
         navn.setText(b.getFirstName() + " " + b.getLastName());
         Label email = new Label();
@@ -128,8 +133,12 @@ public class BookingController {
         tlf.setText(String.valueOf(b.getPhoneNumber()));
         VBox vb2 = new VBox(navn, email, tlf);
         vb2.setSpacing(4.0);
+        vb2.setAlignment(Pos.CENTER_LEFT);
         HBox hb = new HBox(vb1, vb2);
         hb.setSpacing(4.0);
+        hb.setAlignment(Pos.CENTER);
+        hb.setPrefWidth(250);
+        hb.setPrefHeight(150);
 
         Scene contScene = new Scene(hb, 400, 200);
         Stage contStage = new Stage();
