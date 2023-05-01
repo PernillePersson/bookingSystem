@@ -28,8 +28,7 @@ public class BookingController {
     }
 
     public void initialize(){
-        System.out.println(BookingCode.generateBookingCode());
-        System.out.println(BookingCode.generateBookingCode());
+
     }
     @FXML
     void opretBookingKnap(ActionEvent event) {
