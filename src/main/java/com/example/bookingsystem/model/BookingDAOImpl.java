@@ -32,8 +32,9 @@ public class BookingDAOImpl implements BookingDAO {
                 LocalDate bDate = LocalDate.parse(rs.getString(9));
                 LocalDate created = LocalDate.parse(rs.getString(10));
                 String bCode = rs.getString(11);
-                int startTime = rs.getInt(12);
-                int endTime = rs.getInt(13);
+                Time startTime = rs.getTime(12);
+                Time endTime = rs.getTime(13);
+
 
                 b = new Booking(id, fName, lName, org, mail, phone,
                         bType, catering, bDate, created, bCode, startTime, endTime);
@@ -48,7 +49,7 @@ public class BookingDAOImpl implements BookingDAO {
 
     @Override
     public void addBooking(String fn, String ln, String org, String mail, int phone, char bt, char catering,
-                           LocalDate bd, Time st, Time et) throws SQLException {
+                           LocalDate bd, Time st, Time et) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?,?," +
                     "?, GETDATE(), ?, ?, ?)");
@@ -80,4 +81,27 @@ public class BookingDAOImpl implements BookingDAO {
             System.err.println("Kunne ikke slette booking" + e.getMessage());
         }
     }
+
+    @Override
+    public boolean bookingCodeExists(String bc) {
+        List<String> bookingCodes = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT bookingCode FROM Booking WHERE bookingCode = ?;");
+            ps.setString(1, bc);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                String s = rs.getString(1);
+                bookingCodes.add(s);
+            }
+        }catch (SQLException e){
+            System.err.println("Kunne ikke finde bookingcode " + e.getMessage());
+        }
+
+        if (bookingCodes.size() == 0)
+            return false;
+        else return true;
+    }
+
+
 }

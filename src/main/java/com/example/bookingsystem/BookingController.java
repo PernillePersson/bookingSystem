@@ -1,5 +1,9 @@
 package com.example.bookingsystem;
 
+import com.example.bookingsystem.model.Booking;
+import com.example.bookingsystem.model.BookingCode;
+import com.example.bookingsystem.model.BookingDAO;
+import com.example.bookingsystem.model.BookingDAOImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,6 +24,13 @@ public class BookingController {
 
     private double y_start,y_end;
 
+    public BookingController() throws SQLException {
+    }
+
+    public void initialize(){
+        System.out.println(BookingCode.generateBookingCode());
+        System.out.println(BookingCode.generateBookingCode());
+    }
     @FXML
     void opretBookingKnap(ActionEvent event) {
 
@@ -221,4 +232,6 @@ public class BookingController {
         p.getChildren().add(r);
         p.getChildren().add(l);
     } // Tilføjer en rektangel til der hvor brugeren har klikket vha. mouse drag events.
+
+    BookingDAO bdi = new BookingDAOImpl();
 }
