@@ -52,7 +52,7 @@ public class BookingDAOImpl implements BookingDAO {
                            LocalDate bd, Time st, Time et) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?,?," +
-                    "?, GETDATE(), ?, ?, ?)");
+                    "?, GETDATE(), ?, ?, ?, NULL)");
             ps.setString(1, fn);
             ps.setString(2, ln);
             ps.setString(3, org);
@@ -102,6 +102,18 @@ public class BookingDAOImpl implements BookingDAO {
             return false;
         else return true;
     }
+
+    @Override
+    public void addNote(Booking b, String s) {
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE Booking set note = ? WHERE bookingID = ?;");
+            ps.setString(1, s);
+            ps.setInt(2, b.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Kunne ikke tilføje note " + e.getMessage());
+        }
+    } //kun til AS brug
 
 
 }
