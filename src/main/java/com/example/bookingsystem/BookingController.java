@@ -1,7 +1,6 @@
 package com.example.bookingsystem;
 
 import com.example.bookingsystem.model.Booking;
-import com.example.bookingsystem.model.BookingCode;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
 import javafx.collections.ObservableList;
@@ -13,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -27,7 +25,9 @@ import java.lang.Math;
 
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,11 +39,23 @@ public class BookingController {
             søndagPane, tirsdagPane, torsdagPane;
 
     @FXML
-    private Label monthLabel, yearLabel;
+    private Label monthLabel, yearLabel, mandagDato, tirsdagDato,
+            onsdagDato, torsdagDato, fredagDato, lørdagDato, søndagDato;
+
+
+    private LocalDate shownDate;
+    private LocalDate today;
 
 
     private double y_start,y_end;
-    ArrayList<Rectangle> rectangles = new ArrayList<>();
+    ArrayList<Rectangle> manRectangles = new ArrayList<>();
+    ArrayList<Rectangle> tirsRectangles = new ArrayList<>();
+    ArrayList<Rectangle> onsRectangles = new ArrayList<>();
+    ArrayList<Rectangle> torsRectangles = new ArrayList<>();
+    ArrayList<Rectangle> freRectangles = new ArrayList<>();
+    ArrayList<Rectangle> lørRectangles = new ArrayList<>();
+    ArrayList<Rectangle> sønRectangles = new ArrayList<>();
+    ArrayList<Label> labels = new ArrayList<>();
     HashMap<Rectangle, Booking> rectangleBooking = new HashMap<>();
 
     ListView recent = new ListView<>();
@@ -53,6 +65,10 @@ public class BookingController {
     }
 
     public void initialize(){
+        shownDate = LocalDate.now();
+        today = LocalDate.now();
+        opsætDato();
+        insertSystemBookings();
 
     }
     @FXML
@@ -179,17 +195,63 @@ public class BookingController {
 
     @FXML
     void forrigeUgeKnap(ActionEvent event) {
-
+        shownDate = shownDate.minusWeeks(1);
+        opsætDato();
+        insertSystemBookings();
     }
 
     @FXML
     void todayKnap(ActionEvent event) {
-
+        shownDate = today;
+        opsætDato();
+        insertSystemBookings();
     }
 
     @FXML
     void næsteUgeKnap(ActionEvent event) {
+        shownDate = shownDate.plusWeeks(1);
+        opsætDato();
+        insertSystemBookings();
+    }
 
+    public void opsætDato(){
+        oversætMdr();
+        yearLabel.setText(String.valueOf(shownDate.getYear()));
+        mandagDato.setText(String.valueOf(shownDate.with(DayOfWeek.MONDAY).getDayOfMonth()));
+        tirsdagDato.setText(String.valueOf(shownDate.with(DayOfWeek.TUESDAY).getDayOfMonth()));
+        onsdagDato.setText(String.valueOf(shownDate.with(DayOfWeek.WEDNESDAY).getDayOfMonth()));
+        torsdagDato.setText(String.valueOf(shownDate.with(DayOfWeek.THURSDAY).getDayOfMonth()));
+        fredagDato.setText(String.valueOf(shownDate.with(DayOfWeek.FRIDAY).getDayOfMonth()));
+        lørdagDato.setText(String.valueOf(shownDate.with(DayOfWeek.SATURDAY).getDayOfMonth()));
+        søndagDato.setText(String.valueOf(shownDate.with(DayOfWeek.SUNDAY).getDayOfMonth()));
+    }
+
+    public void oversætMdr(){
+        if (shownDate.getMonth() == Month.JANUARY){
+            monthLabel.setText("Jan");
+        } else if (shownDate.getMonth() == Month.FEBRUARY) {
+            monthLabel.setText("Feb");
+        } else if (shownDate.getMonth() == Month.MARCH) {
+            monthLabel.setText("Mar");
+        } else if (shownDate.getMonth() == Month.APRIL) {
+            monthLabel.setText("Apr");
+        } else if (shownDate.getMonth() == Month.MAY) {
+            monthLabel.setText("Maj");
+        } else if (shownDate.getMonth() == Month.JUNE) {
+            monthLabel.setText("Jun");
+        } else if (shownDate.getMonth() == Month.JULY) {
+            monthLabel.setText("Jul");
+        } else if (shownDate.getMonth() == Month.AUGUST) {
+            monthLabel.setText("Aug");
+        } else if (shownDate.getMonth() == Month.SEPTEMBER) {
+            monthLabel.setText("Sep");
+        } else if (shownDate.getMonth() == Month.OCTOBER) {
+            monthLabel.setText("Oct");
+        } else if (shownDate.getMonth() == Month.NOVEMBER) {
+            monthLabel.setText("Nov");
+        } else if (shownDate.getMonth() == Month.DECEMBER) {
+            monthLabel.setText("Dec");
+        }
     }
 
     @FXML
@@ -205,7 +267,7 @@ public class BookingController {
     void mondayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(mandagPane);
+            addStack(mandagPane, manRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
@@ -224,7 +286,7 @@ public class BookingController {
     void tuesdayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(tirsdagPane);
+            addStack(tirsdagPane, tirsRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
@@ -242,7 +304,7 @@ public class BookingController {
     void wednesdayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(onsdagPane);
+            addStack(onsdagPane, onsRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
@@ -261,7 +323,7 @@ public class BookingController {
     void thursdayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(torsdagPane);
+            addStack(torsdagPane, torsRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
@@ -279,7 +341,7 @@ public class BookingController {
     void fridayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(fredagPane);
+            addStack(fredagPane, freRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
@@ -299,7 +361,7 @@ public class BookingController {
     void saturdayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(lørdagPane);
+            addStack(lørdagPane, lørRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
@@ -319,13 +381,13 @@ public class BookingController {
     void sundayRelease(MouseEvent event) {
         try {
             y_end = event.getY();
-            addStack(søndagPane);
+            addStack(søndagPane, sønRectangles);
         }catch (IndexOutOfBoundsException e){
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
 
-    public void addStack(Pane p){
+    public void addStack(Pane p, ArrayList<Rectangle> rect){
 
         Label l = new Label();
         ArrayList<String> aList = new ArrayList<>();
@@ -372,7 +434,7 @@ public class BookingController {
 
 
             boolean intersects = false;
-            for (Rectangle rec : rectangles) {
+            for (Rectangle rec : rect) {
                 if (rec.getY() + rec.getHeight() >= r.getY() && rec.getY() <= r.getY() + r.getHeight()) {
                     intersects = true;
                     break;
@@ -381,7 +443,8 @@ public class BookingController {
             if (!intersects) {
                 // indsæt en tilføjelse af booking her eller i vores MandagPane release event
                 rectangleBooking.put(r,book);
-                rectangles.add(r);
+                rect.add(r);
+                labels.add(l);
                 p.getChildren().add(r);
                 p.getChildren().add(l);
             }
@@ -389,8 +452,23 @@ public class BookingController {
     } // Tilføjer en rektangel til der hvor brugeren har klikket vha. mouse drag events.
 
     public void insertSystemBookings(){
+        mandagPane.getChildren().removeAll(manRectangles);
+        tirsdagPane.getChildren().removeAll(tirsRectangles);
+        onsdagPane.getChildren().removeAll(onsRectangles);
+        torsdagPane.getChildren().removeAll(torsRectangles);
+        fredagPane.getChildren().removeAll(freRectangles);
+        lørdagPane.getChildren().removeAll(lørRectangles);
+        søndagPane.getChildren().removeAll(sønRectangles);
+        mandagPane.getChildren().removeAll(labels);
+        tirsdagPane.getChildren().removeAll(labels);
+        onsdagPane.getChildren().removeAll(labels);
+        torsdagPane.getChildren().removeAll(labels);
+        fredagPane.getChildren().removeAll(labels);
+        lørdagPane.getChildren().removeAll(labels);
+        søndagPane.getChildren().removeAll(labels);
 
-        List<Booking> bookings = bdi.getAllBooking();
+
+        List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
         HashMap<Time, Double> locationMap = new HashMap<>();
 
         locationMap.put(Time.valueOf("7:00:00"),0.0); locationMap.put(Time.valueOf("8:00:00"),44.0); locationMap.put(Time.valueOf("9:00:00"),89.0);
@@ -418,7 +496,8 @@ public class BookingController {
 
             l.setLayoutY(r.getY() + r.getHeight() / 2 - 5);
 
-            rectangles.add(r);
+
+            labels.add(l);
             rectangleBooking.put(r,book);
 
             System.out.println(rectangleBooking);
@@ -431,8 +510,39 @@ public class BookingController {
                     System.out.println("Clicked on: ");
                 }
             });
-            mandagPane.getChildren().add(r);
-            mandagPane.getChildren().add(l);
+
+            //Sætter rektanglen ind på det pane som passer til datoen
+            if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.MONDAY))){
+                manRectangles.add(r);
+                mandagPane.getChildren().add(r);
+                mandagPane.getChildren().add(l);
+            } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.TUESDAY))){
+                tirsRectangles.add(r);
+                tirsdagPane.getChildren().add(r);
+                tirsdagPane.getChildren().add(l);
+            } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.WEDNESDAY))){
+                onsRectangles.add(r);
+                onsdagPane.getChildren().add(r);
+                onsdagPane.getChildren().add(l);
+            } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.THURSDAY))){
+                torsRectangles.add(r);
+                torsdagPane.getChildren().add(r);
+                torsdagPane.getChildren().add(l);
+            } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.FRIDAY))){
+                freRectangles.add(r);
+                fredagPane.getChildren().add(r);
+                fredagPane.getChildren().add(l);
+            } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.SATURDAY))){
+                lørRectangles.add(r);
+                lørdagPane.getChildren().add(r);
+                lørdagPane.getChildren().add(l);
+            } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.SUNDAY))){
+                sønRectangles.add(r);
+                søndagPane.getChildren().add(r);
+                søndagPane.getChildren().add(l);
+            }
+
+
         }
         // for each (lav ny rectangle). Når vi laver en metode der sætter alt ind, så skal vi sørge for at vi tager datoen fra i dag af. Dvs, vi loader kun
         // de bookinger ind der har relevans for den uge vi er i.

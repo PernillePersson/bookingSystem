@@ -22,4 +22,6 @@ public interface BookingDAO {
 
     public List<Booking> upcoming();
 
+    public List<Booking> showBooking(LocalDate date);
+
 }

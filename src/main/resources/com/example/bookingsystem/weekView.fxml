@@ -77,39 +77,95 @@
                         <HBox alignment="CENTER_LEFT" minWidth="1000.0" prefHeight="36.0" prefWidth="1000.0" spacing="1.0" style="-fx-background-color: WHITESMOKE; -fx-border-color: LIGHTGRAY;">
                            <children>
                               <Pane minWidth="45.0" prefWidth="45.0" style="-fx-background-color: rgb(148, 198, 70);" />
-                              <Pane minWidth="133.0" prefHeight="200.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
+                              <Pane minWidth="133.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="43.0" layoutY="11.0" style="-fx-fill: #03070C" text="Mandag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="4.0">
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Mandag" />
+                                          <Label fx:id="mandagDato" text="Label" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </HBox>
                                  </children>
                               </Pane>
                               <Pane minWidth="133.0" prefHeight="200.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="48.0" layoutY="11.0" style="-fx-fill: #03070C" text="Tirsdag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="4.0">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Tirsdag" />
+                                          <Label fx:id="tirsdagDato" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </Pane>
                               <Pane minWidth="133.0" prefHeight="200.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="47.0" layoutY="12.0" style="-fx-fill: #03070C" text="Onsdag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="3.0">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Onsdag" />
+                                          <Label fx:id="onsdagDato" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </Pane>
                               <Pane minWidth="133.0" prefHeight="200.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="46.0" layoutY="12.0" style="-fx-fill: #03070C" text="Torsdag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="4.0">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Torsdag" />
+                                          <Label fx:id="torsdagDato" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </Pane>
                               <Pane minWidth="133.0" prefHeight="200.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="48.0" layoutY="11.0" style="-fx-fill: #03070C" text="Fredag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="4.0">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Fredag" />
+                                          <Label fx:id="fredagDato" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </Pane>
                               <Pane minWidth="133.0" prefHeight="200.0" prefWidth="133.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="47.0" layoutY="12.0" style="-fx-fill: #03070C" text="Lørdag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="4.0">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Lørdag" />
+                                          <Label fx:id="lørdagDato" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </Pane>
                               <Pane minWidth="148.0" prefHeight="200.0" prefWidth="148.0" style="-fx-background-color: rgb(148, 198, 70);">
                                  <children>
-                                    <Label layoutX="44.0" layoutY="12.0" style="-fx-fill: #03070C" text="Søndag" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="133.0" spacing="4.0">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                       <children>
+                                          <Label style="-fx-fill: #03070C" text="Søndag" />
+                                          <Label fx:id="søndagDato" text="Label" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </Pane>
                            </children>

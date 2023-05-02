@@ -187,5 +187,41 @@ public class BookingDAOImpl implements BookingDAO {
         return ucBookings;
     }
 
+    @Override
+    public List<Booking> showBooking(LocalDate date) {
+        List<Booking> showBookings = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Booking WHERE bookingDate > ? AND bookingDate < DATEADD(week, 1, GETDATE());");
+            ps.setDate(1, Date.valueOf(date));
+            ResultSet rs = ps.executeQuery();
+
+            Booking b;
+            while (rs.next()){
+                int id = rs.getInt(1);
+                String fName = rs.getString(2);
+                String lName = rs.getString(3);
+                String org = rs.getString(4);
+                String mail = rs.getString(5);
+                int phone = Integer.parseInt(rs.getString(6));
+                char bType = rs.getString(7).charAt(0);
+                char catering = rs.getString(8).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(9));
+                LocalDate created = LocalDate.parse(rs.getString(10));
+                String bCode = rs.getString(11);
+                Time startTime = rs.getTime(12);
+                Time endTime = rs.getTime(13);
+
+
+                b = new Booking(id, fName, lName, org, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime);
+                showBookings.add(b);
+
+            }
+        } catch (SQLException e){
+            System.err.println("Kan ikke finde booking " + e.getMessage());
+        }
+        return showBookings;
+    }
+
 
 }
