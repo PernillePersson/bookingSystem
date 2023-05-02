@@ -69,16 +69,15 @@ public class BookingController {
         today = LocalDate.now();
         opsætDato();
         insertSystemBookings();
-
     }
     @FXML
     void opretBookingKnap(ActionEvent event) {
-
+        //Skift scene til bookingformular
     }
 
     @FXML
     void mailKnap(ActionEvent event) {
-
+        //Skift scene
     }
 
     @FXML
@@ -132,7 +131,7 @@ public class BookingController {
 
         notiStage.show();
 
-    }
+    } //Viser seneste oprettet booking og kommende bookings
 
     public void seKontaktInfo(ListView l){
         ObservableList valgtBooking = l.getSelectionModel().getSelectedIndices();
@@ -144,7 +143,7 @@ public class BookingController {
                 //Åben scene med kontakt info
                 åbenKontaktInfo(b);
             }
-    }
+    } // Får object fra notifikationer - åbner vindue
 
     public void åbenKontaktInfo(Booking b){
         Label n = new Label();
@@ -187,10 +186,10 @@ public class BookingController {
         });
 
         contStage.show();
-    }
+    } //Åbner vindue med kontaktinfo fra object
     @FXML
     void statestikKnap(ActionEvent event) {
-
+        //Åben ny scene med statestikker
     }
 
     @FXML
@@ -198,21 +197,21 @@ public class BookingController {
         shownDate = shownDate.minusWeeks(1);
         opsætDato();
         insertSystemBookings();
-    }
+    } //Viser forrige uge i kalenderoversigt
 
     @FXML
     void todayKnap(ActionEvent event) {
         shownDate = today;
         opsætDato();
         insertSystemBookings();
-    }
+    } //Viser denne uge i kalenderoversigt
 
     @FXML
     void næsteUgeKnap(ActionEvent event) {
         shownDate = shownDate.plusWeeks(1);
         opsætDato();
         insertSystemBookings();
-    }
+    } //Viser næste uge i kalenderoversigt
 
     public void opsætDato(){
         oversætMdr();
@@ -224,7 +223,7 @@ public class BookingController {
         fredagDato.setText(String.valueOf(shownDate.with(DayOfWeek.FRIDAY).getDayOfMonth()));
         lørdagDato.setText(String.valueOf(shownDate.with(DayOfWeek.SATURDAY).getDayOfMonth()));
         søndagDato.setText(String.valueOf(shownDate.with(DayOfWeek.SUNDAY).getDayOfMonth()));
-    }
+    } //Sætter alle labels til at passe med datoer
 
     public void oversætMdr(){
         if (shownDate.getMonth() == Month.JANUARY){
@@ -252,7 +251,7 @@ public class BookingController {
         } else if (shownDate.getMonth() == Month.DECEMBER) {
             monthLabel.setText("Dec");
         }
-    }
+    } //Sætter mdr labels til at være dansk
 
     @FXML
     void mondayDrag(MouseEvent event) {}
@@ -366,7 +365,6 @@ public class BookingController {
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
-
 
     @FXML
     void sundayDrag(MouseEvent event) {}
@@ -546,7 +544,7 @@ public class BookingController {
         }
         // for each (lav ny rectangle). Når vi laver en metode der sætter alt ind, så skal vi sørge for at vi tager datoen fra i dag af. Dvs, vi loader kun
         // de bookinger ind der har relevans for den uge vi er i.
-    }
+    } //Indsætter bookings fra database i kalenderoversigt
 
     BookingDAO bdi = new BookingDAOImpl();
 }
