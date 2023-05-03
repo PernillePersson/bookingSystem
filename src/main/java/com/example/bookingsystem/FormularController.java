@@ -33,7 +33,7 @@ public class FormularController {
     private Label mailLabel, navnLabel, organisationLabel, tlfLabel, godkendLabel;
 
     @FXML
-    private ChoiceBox slutTid, startTid;
+    private ComboBox slutTid, startTid;
 
     @FXML
     private Button godkendKnap, opdaterBookingKnap;
@@ -67,8 +67,8 @@ public class FormularController {
         }
 
         bookingDato.setValue(b.getBookingDate());
-        startTid.setValue(String.valueOf(b.getStartTid()));
-        slutTid.setValue(String.valueOf(b.getSlutTid()));
+        startTid.setValue(String.valueOf(b.getStartTid()).substring(0,5));
+        slutTid.setValue(String.valueOf(b.getSlutTid()).substring(0,5));
 
         if (b.getBookingType() == 'p'){
             godkendLabel.setVisible(false);
@@ -88,6 +88,9 @@ public class FormularController {
     @FXML
     void opdaterStartTid(MouseEvent event) {
         startTid.setOnAction((e) -> {
+            if (startTid.getSelectionModel().getSelectedIndex() >= slutTid.getSelectionModel().getSelectedIndex()){
+                startTid.setValue(startTid.getItems().get(slutTid.getSelectionModel().getSelectedIndex() -1));
+            }
             booking.setStartTid(Time.valueOf(startTid.getValue() + ":00"));
         });
     }
@@ -95,6 +98,9 @@ public class FormularController {
     @FXML
     void opdaterSlutTid(MouseEvent event) {
         slutTid.setOnAction((e) -> {
+            if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
+                slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
+            }
             booking.setSlutTid(Time.valueOf(slutTid.getValue() + ":00"));
         });
     }

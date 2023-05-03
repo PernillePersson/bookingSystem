@@ -16,7 +16,7 @@ Button:pressed{
             linear-gradient(#ececec 51%, #f3f3f3 50%);
 }
 
-ChoiceBox{
+ComboBox{
     -fx-background-color:
             rgba(0,0,0,0.08),
             linear-gradient(#9a9a9a, #909090),
@@ -25,9 +25,10 @@ ChoiceBox{
     -fx-background-radius: 5,5,4;
     -fx-text-fill: #54565A;
     -fx-font-size: 14px;
+    -fx-pref-rows: 10;
 }
 
-ChoiceBox:pressed{
+ComboBox:pressed{
     -fx-background-color:
             rgba(0,0,0,0.08),
             linear-gradient(#9a9a9a, #909090),

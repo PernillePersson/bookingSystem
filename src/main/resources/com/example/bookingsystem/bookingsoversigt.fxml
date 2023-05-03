@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ComboBox?>
 <BorderPane stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookingsystem.FormularController">
    <center>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
@@ -50,8 +51,8 @@
                   <DatePicker fx:id="bookingDato" onAction="#ændreDato" prefHeight="26.0" prefWidth="159.0" promptText="dato" />
                   <HBox spacing="10.0">
                      <children>
-                        <ChoiceBox fx:id="startTid" onMousePressed="#opdaterStartTid" />
-                        <ChoiceBox fx:id="slutTid" onMousePressed="#opdaterSlutTid" />
+                        <ComboBox fx:id="startTid" onMousePressed="#opdaterStartTid" />
+                        <ComboBox fx:id="slutTid" onMousePressed="#opdaterSlutTid" />
                      </children>
                   </HBox>
                   <Button fx:id="godkendKnap" mnemonicParsing="false" onAction="#godkendBooking" text="Godkend" />
