@@ -27,4 +27,6 @@ public interface BookingDAO {
 
     public List<Booking> showBooking(LocalDate date);
 
+    public List<Booking> sendEmailNotification();
+
 }

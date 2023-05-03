@@ -136,7 +136,7 @@ public class BookingDAOImpl implements BookingDAO {
     } //kun til AS brug
 
     @Override
-    public List<Booking> recentlyCreated() {
+    public List<Booking> recentlyCreated()      {
         List<Booking> newBookings = new ArrayList<>();
         try {
             //Vælger de bookings der er oprettet inden for den seneste uge
@@ -241,6 +241,42 @@ public class BookingDAOImpl implements BookingDAO {
             System.err.println("Kan ikke finde booking " + e.getMessage());
         }
         return showBookings;
+    }
+
+    @Override
+    public List<Booking> sendEmailNotification() {
+
+        List<Booking> emailList = new ArrayList<>();
+
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Booking WHERE bookingDate > DATEADD(day, 6, GETDATE()) AND bookingDate < DATEADD(week, 1, GETDATE())");
+            ResultSet rs = ps.executeQuery();
+
+            Booking b;
+            while(rs.next())
+            {
+                int id = rs.getInt(1);
+                String fName = rs.getString(2);
+                String lName = rs.getString(3);
+                String org = rs.getString(4);
+                String mail = rs.getString(5);
+                int phone = Integer.parseInt(rs.getString(6));
+                char bType = rs.getString(7).charAt(0);
+                char catering = rs.getString(8).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(9));
+                LocalDate created = LocalDate.parse(rs.getString(10));
+                String bCode = rs.getString(11);
+                Time startTime = rs.getTime(12);
+                Time endTime = rs.getTime(13);
+
+                b = new Booking(id, fName, lName, org, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime);
+                emailList.add(b);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return emailList;
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.bookingsystem;
 
+import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.Booking;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
@@ -67,6 +68,8 @@ public class BookingController {
     ListView recent = new ListView<>();
     ListView upcoming = new ListView<>();
 
+    GEmail ge = new GEmail();
+
     public BookingController() throws SQLException {
     }
 
@@ -75,6 +78,8 @@ public class BookingController {
         today = LocalDate.now();
         opsætDato();
         insertSystemBookings();
+        // sendNotificationEmails(); // Aktiver den her når vi får sat en værdi på db der tjekker om der er blevet
+        // sendt en notifikation før.
     }
     @FXML
     void opretBookingKnap(ActionEvent event) {
@@ -255,6 +260,12 @@ public class BookingController {
     public void sendMail(Booking b){
         //Åben tekstfelt der skal sendes som mail
         System.out.println("Sender mail til " + b.getFirstName());
+
+        String to = b.getEmail();
+        String from = "noreplybookingsystemem@gmail.com";
+        String subject; // getText fra eventuel subject textfield eller lign
+        String text; // getText fra textField eller lign.
+
     }
 
     @FXML
@@ -381,7 +392,6 @@ public class BookingController {
 
     @FXML
     void thursdayDrag(MouseEvent event) {}
-
     @FXML
     void thursdayPress(MouseEvent event) {
         event.setDragDetect(true);
@@ -415,7 +425,6 @@ public class BookingController {
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
-
 
     @FXML
     void saturdayDrag(MouseEvent event) {}
@@ -492,14 +501,14 @@ public class BookingController {
             r.setX(0);
             r.setWidth(133);
             r.setHeight(yValues[endIndex] - yValues[startIndex] - 1);
-            l.setLayoutY(yValues[endIndex] - r.getHeight() / 2);
             r.setOpacity(0.3);
+
+            l.setLayoutY(yValues[endIndex] - r.getHeight() / 2);
             l.setText(book.toString());
 
             r.layoutYProperty().addListener((obs,oldVal,newVal) -> {
                 l.setLayoutY(newVal.doubleValue() / 2);
             });
-
 
             boolean intersects = false;
             for (Rectangle rec : rect) {
@@ -516,17 +525,22 @@ public class BookingController {
                 p.getChildren().add(r);
                 p.getChildren().add(l);
             }
+
+            r.onMouseClickedProperty().set(mouseEvent -> {
+                //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
+                System.out.println("Clicked on: " + book.getFirstName());
+                åbenKontaktInfo(book);
+            });
         }
     } // Tilføjer en rektangel til der hvor brugeren har klikket vha. mouse drag events.
 
     public void insertSystemBookings(){
         removeVisuals();
 
-
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
         HashMap<Time, Double> locationMap = new HashMap<>();
 
-        locationMap.put(Time.valueOf("7:00:00"),0.0); locationMap.put(Time.valueOf("8:00:00"),44.0); locationMap.put(Time.valueOf("9:00:00"),89.0);
+        locationMap.put(Time.valueOf("07:00:00"),0.0); locationMap.put(Time.valueOf("08:00:00"),44.0); locationMap.put(Time.valueOf("09:00:00"),89.0);
         locationMap.put(Time.valueOf("10:00:00"),134.0); locationMap.put(Time.valueOf("11:00:00"),179.0); locationMap.put(Time.valueOf("12:00:00"),224.0);
         locationMap.put(Time.valueOf("13:00:00"),269.0); locationMap.put(Time.valueOf("14:00:00"),314.0); locationMap.put(Time.valueOf("15:00:00"),359.0);
         locationMap.put(Time.valueOf("16:00:00"),404.0); locationMap.put(Time.valueOf("17:00:00"),449.0); locationMap.put(Time.valueOf("18:00:00"),494.0);
@@ -541,8 +555,6 @@ public class BookingController {
             double yStart = locationMap.get(book.getStartTid());
             double yEnd = locationMap.get(book.getSlutTid());
 
-            l.setText(book.toString());
-
             r.setY(yStart + 1);
             r.setHeight(yEnd - yStart - 1);
             r.setX(0);
@@ -555,14 +567,14 @@ public class BookingController {
                 r.setFill(Color.DODGERBLUE);
             }
 
+            l.setText(book.toString());
             l.setLayoutY(r.getY() + r.getHeight() / 2 - 5);
-
 
             labels.add(l);
             rectangleBooking.put(r,book);
 
-            System.out.println(rectangleBooking);
-            System.out.println(locationMap);
+            //System.out.println(rectangleBooking);
+            //System.out.println(locationMap);
 
             r.onMouseClickedProperty().set(mouseEvent -> {
                 //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
@@ -600,11 +612,7 @@ public class BookingController {
                 søndagPane.getChildren().add(r);
                 søndagPane.getChildren().add(l);
             }
-
-
         }
-        // for each (lav ny rectangle). Når vi laver en metode der sætter alt ind, så skal vi sørge for at vi tager datoen fra i dag af. Dvs, vi loader kun
-        // de bookinger ind der har relevans for den uge vi er i.
     } //Indsætter bookings fra database i kalenderoversigt
 
     public void removeVisuals(){
@@ -624,5 +632,25 @@ public class BookingController {
         søndagPane.getChildren().removeAll(labels);
     }
 
+    public void sendNotificationEmails(){
+        // Indsæt bdi impl og resten af kode her når vi har fået tilføjet et eller andet felt til vores db
+        // Der kan tjekke om der er blevet sendt en mail eller ej
+
+        List<Booking> sendEmails = bdi.sendEmailNotification();
+        GEmail gmailSender = new GEmail();
+
+        // For hver booking der opfylder vores betingelser, sender vi en mail til den person
+        for(Booking book : sendEmails){
+
+            String to = book.getEmail();
+            String from = "noreplybookingsystemem@gmail.com";
+            String subject = "Booking påmindelse";
+            String text = "Hej" + book.getFirstName() + " " + book.getLastName() + "\n "
+                    + "Dette er en påmindelse om at du har en booking til den " + book.getBookingDate() + "i tidsrummet mellem "
+                    + book.getStartTid() + " til " + book.getSlutTid() + ". Glæder os til at se jer.";
+
+            gmailSender.sendEmail(to,from,subject,text);
+        }
+    }
     BookingDAO bdi = new BookingDAOImpl();
 }
