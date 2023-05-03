@@ -4,17 +4,20 @@ import com.example.bookingsystem.model.Booking;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
 import javafx.collections.ObservableList;
+import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -146,6 +149,7 @@ public class BookingController {
     } // Får object fra notifikationer - åbner vindue
 
     public void åbenKontaktInfo(Booking b){
+        //Labels
         Label n = new Label();
         n.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         n.setText("Navn: ");
@@ -155,38 +159,78 @@ public class BookingController {
         Label t = new Label();
         t.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         t.setText("tlf.: ");
-        VBox vb1 = new VBox(n, e, t);
+
+        //Space + knap
+        StackPane space = new StackPane();
+        space.setPrefHeight(10);
+        Button mail = new Button("Send mail");
+
+        //opsætning i vbox
+        VBox vb1 = new VBox(n, e, t, space, mail);
         vb1.setSpacing(4.0);
         vb1.setAlignment(Pos.CENTER_LEFT);
         vb1.setPadding(new Insets(0, 20, 0, 0));
+
+        //Labels
         Label navn = new Label();
         navn.setText(b.getFirstName() + " " + b.getLastName());
         Label email = new Label();
         email.setText(b.getEmail());
         Label tlf = new Label();
         tlf.setText(String.valueOf(b.getPhoneNumber()));
-        VBox vb2 = new VBox(navn, email, tlf);
+
+        //Space + knap
+        StackPane space1 = new StackPane();
+        space1.setPrefHeight(10);
+        Button ændre = new Button("Ændre booking");
+
+        //Opsætning i vbox
+        VBox vb2 = new VBox(navn, email, tlf, space1, ændre);
         vb2.setSpacing(4.0);
         vb2.setAlignment(Pos.CENTER_LEFT);
+
+        //opsætning i hbox
         HBox hb = new HBox(vb1, vb2);
         hb.setSpacing(4.0);
         hb.setAlignment(Pos.CENTER);
         hb.setPrefWidth(250);
         hb.setPrefHeight(150);
 
+        //Opsæt stage + scene
         Scene contScene = new Scene(hb, 400, 200);
+        contScene.getStylesheets().add(String.valueOf(this.getClass().getResource("stylesheet.css")));
         Stage contStage = new Stage();
         contStage.setTitle("Kontaktinformation");
         contStage.setScene(contScene);
 
+        // Hvis der klikkes udenfor vinduet, lukkes det
         contStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
-                contStage.hide(); // Hvis der klikkes udenfor vinduet, lukkes det
+                contStage.hide();
             }
         });
 
         contStage.show();
+
+        mail.setOnAction(event -> {
+            sendMail(b);
+        });
+
+        ændre.setOnAction(event -> {
+            ændreBooking(b);
+        });
     } //Åbner vindue med kontaktinfo fra object
+
+    public void ændreBooking(Booking b){
+        //åben formular med alt booking info, og knap der opdaterer
+        System.out.println("Ændrer booking for " + b.getFirstName());
+    }
+
+    public void sendMail(Booking b){
+        //Åben tekstfelt der skal sendes som mail
+        System.out.println("Sender mail til " + b.getFirstName());
+    }
+
     @FXML
     void statestikKnap(ActionEvent event) {
         //Åben ny scene med statestikker
@@ -450,20 +494,7 @@ public class BookingController {
     } // Tilføjer en rektangel til der hvor brugeren har klikket vha. mouse drag events.
 
     public void insertSystemBookings(){
-        mandagPane.getChildren().removeAll(manRectangles);
-        tirsdagPane.getChildren().removeAll(tirsRectangles);
-        onsdagPane.getChildren().removeAll(onsRectangles);
-        torsdagPane.getChildren().removeAll(torsRectangles);
-        fredagPane.getChildren().removeAll(freRectangles);
-        lørdagPane.getChildren().removeAll(lørRectangles);
-        søndagPane.getChildren().removeAll(sønRectangles);
-        mandagPane.getChildren().removeAll(labels);
-        tirsdagPane.getChildren().removeAll(labels);
-        onsdagPane.getChildren().removeAll(labels);
-        torsdagPane.getChildren().removeAll(labels);
-        fredagPane.getChildren().removeAll(labels);
-        lørdagPane.getChildren().removeAll(labels);
-        søndagPane.getChildren().removeAll(labels);
+        removeVisuals();
 
 
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
@@ -501,12 +532,10 @@ public class BookingController {
             System.out.println(rectangleBooking);
             System.out.println(locationMap);
 
-            r.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
-                    System.out.println("Clicked on: ");
-                }
+            r.onMouseClickedProperty().set(mouseEvent -> {
+                //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
+                System.out.println("Clicked on: " + book.getFirstName());
+                åbenKontaktInfo(book);
             });
 
             //Sætter rektanglen ind på det pane som passer til datoen
@@ -545,6 +574,23 @@ public class BookingController {
         // for each (lav ny rectangle). Når vi laver en metode der sætter alt ind, så skal vi sørge for at vi tager datoen fra i dag af. Dvs, vi loader kun
         // de bookinger ind der har relevans for den uge vi er i.
     } //Indsætter bookings fra database i kalenderoversigt
+
+    public void removeVisuals(){
+        mandagPane.getChildren().removeAll(manRectangles);
+        tirsdagPane.getChildren().removeAll(tirsRectangles);
+        onsdagPane.getChildren().removeAll(onsRectangles);
+        torsdagPane.getChildren().removeAll(torsRectangles);
+        fredagPane.getChildren().removeAll(freRectangles);
+        lørdagPane.getChildren().removeAll(lørRectangles);
+        søndagPane.getChildren().removeAll(sønRectangles);
+        mandagPane.getChildren().removeAll(labels);
+        tirsdagPane.getChildren().removeAll(labels);
+        onsdagPane.getChildren().removeAll(labels);
+        torsdagPane.getChildren().removeAll(labels);
+        fredagPane.getChildren().removeAll(labels);
+        lørdagPane.getChildren().removeAll(labels);
+        søndagPane.getChildren().removeAll(labels);
+    }
 
     BookingDAO bdi = new BookingDAOImpl();
 }
