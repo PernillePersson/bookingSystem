@@ -2,7 +2,7 @@ module com.example.bookingsystem {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-
+    requires jakarta.mail;
 
     exports userBooking.Controllers;
     opens userBooking.Controllers to javafx.fxml;

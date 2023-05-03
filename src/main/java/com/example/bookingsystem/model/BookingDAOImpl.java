@@ -72,6 +72,26 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
+    public void updateBooking(int id, char bt, char catering, LocalDate bd, Time st, Time et) {
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE Booking SET bookingType = ?, catering = ?, bookingDate = ?, startTime = ?, endTime = ? WHERE bookingID = ?;");
+
+            ps.setString(1, String.valueOf(bt));
+            ps.setString(2, String.valueOf(catering));
+            ps.setDate(3, Date.valueOf(bd));
+            ps.setTime(4, st);
+            ps.setTime(5, et);
+            ps.setInt(6, id);
+
+            ps.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Kan ikke opdatere booking " + e.getMessage());
+        }
+    }
+
+    @Override
     public void cancelBooking(Booking b) throws SQLException {
         try {
             PreparedStatement ps = con.prepareStatement("DELETE FROM Booking WHERE bookingID = ?");

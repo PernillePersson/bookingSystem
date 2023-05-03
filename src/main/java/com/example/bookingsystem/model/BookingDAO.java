@@ -12,6 +12,9 @@ public interface BookingDAO {
                            char catering, LocalDate bd,
                            Time st, Time et);
 
+    public void updateBooking(int id, char bt, char catering, LocalDate bd,
+                           Time st, Time et);
+
     public void cancelBooking(Booking b) throws SQLException;
 
     public boolean bookingCodeExists(String bc);

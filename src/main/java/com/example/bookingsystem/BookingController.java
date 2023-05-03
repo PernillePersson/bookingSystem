@@ -8,6 +8,7 @@ import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,11 +20,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.lang.Math;
 
 import java.sql.SQLException;
@@ -212,18 +215,41 @@ public class BookingController {
 
         contStage.show();
 
+        //Åbner nyt vindue med mail
         mail.setOnAction(event -> {
             sendMail(b);
         });
 
+        //Åbner nyt vindue med bookingsoversigt
         ændre.setOnAction(event -> {
-            ændreBooking(b);
+            try {
+                ændreBooking(b);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
     } //Åbner vindue med kontaktinfo fra object
 
-    public void ændreBooking(Booking b){
+    public void ændreBooking(Booking b) throws IOException {
         //åben formular med alt booking info, og knap der opdaterer
-        System.out.println("Ændrer booking for " + b.getFirstName());
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("bookingsoversigt.fxml"));
+        Scene oversigtScene = new Scene(fxmlLoader.load());
+        FormularController formController = fxmlLoader.getController();
+        Stage oversigtStage = new Stage();
+        oversigtStage.setScene(oversigtScene);
+        formController.passBooking(b);
+
+        // Hvis der klikkes udenfor vinduet, lukkes det
+        oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                oversigtStage.hide();
+                insertSystemBookings();
+            }
+        });
+
+
+
+        oversigtStage.show();
     }
 
     public void sendMail(Booking b){
@@ -522,6 +548,12 @@ public class BookingController {
             r.setX(0);
             r.setWidth(133);
             r.setOpacity(0.3);
+
+            if (book.getBookingType() == 't'){
+                r.setFill(Color.RED);
+            }else{
+                r.setFill(Color.DODGERBLUE);
+            }
 
             l.setLayoutY(r.getY() + r.getHeight() / 2 - 5);
 
