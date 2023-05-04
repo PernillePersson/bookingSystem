@@ -22,11 +22,11 @@ public class GEmail {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
+        // Vores email information
         String username = "noreplybookingsystemem@gmail.com";
         String password = "aeuopsogbjksdbai";
 
-
-        //session
+        //Ny session bliver startet
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -34,8 +34,8 @@ public class GEmail {
             }
         });
 
+        // ny MimeMessage med Emailens indhold og sender den så ud.
         try {
-
             Message message = new MimeMessage(session);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setFrom(new InternetAddress(from));
@@ -46,8 +46,6 @@ public class GEmail {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return flag;
     }
 }

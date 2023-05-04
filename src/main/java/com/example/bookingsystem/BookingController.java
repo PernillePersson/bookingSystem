@@ -505,6 +505,7 @@ public class BookingController {
         int startIndex = -1;
         int endIndex = -1;
 
+        // For loop der finder start og slut index.
         for (int i = 0; i < yValues.length; i++) {
             if (y_start >= yValues[i] && y_start < yValues[i + 1]) {
                 startIndex = i;
@@ -515,6 +516,8 @@ public class BookingController {
             }
         }
 
+
+        // Hvis startIndexet ikke er -1 og endIndex ikke er -1, så laver vi en ny rektangel
         if (startIndex != -1 && endIndex != -1) {
             Rectangle r = new Rectangle();
             Booking book = new Booking((int) Math.random(),aList.get(rand),"Hansen","EASV","madmedmig@gmail.com",1234,'t','y', LocalDate.of(2023,04,03),LocalDate.of(2023,03,30),"131231",Time.valueOf("10:00:00"),Time.valueOf("15:00:00"));
@@ -533,12 +536,16 @@ public class BookingController {
             });
 
             boolean intersects = false;
+
+            // Tjekker om rektangelen overlapper allerede eksisterende renktangler.
             for (Rectangle rec : rect) {
                 if (rec.getY() + rec.getHeight() >= r.getY() && rec.getY() <= r.getY() + r.getHeight()) {
                     intersects = true;
                     break;
                 }
             }
+            // Hvis den ikke overlapper allerede eksisterende rektangler, så bliver den tilføjet
+            // til kalenderen
             if (!intersects) {
                 // indsæt en tilføjelse af booking her eller i vores MandagPane release event
                 rectangleBooking.put(r,book);
@@ -548,6 +555,8 @@ public class BookingController {
                 p.getChildren().add(l);
             }
 
+            // MouseEvent der gør, at når man klikker på en rektangel, så vil der komme et nyt vindue op
+            // med kontakt info i forhold til personen der har lavet bookingen.
             r.onMouseClickedProperty().set(mouseEvent -> {
                 //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
                 System.out.println("Clicked on: " + book.getFirstName());
@@ -561,8 +570,11 @@ public class BookingController {
 
         System.out.println(shownDate);
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
+        System.out.println(bookings);
+        
         HashMap<Time, Double> locationMap = new HashMap<>();
 
+        // Et HashMap med tidsværdier og deres korresponderende y-aksis værdier. Bruges til at indsætte bookings på de rigtige placeringer
         locationMap.put(Time.valueOf("07:00:00"),0.0); locationMap.put(Time.valueOf("08:00:00"),44.0); locationMap.put(Time.valueOf("09:00:00"),89.0);
         locationMap.put(Time.valueOf("10:00:00"),134.0); locationMap.put(Time.valueOf("11:00:00"),179.0); locationMap.put(Time.valueOf("12:00:00"),224.0);
         locationMap.put(Time.valueOf("13:00:00"),269.0); locationMap.put(Time.valueOf("14:00:00"),314.0); locationMap.put(Time.valueOf("15:00:00"),359.0);
@@ -570,6 +582,7 @@ public class BookingController {
         locationMap.put(Time.valueOf("19:00:00"),539.0); locationMap.put(Time.valueOf("20:00:00"),584.0); locationMap.put(Time.valueOf("21:00:00"),629.0);
         locationMap.put(Time.valueOf("22:00:00"),674.0); locationMap.put(Time.valueOf("23:00:00"),719.0); locationMap.put(Time.valueOf("24:00:00"),764.0);
 
+        // Begynder at indsætte rektangler
         for(Booking book : bookings){
 
             Rectangle r = new Rectangle();
@@ -578,26 +591,24 @@ public class BookingController {
             double yStart = locationMap.get(book.getStartTid());
             double yEnd = locationMap.get(book.getSlutTid());
 
+            // Opsæætter formular for hvor at rektanglen skal være i det pane den skal ind i
             r.setY(yStart + 1);
             r.setHeight(yEnd - yStart - 1);
             r.setX(0);
             r.setWidth(133);
             r.setOpacity(0.3);
 
-            if (book.getBookingType() == 't'){
-                r.setFill(Color.RED);
-            }else{
-                r.setFill(Color.DODGERBLUE);
-            }
+            // Sætter farven alt efter booking type
+            if (book.getBookingType() == 't'){ r.setFill(Color.RED);}
+            else {r.setFill(Color.DODGERBLUE);}
 
             l.setText(book.toString());
             l.setLayoutY(r.getY() + r.getHeight() / 2 - 5);
 
             labels.add(l);
-            rectangleBooking.put(r,book);
 
-            //System.out.println(rectangleBooking);
-            //System.out.println(locationMap);
+            // Tilføjer rektangel og book til HashMap der bruges til at tjekke at der ikke er overlap
+            rectangleBooking.put(r,book);
 
             r.onMouseClickedProperty().set(mouseEvent -> {
                 //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
@@ -653,13 +664,14 @@ public class BookingController {
         fredagPane.getChildren().removeAll(labels);
         lørdagPane.getChildren().removeAll(labels);
         søndagPane.getChildren().removeAll(labels);
-    }
+    } // Fjerner alt det visuelle. Dvs. rektangler og labels.
 
     public void sendNotificationEmails(){
-        // Indsæt bdi impl og resten af kode her når vi har fået tilføjet et eller andet felt til vores db
-        // Der kan tjekke om der er blevet sendt en mail eller ej
 
+        // Laver en liste med de Bookings der passer til det vi efterlyser
         List<Booking> sendEmails = bdi.sendEmailNotification();
+
+        // Laver en ny GEmail
         GEmail gmailSender = new GEmail();
 
         // For hver booking der opfylder vores betingelser, sender vi en mail til den person
@@ -672,8 +684,9 @@ public class BookingController {
                     + "Dette er en påmindelse om at du har en booking til den " + book.getBookingDate() + "i tidsrummet mellem "
                     + book.getStartTid() + " til " + book.getSlutTid() + ". Glæder os til at se jer.";
 
+            // Sender emailen med de ting som vi gerne vil have den til at tage med
             gmailSender.sendEmail(to,from,subject,text);
         }
-    }
+    } // Sender mails med påmindelse om at de har en booking 1 uge inden.
     BookingDAO bdi = new BookingDAOImpl();
 }
