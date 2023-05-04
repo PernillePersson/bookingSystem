@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Changes by Marc">
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Bug fixed">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingFormular.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingsoversigt.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingsoversigt.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" afterDir="false" />
+    </list>
+    <list id="04a6e94e-f338-4b75-9d54-fdacf180cbd1" name="Changes by Chef Ramsay" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/Gmail/GEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/Gmail/GEmail.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,15 +25,45 @@
       <list>
         <option value="CSS File" />
         <option value="Enum" />
-        <option value="FxmlFile" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java">
+      <ranges>
+        <range start1="84" end1="85" start2="84" end2="85" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="86" end1="86" start2="86" end2="87" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="87" end1="87" start2="88" end2="108" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="294" end1="294" start2="315" end2="316" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="485" end1="485" start2="507" end2="508" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="495" end1="495" start2="518" end2="520" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="513" end1="513" start2="538" end2="540" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="519" end1="519" start2="546" end2="548" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="528" end1="528" start2="557" end2="559" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="539" end1="539" start2="570" end2="571" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="540" end1="540" start2="572" end2="574" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="542" end1="542" start2="576" end2="577" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="549" end1="549" start2="584" end2="585" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="557" end1="557" start2="593" end2="594" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="563" end1="568" start2="600" end2="603" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="573" end1="573" start2="608" end2="610" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="574" end1="577" start2="611" end2="611" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="583" end1="584" start2="617" end2="618" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="632" end1="633" start2="666" end2="667" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="635" end1="637" start2="669" end2="669" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="638" end1="638" start2="670" end2="671" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="639" end1="639" start2="672" end2="674" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="651" end1="651" start2="686" end2="687" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+        <range start1="653" end1="654" start2="689" end2="690" changelist="04a6e94e-f338-4b75-9d54-fdacf180cbd1" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -135,7 +170,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682586763652</updated>
-      <workItem from="1682586766193" duration="83697000" />
+      <workItem from="1682586766193" duration="97494000" />
     </task>
     <task id="LOCAL-00001" summary="Booking object">
       <created>1682670984919</created>
@@ -298,7 +333,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683116700339</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Bookingtime update">
+      <created>1683126255154</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1683126255154</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,6 +376,39 @@
     <MESSAGE value="Mailing" />
     <MESSAGE value="Commit" />
     <MESSAGE value="Changes by Marc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by Marc" />
+    <MESSAGE value="Bookingtime update" />
+    <MESSAGE value="Bug fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java</url>
+          <line>619</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java</url>
+          <line>623</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java</url>
+          <line>627</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java</url>
+          <line>631</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java</url>
+          <line>635</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

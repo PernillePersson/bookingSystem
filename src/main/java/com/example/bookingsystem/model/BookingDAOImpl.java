@@ -52,7 +52,7 @@ public class BookingDAOImpl implements BookingDAO {
                            LocalDate bd, Time st, Time et) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?,?," +
-                    "?, GETDATE(), ?, ?, ?, NULL)");
+                    "?, GETDATE(), ?, ?, ?)");
             ps.setString(1, fn);
             ps.setString(2, ln);
             ps.setString(3, org);
@@ -68,6 +68,7 @@ public class BookingDAOImpl implements BookingDAO {
             ps.executeUpdate();
         }catch(SQLException e){
             System.err.println("Kunne ikke oprette booking");
+            System.err.println(e.getMessage());
         }
     }
 
@@ -94,6 +95,10 @@ public class BookingDAOImpl implements BookingDAO {
     @Override
     public void cancelBooking(Booking b) throws SQLException {
         try {
+            PreparedStatement ps1 = con.prepareStatement("DELETE FROM Note WHERE bookingID = ?");
+            ps1.setInt(1, b.getId());
+            ps1.executeUpdate();
+
             PreparedStatement ps = con.prepareStatement("DELETE FROM Booking WHERE bookingID = ?");
             ps.setInt(1, b.getId());
             ps.executeUpdate();
@@ -211,8 +216,9 @@ public class BookingDAOImpl implements BookingDAO {
     public List<Booking> showBooking(LocalDate date) {
         List<Booking> showBookings = new ArrayList<>();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM Booking WHERE bookingDate > ? AND bookingDate < DATEADD(week, 1, GETDATE());");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Booking WHERE bookingDate >= ? AND bookingDate < DATEADD(week, 1, ?);");
             ps.setDate(1, Date.valueOf(date));
+            ps.setDate(2, Date.valueOf(date));
             ResultSet rs = ps.executeQuery();
 
             Booking b;

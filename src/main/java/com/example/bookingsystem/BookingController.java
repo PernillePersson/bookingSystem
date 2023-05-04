@@ -82,8 +82,29 @@ public class BookingController {
         // sendt en notifikation før.
     }
     @FXML
-    void opretBookingKnap(ActionEvent event) {
+    void opretBookingKnap(ActionEvent event) throws IOException {
         //Skift scene til bookingformular
+        opretBooking();
+    }
+
+    public void opretBooking() throws IOException {
+        //åben formular med alt booking info, og knap der opdaterer
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("bookingFormular.fxml"));
+        Scene oversigtScene = new Scene(fxmlLoader.load());
+        OpretFormularController formController = fxmlLoader.getController();
+        Stage oversigtStage = new Stage();
+        oversigtStage.setScene(oversigtScene);
+        formController.opsæt();
+
+        // Hvis der klikkes udenfor vinduet, lukkes det
+        oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                oversigtStage.hide();
+                insertSystemBookings();
+            }
+        });
+
+        oversigtStage.show();
     }
 
     @FXML
@@ -292,6 +313,7 @@ public class BookingController {
         shownDate = shownDate.plusWeeks(1);
         opsætDato();
         insertSystemBookings();
+        System.out.println(shownDate);
     } //Viser næste uge i kalenderoversigt
 
     public void opsætDato(){
@@ -537,6 +559,7 @@ public class BookingController {
     public void insertSystemBookings(){
         removeVisuals();
 
+        System.out.println(shownDate);
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
         HashMap<Time, Double> locationMap = new HashMap<>();
 
@@ -581,7 +604,7 @@ public class BookingController {
                 System.out.println("Clicked on: " + book.getFirstName());
                 åbenKontaktInfo(book);
             });
-
+            System.out.println(shownDate);
             //Sætter rektanglen ind på det pane som passer til datoen
             if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.MONDAY))){
                 manRectangles.add(r);

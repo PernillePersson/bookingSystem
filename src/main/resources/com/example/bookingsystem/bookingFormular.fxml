@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookingsystem.OpretFormularController">
+    <center>
+        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+            <children>
+            <VBox prefHeight="331.0" prefWidth="27.0" />
+                <VBox spacing="10.0">
+                    <children>
+                        <Label minHeight="26.0" text="Navn" />
+                        <Label minHeight="26.0" text="E-mail" />
+                        <Label minHeight="26.0" text="Tlf." />
+                        <Label minHeight="26.0" text="Organisation" />
+                        <Label minHeight="23.0" text="Forplejning" />
+                        <Label minHeight="27.0" text="Dato for booking" />
+                        <Label minHeight="28.5" text="Tidsrum" />
+                  <Label minHeight="26.0" text="Antal deltagere" />
+                  <Label text="Type af booking" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+                <VBox prefHeight="331.0" prefWidth="242.0" spacing="10.0">
+                    <children>
+                  <HBox spacing="4.0">
+                     <children>
+                        <TextField fx:id="fNavn" maxWidth="100.0" promptText="Fornavn" />
+                        <TextField fx:id="eNavn" maxWidth="100.0" promptText="Efternavn" />
+                     </children>
+                  </HBox>
+                  <TextField fx:id="email" maxWidth="204.0" promptText="Er du lærer, benyt skoletdr@dk" />
+                  <TextField fx:id="tlf" maxWidth="204.0" prefWidth="212.0" promptText="12345678" />
+                  <TextField fx:id="org" maxWidth="204.0" promptText="Udfyld hvis muligt " />
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <RadioButton fx:id="yesToggle" mnemonicParsing="false" onAction="#forplejningToggle" selected="true" text="Ja">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="forplejning" />
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="noToggle" mnemonicParsing="false" onAction="#forplejningToggle" selected="true" text="Nej" toggleGroup="$forplejning" />
+                        <Hyperlink fx:id="forplejningLink" text="Forplejningsformular" />
+                            </children>
+                        </HBox>
+                        <DatePicker fx:id="bookingDato" onAction="#tjekDato" prefHeight="26.0" prefWidth="159.0" promptText="dato" />
+                        <HBox spacing="10.0">
+                            <children>
+                                <ComboBox fx:id="startTid" onMousePressed="#opdaterStartTid" />
+                                <ComboBox fx:id="slutTid" onMousePressed="#opdaterSlutTid" />
+                            </children>
+                        </HBox>
+                  <Spinner fx:id="antalDeltagere" prefHeight="26.0" prefWidth="66.0" />
+                  <HBox spacing="10.0">
+                     <children>
+                        <RadioButton fx:id="midlType" mnemonicParsing="false" onAction="#typeToggle" text="Midlertidigt">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="bookingType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="permType" mnemonicParsing="false" onAction="#typeToggle" selected="true" text="Permanent" toggleGroup="$bookingType" />
+                     </children>
+                  </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+                <VBox prefHeight="254.0" prefWidth="50.0">
+               <children>
+                  <Text fx:id="bemærkning" strokeType="OUTSIDE" strokeWidth="0.0" text="Læg mærke til at hvis du booker lokalet uden for normal åbneningstid, skal det først godkendes*" visible="false" wrappingWidth="127.0">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Text>
+               </children></VBox>
+            </children>
+        </HBox>
+    </center>
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Opret booking">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#anullerBooking" text="Anuller booking" />
+                <Button fx:id="opretBookingKnap" mnemonicParsing="false" onAction="#opretBooking" text="Opret booking" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>
