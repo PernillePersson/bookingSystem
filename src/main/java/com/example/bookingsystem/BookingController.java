@@ -77,6 +77,9 @@ public class BookingController {
         today = LocalDate.now();
         opsætDato();
         insertSystemBookings();
+
+        simpleThread.start();
+
         // sendNotificationEmails(); // Aktiver den her når vi får sat en værdi på db der tjekker om der er blevet
         // sendt en notifikation før.
     }
