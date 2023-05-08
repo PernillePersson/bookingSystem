@@ -84,22 +84,20 @@ public class OpretFormularController {
 
     @FXML
     void tjekDato(ActionEvent event) {
-        bookingDato.setOnAction((e) -> {
-            if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
-                    bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
-                    bookingDato.getValue().getDayOfWeek() == DayOfWeek.SUNDAY){
-                opretBookingKnap.setText("Anmod om booking");
-                bemærkning.setVisible(true);
-                type = 't';
-                midlertidig = true;
+        if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
+                bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
+                bookingDato.getValue().getDayOfWeek() == DayOfWeek.SUNDAY){
+            opretBookingKnap.setText("Anmod om booking");
+            bemærkning.setVisible(true);
+            type = 't';
+            midlertidig = true;
 
-            }else {
-                opretBookingKnap.setText("Opret booking");
-                bemærkning.setVisible(false);
-                type = 'p';
-                midlertidig = false;
-            }
-        });
+        }else {
+            opretBookingKnap.setText("Opret booking");
+            bemærkning.setVisible(false);
+            type = 'p';
+            midlertidig = false;
+        }
     }
 
     @FXML
