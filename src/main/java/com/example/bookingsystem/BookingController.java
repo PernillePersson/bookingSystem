@@ -147,23 +147,14 @@ public class BookingController {
 
     @FXML
     void notifikationKnap(ActionEvent event) {
-       // recent.getItems().clear();
+
         recent.setPrefHeight(200.0);
         recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
         recent.setOnMouseClicked(mouseEvent ->{
             seKontaktInfo(recent);
         });
 
-        //List<Booking> rBooking = bdi.recentlyCreated();
-        //for (Booking b : rBooking)
-        //{
-          //  recent.getItems().add(b);
-        //}
-
-
         listSize = recent.getItems().size();
-        System.out.println(listSize);
-
 
         upcoming.getItems().clear();
         upcoming.setPrefHeight(200.0);
