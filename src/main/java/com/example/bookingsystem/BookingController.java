@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -48,9 +50,17 @@ public class BookingController {
     private Label monthLabel, yearLabel, mandagDato, tirsdagDato,
             onsdagDato, torsdagDato, fredagDato, lørdagDato, søndagDato;
 
+    @FXML
+    private Image greyNo, redNo;
+
+    @FXML
+    private ImageView notits;
+
 
     private LocalDate shownDate;
     private LocalDate today;
+
+    private int listSize;
 
 
     private double y_start,y_end;
@@ -67,9 +77,13 @@ public class BookingController {
     ListView recent = new ListView<>();
     ListView upcoming = new ListView<>();
 
+    private final SimpleThread simpleThread;
+
+
     GEmail ge = new GEmail();
 
     public BookingController() throws SQLException {
+        simpleThread = new SimpleThread(this);
     }
 
     public void initialize(){
@@ -114,20 +128,42 @@ public class BookingController {
         //Skift scene
     }
 
+    public void updateNotifications(){
+
+        recent.getItems().clear();
+        List<Booking> notiBooking = bdi.recentlyCreated();
+        for (Booking b : notiBooking)
+        {
+            recent.getItems().add(b);
+        }
+
+        if(recent.getItems().size() > listSize){
+            notits.setImage(redNo);
+        }
+        else{
+            notits.setImage(greyNo);
+        }
+    }
+
     @FXML
     void notifikationKnap(ActionEvent event) {
-        recent.getItems().clear();
+       // recent.getItems().clear();
         recent.setPrefHeight(200.0);
         recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
         recent.setOnMouseClicked(mouseEvent ->{
             seKontaktInfo(recent);
         });
 
-        List<Booking> rBooking = bdi.recentlyCreated();
-        for (Booking b : rBooking)
-        {
-            recent.getItems().add(b);
-        }
+        //List<Booking> rBooking = bdi.recentlyCreated();
+        //for (Booking b : rBooking)
+        //{
+          //  recent.getItems().add(b);
+        //}
+
+
+        listSize = recent.getItems().size();
+        System.out.println(listSize);
+
 
         upcoming.getItems().clear();
         upcoming.setPrefHeight(200.0);
@@ -570,7 +606,6 @@ public class BookingController {
     public void insertSystemBookings(){
         removeVisuals();
 
-        System.out.println(shownDate);
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
 
         HashMap<Time, Double> locationMap = new HashMap<>();
@@ -616,7 +651,6 @@ public class BookingController {
                 System.out.println("Clicked on: " + book.getFirstName());
                 åbenKontaktInfo(book);
             });
-            System.out.println(shownDate);
             //Sætter rektanglen ind på det pane som passer til datoen
             if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.MONDAY))){
                 manRectangles.add(r);
