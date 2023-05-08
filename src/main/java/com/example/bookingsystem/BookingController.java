@@ -4,10 +4,9 @@ import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.Booking;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
+import com.example.bookingsystem.model.SimpleThread;
 import javafx.collections.ObservableList;
-import javafx.css.Stylesheet;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -570,8 +569,7 @@ public class BookingController {
 
         System.out.println(shownDate);
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
-        System.out.println(bookings);
-        
+
         HashMap<Time, Double> locationMap = new HashMap<>();
 
         // Et HashMap med tidsværdier og deres korresponderende y-aksis værdier. Bruges til at indsætte bookings på de rigtige placeringer

@@ -49,7 +49,7 @@ public class BookingDAOImpl implements BookingDAO {
 
     @Override
     public void addBooking(String fn, String ln, String org, String mail, int phone, char bt, char catering,
-                           LocalDate bd, Time st, Time et) {
+                           LocalDate bd, String bk, Time st, Time et) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?,?," +
                     "?, GETDATE(), ?, ?, ?)");
@@ -61,7 +61,7 @@ public class BookingDAOImpl implements BookingDAO {
             ps.setString(6, String.valueOf(bt));
             ps.setString(7, String.valueOf(catering));
             ps.setDate(8, Date.valueOf(bd));
-            ps.setString(9, BookingCode.generateBookingCode());
+            ps.setString(9, bk);
             ps.setTime(10, st);
             ps.setTime(11, et);
 
@@ -141,7 +141,7 @@ public class BookingDAOImpl implements BookingDAO {
     } //kun til AS brug
 
     @Override
-    public List<Booking> recentlyCreated()      {
+    public List<Booking> recentlyCreated(){
         List<Booking> newBookings = new ArrayList<>();
         try {
             //Vælger de bookings der er oprettet inden for den seneste uge

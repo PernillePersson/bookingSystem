@@ -10,7 +10,7 @@ public interface BookingDAO {
     public void addBooking(String fn, String ln, String org,
                            String mail, int phone, char bt,
                            char catering, LocalDate bd,
-                           Time st, Time et);
+                           String bk, Time st, Time et);
 
     public void updateBooking(int id, char bt, char catering, LocalDate bd,
                            Time st, Time et);

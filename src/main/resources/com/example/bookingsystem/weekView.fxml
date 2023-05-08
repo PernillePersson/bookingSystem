@@ -26,8 +26,9 @@
                </graphic></Button>
             <Button mnemonicParsing="false" onAction="#notifikationKnap">
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@iconmonstr-bell-1-240.png" />
+                  <ImageView fx:id="notits" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <Image fx:id="greyNo" url="@iconmonstr-bell-1-240.png" />
+                     <Image fx:id="redNo" url="@iconmonstr-bell-7-240.png" />
                   </ImageView>
                </graphic></Button>
             <Button mnemonicParsing="false" onAction="#statestikKnap">
