@@ -128,17 +128,6 @@ public class FormularController {
 
     }
 
-    public void ændringsMail(String t){
-
-        GEmail gmailSender = new GEmail();
-
-        String from = "noreplybookingsystemem@gmail.com";
-        String subject = "Ændring af booking";
-        String text = "Der er blevet foretaget en ændring i din booking. Gå venligst ind og tjek ændringerne";
-        gmailSender.sendEmail(t,from,subject,text);
-    }
-
-
     @FXML
     void sletBooking(ActionEvent event) throws SQLException {
         Dialog<ButtonType> dialog = new Dialog();

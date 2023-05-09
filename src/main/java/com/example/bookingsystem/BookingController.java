@@ -56,9 +56,7 @@ public class BookingController {
     @FXML
     private ImageView notits;
 
-
-    private LocalDate shownDate;
-    private LocalDate today;
+    private LocalDate shownDate, today;
 
     private int listSize;
 
@@ -99,18 +97,17 @@ public class BookingController {
     }
     @FXML
     void opretBookingKnap(ActionEvent event) throws IOException {
-        //Skift scene til bookingformular
-        opretBooking();
+        opretBooking(LocalDate.now(), Time.valueOf("07:00:00"), Time.valueOf("12:00:00"));
     }
 
-    public void opretBooking() throws IOException {
+    public void opretBooking(LocalDate d, Time st, Time et) throws IOException {
         //åben formular med alt booking info, og knap der opdaterer
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("bookingFormular.fxml"));
         Scene oversigtScene = new Scene(fxmlLoader.load());
         OpretFormularController formController = fxmlLoader.getController();
         Stage oversigtStage = new Stage();
         oversigtStage.setScene(oversigtScene);
-        formController.opsæt();
+        formController.opsæt(d, st, et);
 
         // Hvis der klikkes udenfor vinduet, lukkes det
         oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -301,9 +298,6 @@ public class BookingController {
                 insertSystemBookings();
             }
         });
-
-
-
         oversigtStage.show();
     }
 
@@ -549,7 +543,8 @@ public class BookingController {
         // Hvis startIndexet ikke er -1 og endIndex ikke er -1, så laver vi en ny rektangel
         if (startIndex != -1 && endIndex != -1) {
             Rectangle r = new Rectangle();
-            Booking book = new Booking((int) Math.random(),aList.get(rand),"Hansen","EASV","madmedmig@gmail.com",1234,'t','y', LocalDate.of(2023,04,03),LocalDate.of(2023,03,30),"131231",Time.valueOf("10:00:00"),Time.valueOf("15:00:00"));
+            Label l = new Label();
+            Booking book = new Booking((int) Math.random(),"Mognus","Hansen","EASV","madmedmig@gmail.com",1234,'t','y', LocalDate.of(2023,04,03),LocalDate.of(2023,03,30),"131231",Time.valueOf("10:00:00"),Time.valueOf("15:00:00"), 10);
 
             r.setY(yValues[startIndex] + 1);
             r.setX(0);

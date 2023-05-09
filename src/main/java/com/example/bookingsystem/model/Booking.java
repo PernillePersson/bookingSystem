@@ -7,35 +7,19 @@ public class Booking {
 
     private int id;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String organisation;
-
-    private String email;
+    private String firstName, lastName, organisation, email, bookingCode, note;
     
-    private int phoneNumber;
+    private int phoneNumber, participants;
 
-    private char bookingType;
+    private char bookingType, catering;
 
-    private char catering;
-
-    private LocalDate bookingDate;
-
-    private LocalDate dateCreated;
+    private LocalDate bookingDate, dateCreated;
     
-    private String bookingCode;
-
-    private Time startTid;
-
-    private Time slutTid;
-
-    private String note;
+    private Time startTid, slutTid;
 
     public Booking(int id, String firstName, String lastName, String organisation, String email, int phoneNumber,
                    char bookingType,char catering, LocalDate bookingDate, LocalDate dateCreated, String bookingCode,
-                   Time startTid, Time slutTid){
+                   Time startTid, Time slutTid, int participants){
 
         this.id = id;
         this.firstName = firstName;
@@ -50,15 +34,13 @@ public class Booking {
         this.bookingCode = bookingCode;
         this.startTid = startTid;
         this.slutTid = slutTid;
+        this.participants = participants;
     }
 
     @Override
     public String toString() {
-        /*return String.format("%-2d %-10s %-15s %-10s %-25s %-10d %-5s %-5s " +
-                        "%-15s %-15s %-15s %-10s %-10s", id, firstName, lastName, organisation, email,
-                phoneNumber, bookingType, catering, bookingDate, dateCreated,
-                bookingCode, startTid, slutTid);*/
-        return String.format("%-10s %-10s", firstName, bookingDate);
+        return String.format(" %-10s %-1s - %-10s", firstName,
+                String.valueOf(startTid).substring(0,2), String.valueOf(slutTid).substring(0,2));
     }
 
     public String getFirstName() {

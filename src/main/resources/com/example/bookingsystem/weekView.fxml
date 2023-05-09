@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookingsystem.BookingController">
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="1200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" style="-fx-background-color: rgb(84, 86, 90);" prefHeight="45.0" prefWidth="1200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#opretBookingKnap" text="Opret booking" />
             <Button mnemonicParsing="false" onAction="#mailKnap">
@@ -341,7 +341,7 @@
                                     </StackPane>
                                  </children>
                               </Pane>
-                              <Pane fx:id="mandagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#mondayDrag" onMousePressed="#mondayPress" onMouseReleased="#mondayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="mandagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#mondayPress" onMouseReleased="#mondayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
@@ -362,7 +362,7 @@
                                     <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="tirsdagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#tuesdayDrag" onMousePressed="#tuesdayPress" onMouseReleased="#tuesdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="tirsdagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#tuesdayPress" onMouseReleased="#tuesdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
@@ -383,7 +383,7 @@
                                     <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="onsdagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#wednesdayDrag" onMousePressed="#wednesdayPress" onMouseReleased="#wednesdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="onsdagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#wednesdayPress" onMouseReleased="#wednesdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
@@ -404,7 +404,7 @@
                                     <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="torsdagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#thursdayDrag" onMousePressed="#thursdayPress" onMouseReleased="#thursdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="torsdagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#thursdayPress" onMouseReleased="#thursdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
@@ -425,7 +425,7 @@
                                     <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="fredagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#fridayDrag" onMousePressed="#fridayPress" onMouseReleased="#fridayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="fredagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#fridayPress" onMouseReleased="#fridayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: WHITE;" />
@@ -446,7 +446,7 @@
                                     <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="lørdagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#saturdayDrag" onMousePressed="#saturdayPress" onMouseReleased="#saturdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="lørdagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#saturdayPress" onMouseReleased="#saturdayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC" />
@@ -467,7 +467,7 @@
                                     <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="søndagPane" minHeight="765.0" minWidth="133.0" onMouseDragged="#sundayDrag" onMousePressed="#sundayPress" onMouseReleased="#sundayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="søndagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#sundayPress" onMouseReleased="#sundayRelease" prefHeight="765.0" prefWidth="133.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #FCFCFC;" />

@@ -34,10 +34,11 @@ public class BookingDAOImpl implements BookingDAO {
                 String bCode = rs.getString(11);
                 Time startTime = rs.getTime(12);
                 Time endTime = rs.getTime(13);
+                int part = rs.getInt(14);
 
 
                 b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime);
+                        bType, catering, bDate, created, bCode, startTime, endTime, part);
                 allBookings.add(b);
 
             }
@@ -49,10 +50,10 @@ public class BookingDAOImpl implements BookingDAO {
 
     @Override
     public void addBooking(String fn, String ln, String org, String mail, int phone, char bt, char catering,
-                           LocalDate bd, String bk, Time st, Time et) {
+                           LocalDate bd, String bk, Time st, Time et, int p) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?,?," +
-                    "?, GETDATE(), ?, ?, ?)");
+                    "?, GETDATE(), ?, ?, ?, ?)");
             ps.setString(1, fn);
             ps.setString(2, ln);
             ps.setString(3, org);
@@ -64,6 +65,7 @@ public class BookingDAOImpl implements BookingDAO {
             ps.setString(9, bk);
             ps.setTime(10, st);
             ps.setTime(11, et);
+            ps.setInt(12, p);
 
             ps.executeUpdate();
         }catch(SQLException e){
@@ -163,10 +165,11 @@ public class BookingDAOImpl implements BookingDAO {
                 String bCode = rs.getString(11);
                 Time startTime = rs.getTime(12);
                 Time endTime = rs.getTime(13);
+                int part = rs.getInt(14);
 
 
                 b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime);
+                        bType, catering, bDate, created, bCode, startTime, endTime, part);
                 newBookings.add(b);
 
             }
@@ -199,10 +202,11 @@ public class BookingDAOImpl implements BookingDAO {
                 String bCode = rs.getString(11);
                 Time startTime = rs.getTime(12);
                 Time endTime = rs.getTime(13);
+                int part = rs.getInt(14);
 
 
                 b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime);
+                        bType, catering, bDate, created, bCode, startTime, endTime, part);
                 ucBookings.add(b);
 
             }
@@ -236,10 +240,11 @@ public class BookingDAOImpl implements BookingDAO {
                 String bCode = rs.getString(11);
                 Time startTime = rs.getTime(12);
                 Time endTime = rs.getTime(13);
+                int part = rs.getInt(14);
 
 
                 b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime);
+                        bType, catering, bDate, created, bCode, startTime, endTime, part);
                 showBookings.add(b);
 
             }
@@ -274,9 +279,10 @@ public class BookingDAOImpl implements BookingDAO {
                 String bCode = rs.getString(11);
                 Time startTime = rs.getTime(12);
                 Time endTime = rs.getTime(13);
+                int part = rs.getInt(14);
 
                 b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime);
+                        bType, catering, bDate, created, bCode, startTime, endTime, part);
                 emailList.add(b);
             }
         } catch (SQLException e) {

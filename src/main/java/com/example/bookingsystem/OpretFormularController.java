@@ -1,5 +1,7 @@
 package com.example.bookingsystem;
 
+import com.example.bookingsystem.Gmail.GEmail;
+import com.example.bookingsystem.model.Booking;
 import com.example.bookingsystem.model.BookingCode;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
@@ -8,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -19,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public class OpretFormularController {
@@ -42,10 +47,13 @@ public class OpretFormularController {
     private Button opretBookingKnap;
 
     @FXML
-    private ComboBox slutTid, startTid;
+    private ComboBox forløb, slutTid, startTid;
 
     @FXML
     private Text bemærkning;
+
+    @FXML
+    private Spinner antalDeltagere;
 
     private char type;
     private char forp;
@@ -54,18 +62,23 @@ public class OpretFormularController {
 
     private Boolean midlertidig;
 
+    final Clipboard clipboard = Clipboard.getSystemClipboard();
+    final ClipboardContent content = new ClipboardContent();
+
     public OpretFormularController() throws SQLException {
     }
 
-    public void opsæt(){
+    public void opsæt(LocalDate d, Time st, Time et){
         startTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
         slutTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
-        startTid.setValue("07:00");
-        slutTid.setValue("12:00");
+        startTid.setValue(String.valueOf(st).substring(0,5));
+        slutTid.setValue(String.valueOf(et).substring(0,5));
+        forløb.getItems().addAll("Idéfabrikken", "Digital fabrikation med laserskærer", "Robot på job",
+                "Robotten rydder op", "Naturturisme ved Vadehavet", "Skab sikkerhedi i Vadehavet");
         forplejningLink.setVisible(false);
-        bookingDato.setValue(LocalDate.now());
+        bookingDato.setValue(d);
         forp = 'n';
         type = 'p';
 
@@ -150,34 +163,67 @@ public class OpretFormularController {
         if (org.getText().isEmpty()){
             organisation = "Ingen";
         }
-        bdi.addBooking(fNavn.getText(), eNavn.getText(), organisation, email.getText(), nr,
-                type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
-                Time.valueOf(slutTid.getValue() + ":00"));
+        List<Booking> allBookings = bdi.getAllBooking();
+        boolean overlaps = false;
 
-        Dialog<ButtonType> dialog = new Dialog();
+        for(Booking b : allBookings){
 
-        dialog.setTitle("Din bookingkode");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            String value = String.valueOf(b.getStartTid());
+            String strt = value.substring(0,2);
+            int start = Integer.valueOf(strt);
 
-        Label l1 = new Label("Din bookingkode:");
-        Label kodeLabel = new Label(bKode);
-        kodeLabel.setFont(Font.font("ARIAL", FontWeight.BOLD, 20));
-        Label infoLabel = new Label("Gem denne kode til senere brug");
+            String value2 = String.valueOf(b.getSlutTid());
+            String slt = value2.substring(0,2);
+            int slut = Integer.valueOf(slt);
 
-        VBox vb = new VBox(l1, kodeLabel, infoLabel);
-        vb.setSpacing(10);
-        vb.setPadding(new Insets(10,30,10,30));
+            String value3 = String.valueOf(startTid.getValue());
+            String comboStart = value3.substring(0,2);
+            int comboStrt = Integer.valueOf(comboStart);
 
-        dialog.getDialogPane().setContent(vb);
+            String value4 = String.valueOf(slutTid.getValue());
+            String comboSlut = value4.substring(0,2);
+            int comboSlt = Integer.valueOf(comboSlut);
 
-        Optional<ButtonType> knap = dialog.showAndWait();
-
-        if (knap.get() == ButtonType.OK)
-            try {
-
-            } catch (Exception e) {
-
+            if(bookingDato.getValue().equals(b.getBookingDate()) && comboSlt >= start && comboStrt <= slut){
+                overlaps = true;
+                break;
             }
+        }
+
+        if(!overlaps){
+            bdi.addBooking(fNavn.getText(), eNavn.getText(), organisation, email.getText(), nr,
+                    type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
+                    Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
+
+            Dialog<ButtonType> dialog = new Dialog();
+
+            dialog.setTitle("Din bookingkode");
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+
+            Label l1 = new Label("Din bookingkode:");
+            Label kodeLabel = new Label(bKode);
+            kodeLabel.setFont(Font.font("ARIAL", FontWeight.BOLD, 20));
+            Label infoLabel = new Label("Gem denne kode til senere brug");
+
+            GEmail gmailSender = new GEmail();
+
+            gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
+
+            VBox vb = new VBox(l1, kodeLabel, infoLabel);
+            vb.setSpacing(10);
+            vb.setPadding(new Insets(10,30,10,30));
+
+            dialog.getDialogPane().setContent(vb);
+
+            Optional<ButtonType> knap = dialog.showAndWait();
+
+            if (knap.get() == ButtonType.OK)
+                try {
+                    content.putString(bKode);
+                    clipboard.setContent(content);
+                } catch (Exception e) {
+                }
+        }
     }
 
     @FXML

@@ -27,6 +27,7 @@
                         <Label minHeight="26.0" text="E-mail" />
                         <Label minHeight="26.0" text="Tlf." />
                         <Label minHeight="26.0" text="Organisation" />
+                        <Label minHeight="27.0" text="Forløb" />
                         <Label minHeight="23.0" text="Forplejning" />
                         <Label minHeight="27.0" text="Dato for booking" />
                         <Label minHeight="28.5" text="Tidsrum" />
@@ -48,6 +49,7 @@
                   <TextField fx:id="email" maxWidth="204.0" promptText="Er du lærer, benyt skoletdr@dk" />
                   <TextField fx:id="tlf" maxWidth="204.0" prefWidth="212.0" promptText="12345678" />
                   <TextField fx:id="org" maxWidth="204.0" promptText="Udfyld hvis muligt " />
+                        <ComboBox fx:id="forløb" prefWidth="150.0" />
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
                                 <RadioButton fx:id="yesToggle" mnemonicParsing="false" onAction="#forplejningToggle" selected="true" text="Ja">
@@ -66,7 +68,7 @@
                                 <ComboBox fx:id="slutTid" onMousePressed="#opdaterSlutTid" />
                             </children>
                         </HBox>
-                  <Spinner fx:id="antalDeltagere" prefHeight="26.0" prefWidth="66.0" />
+                  <Spinner fx:id="antalDeltagere" max="28" min="0" prefHeight="26.0" prefWidth="66.0" />
                   <HBox spacing="10.0">
                      <children>
                         <RadioButton fx:id="midlType" mnemonicParsing="false" onAction="#typeToggle" text="Midlertidigt">
@@ -110,7 +112,7 @@
     <bottom>
         <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" onAction="#anullerBooking" text="Anuller booking" />
+                <Button mnemonicParsing="false" onAction="#anullerBooking" text="Annullér booking" />
                 <Button fx:id="opretBookingKnap" mnemonicParsing="false" onAction="#opretBooking" text="Opret booking" />
             </children>
             <padding>
