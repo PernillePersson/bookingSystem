@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.List;
 import java.util.Optional;
 
 public class FormularController {
@@ -39,6 +40,8 @@ public class FormularController {
     private Button godkendKnap, opdaterBookingKnap;
 
     private Booking booking;
+
+    private GEmail gmailSender;
 
     public FormularController() throws SQLException {
     }
@@ -117,15 +120,45 @@ public class FormularController {
 
     @FXML
     void opdaterBooking(ActionEvent event) throws SQLException {
-        bdi.updateBooking(booking.getId(), booking.getBookingType(), booking.getCatering(),
-                booking.getBookingDate(), booking.getStartTid(), booking.getSlutTid());
 
-        //ændringsMail(booking.getEmail());
+        List<Booking> allBookings = bdi.getAllBooking();
+        boolean overlaps = false;
 
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
+        for(Booking b : allBookings){
 
+            String value = String.valueOf(b.getStartTid());
+            String strt = value.substring(0,2);
+            int start = Integer.valueOf(strt);
+
+            String value2 = String.valueOf(b.getSlutTid());
+            String slt = value2.substring(0,2);
+            int slut = Integer.valueOf(slt);
+
+            String value3 = String.valueOf(startTid.getValue());
+            String comboStart = value3.substring(0,2);
+            int comboStrt = Integer.valueOf(comboStart);
+
+            String value4 = String.valueOf(slutTid.getValue());
+            String comboSlut = value4.substring(0,2);
+            int comboSlt = Integer.valueOf(comboSlut);
+
+            if(bookingDato.getValue().equals(b.getBookingDate()) && comboSlt >= start && comboStrt <= slut){
+                overlaps = true;
+                break;
+            }
+        }
+
+        if(!overlaps) {
+
+            bdi.updateBooking(booking.getId(), booking.getBookingType(), booking.getCatering(),
+                    booking.getBookingDate(), booking.getStartTid(), booking.getSlutTid());
+
+            gmailSender.ændringsMail(booking.getEmail());
+
+            Node source = (Node) event.getSource();
+            Stage stage = (Stage) source.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML
@@ -142,12 +175,12 @@ public class FormularController {
 
         if (knap.get() == ButtonType.OK)
             try {
+                gmailSender.aflystMail(booking.getEmail());
                 bdi.cancelBooking(booking);
             } catch (Exception e) {
                 System.err.println("Noget gik galt");
                 System.err.println(e.getMessage());
             }
-
     }
 
     BookingDAO bdi = new BookingDAOImpl();

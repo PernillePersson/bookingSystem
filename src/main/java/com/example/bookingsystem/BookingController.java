@@ -27,10 +27,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.lang.Math;
-
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
@@ -60,7 +58,6 @@ public class BookingController {
 
     private int listSize;
 
-
     private double y_start,y_end;
     ArrayList<Rectangle> manRectangles = new ArrayList<>();
     ArrayList<Rectangle> tirsRectangles = new ArrayList<>();
@@ -77,7 +74,6 @@ public class BookingController {
 
     private final SimpleThread simpleThread;
 
-
     GEmail ge = new GEmail();
 
     public BookingController() throws SQLException {
@@ -89,9 +85,7 @@ public class BookingController {
         today = LocalDate.now();
         opsætDato();
         insertSystemBookings();
-
         simpleThread.start();
-
         // sendNotificationEmails(); // Aktiver den her når vi får sat en værdi på db der tjekker om der er blevet
         // sendt en notifikation før.
     }
@@ -264,7 +258,6 @@ public class BookingController {
                 contStage.hide();
             }
         });
-
         contStage.show();
 
         //Åbner nyt vindue med mail
@@ -304,12 +297,10 @@ public class BookingController {
     public void sendMail(Booking b){
         //Åben tekstfelt der skal sendes som mail
         System.out.println("Sender mail til " + b.getFirstName());
-
         String to = b.getEmail();
         String from = "noreplybookingsystemem@gmail.com";
         String subject; // getText fra eventuel subject textfield eller lign
         String text; // getText fra textField eller lign.
-
     }
 
     @FXML
@@ -380,9 +371,6 @@ public class BookingController {
     } //Sætter mdr labels til at være dansk
 
     @FXML
-    void mondayDrag(MouseEvent event) {}
-
-    @FXML
     void mondayPress(MouseEvent event) {
         event.setDragDetect(true);
         y_start = event.getY();
@@ -399,9 +387,6 @@ public class BookingController {
     }
 
     @FXML
-    void tuesdayDrag(MouseEvent event) {}
-
-    @FXML
     void tuesdayPress(MouseEvent event) {
         event.setDragDetect(true);
         y_start = event.getY();
@@ -416,8 +401,6 @@ public class BookingController {
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
-    @FXML
-    void wednesdayDrag(MouseEvent event) {}
 
     @FXML
     void wednesdayPress(MouseEvent event) {
@@ -436,8 +419,6 @@ public class BookingController {
     }
 
     @FXML
-    void thursdayDrag(MouseEvent event) {}
-    @FXML
     void thursdayPress(MouseEvent event) {
         event.setDragDetect(true);
         y_start = event.getY();
@@ -452,8 +433,6 @@ public class BookingController {
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
-    @FXML
-    void fridayDrag(MouseEvent event) {}
 
     @FXML
     void fridayPress(MouseEvent event) {
@@ -472,9 +451,6 @@ public class BookingController {
     }
 
     @FXML
-    void saturdayDrag(MouseEvent event) {}
-
-    @FXML
     void saturdayPress(MouseEvent event) {
         event.setDragDetect(true);
         y_start = event.getY();
@@ -489,9 +465,6 @@ public class BookingController {
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
-
-    @FXML
-    void sundayDrag(MouseEvent event) {}
 
     @FXML
     void sundayPress(MouseEvent event) {
@@ -511,20 +484,10 @@ public class BookingController {
 
     public void addStack(Pane p, ArrayList<Rectangle> rect){
 
-        Label l = new Label();
-        ArrayList<String> aList = new ArrayList<>();
-        aList.add("Magnus");
-        aList.add("Marc");
-        aList.add("Pernille");
-
-        int rand = (int) (Math.random() * aList.size());
-
         // Array med de værdier som vi skal bruge mht. at indsætte rektangel på det korrekte sted
-
         double[] yValues = {0, 44, 89, 134, 179, 224, 269, 314, 359, 404, 449, 494, 539, 584, 629, 674, 719, 764};
 
         // Find start og slut indekset for den nye rektangel
-        
         int startIndex = -1;
         int endIndex = -1;
 
@@ -538,7 +501,6 @@ public class BookingController {
                 break;
             }
         }
-
 
         // Hvis startIndexet ikke er -1 og endIndex ikke er -1, så laver vi en ny rektangel
         if (startIndex != -1 && endIndex != -1) {
@@ -578,12 +540,9 @@ public class BookingController {
                 p.getChildren().add(r);
                 p.getChildren().add(l);
             }
-
             // MouseEvent der gør, at når man klikker på en rektangel, så vil der komme et nyt vindue op
             // med kontakt info i forhold til personen der har lavet bookingen.
             r.onMouseClickedProperty().set(mouseEvent -> {
-                //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
-                System.out.println("Clicked on: " + book.getFirstName());
                 åbenKontaktInfo(book);
             });
         }
@@ -697,16 +656,10 @@ public class BookingController {
 
         // For hver booking der opfylder vores betingelser, sender vi en mail til den person
         for(Booking book : sendEmails){
+            String start = String.valueOf(book.getStartTid()).substring(0,2);
+            String slut = String.valueOf(book.getSlutTid()).substring(0,2);
 
-            String to = book.getEmail();
-            String from = "noreplybookingsystemem@gmail.com";
-            String subject = "Booking påmindelse";
-            String text = "Hej" + book.getFirstName() + " " + book.getLastName() + "\n "
-                    + "Dette er en påmindelse om at du har en booking til den " + book.getBookingDate() + "i tidsrummet mellem "
-                    + book.getStartTid() + " til " + book.getSlutTid() + ". Glæder os til at se jer.";
-
-            // Sender emailen med de ting som vi gerne vil have den til at tage med
-            gmailSender.sendEmail(to,from,subject,text);
+            gmailSender.sendNotification(book.getEmail(),book.getFirstName(),String.valueOf(book.getBookingDate()),start,slut);
         }
     } // Sender mails med påmindelse om at de har en booking 1 uge inden.
     BookingDAO bdi = new BookingDAOImpl();
