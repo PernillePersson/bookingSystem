@@ -101,6 +101,10 @@ public class BookingDAOImpl implements BookingDAO {
             ps1.setInt(1, b.getId());
             ps1.executeUpdate();
 
+            PreparedStatement ps2 = con.prepareStatement("DELETE FROM BookingForløb WHERE bookingID = ?");
+            ps2.setInt(1, b.getId());
+            ps2.executeUpdate();
+
             PreparedStatement ps = con.prepareStatement("DELETE FROM Booking WHERE bookingID = ?");
             ps.setInt(1, b.getId());
             ps.executeUpdate();
@@ -297,18 +301,19 @@ public class BookingDAOImpl implements BookingDAO {
             int id = 0;
             PreparedStatement ps1 = con.prepareStatement("SELECT bookingID FROM Booking WHERE bookingCode = ?");
             ps1.setString(1, bk);
-            ResultSet rs = ps1.getResultSet();
+            ResultSet rs = ps1.executeQuery();
 
             while (rs.next()){
                 id = rs.getInt(1);
             }
+
 
             PreparedStatement ps = con.prepareStatement("INSERT INTO BookingForløb VALUES(?,?)");
             ps.setInt(1, id);
             ps.setInt(2, f);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Kunne ikke tilføje forløb til booking" + e.getMessage());
+            System.err.println("Kunne ikke tilføje forløb til booking " + e.getMessage());
         }
     }
 

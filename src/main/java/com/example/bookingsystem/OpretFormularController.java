@@ -198,7 +198,7 @@ public class OpretFormularController {
     }
 
     @FXML
-    void opretBooking(ActionEvent event) {
+    void opretBooking(ActionEvent event) throws InterruptedException {
 
         int nr = Integer.parseInt(tlf.getText());
         bKode = BookingCode.generateBookingCode();
@@ -235,10 +235,11 @@ public class OpretFormularController {
 
         if(!overlaps){
 
+            Forløb f = (Forløb) forløb.getSelectionModel().getSelectedItem();
             bdi.addBooking(fNavn.getText(), eNavn.getText(), organisation, email.getText(), nr,
                     type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
                     Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
-            Forløb f = (Forløb) forløb.getSelectionModel().getSelectedItem();
+
             bdi.addForløb(bKode, f.getId());
 
             Dialog<ButtonType> dialog = new Dialog();
