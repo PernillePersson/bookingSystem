@@ -41,7 +41,7 @@ public class FormularController {
 
     private Booking booking;
 
-    private GEmail gmailSender;
+    GEmail gmailSender = new GEmail();
 
     public FormularController() throws SQLException {
     }
@@ -149,6 +149,7 @@ public class FormularController {
         }
 
         if(!overlaps) {
+
 
             bdi.updateBooking(booking.getId(), booking.getBookingType(), booking.getCatering(),
                     booking.getBookingDate(), booking.getStartTid(), booking.getSlutTid());

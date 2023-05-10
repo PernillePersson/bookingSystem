@@ -64,6 +64,8 @@ public class OpretFormularController {
     final Clipboard clipboard = Clipboard.getSystemClipboard();
     final ClipboardContent content = new ClipboardContent();
 
+    GEmail gmailSender = new GEmail();
+
     public OpretFormularController() throws SQLException {
     }
 
@@ -197,6 +199,7 @@ public class OpretFormularController {
 
     @FXML
     void opretBooking(ActionEvent event) {
+
         int nr = Integer.parseInt(tlf.getText());
         bKode = BookingCode.generateBookingCode();
         String organisation = org.getText();
@@ -248,7 +251,7 @@ public class OpretFormularController {
             kodeLabel.setFont(Font.font("ARIAL", FontWeight.BOLD, 20));
             Label infoLabel = new Label("Gem denne kode til senere brug");
 
-            GEmail gmailSender = new GEmail();
+            //GEmail gmailSender = new GEmail();
 
             gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
 
