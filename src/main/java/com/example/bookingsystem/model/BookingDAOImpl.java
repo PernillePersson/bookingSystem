@@ -340,5 +340,28 @@ public class BookingDAOImpl implements BookingDAO {
         return allForløb;
     }
 
+    @Override
+    public Forløb getForløb(int id) {
+        Forløb f = null;
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT forløb.forløbID, forløb FROM Forløb \n" +
+                    "JOIN BookingForløb ON BookingForløb.forløbID = Forløb.forløbID\n" +
+                    "WHERE bookingID = ?;");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                int i = rs.getInt(1);
+                String s = rs.getString(2);
+
+                f = new Forløb(i, s);
+            }
+
+        }catch(SQLException e){
+            System.out.println("Kunne ikke finde forløb " + e.getMessage());
+        }
+        return f;
+    }
+
 
 }
