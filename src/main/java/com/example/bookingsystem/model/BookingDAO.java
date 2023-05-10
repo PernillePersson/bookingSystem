@@ -29,4 +29,8 @@ public interface BookingDAO {
 
     public List<Booking> sendEmailNotification();
 
+    public void addForløb(int b, int f);
+
+    public List<Forløb> getAllForløb();
+
 }
