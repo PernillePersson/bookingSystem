@@ -33,4 +33,6 @@ public interface BookingDAO {
 
     public List<Forløb> getAllForløb();
 
+    // HEJ PP
+
 }
