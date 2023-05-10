@@ -154,8 +154,7 @@ public class OpretFormularController {
             if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
                 slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
             }
-            
-            if()
+
             
             if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
                     bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
