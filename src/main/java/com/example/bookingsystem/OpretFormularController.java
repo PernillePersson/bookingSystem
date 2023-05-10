@@ -86,6 +86,7 @@ public class OpretFormularController {
         forløb.setValue("Ingen");
 
         forplejningLink.setVisible(false);
+        //forplejningLink.setV
         bookingDato.setValue(d);
         forp = 'n';
         type = 'p';
