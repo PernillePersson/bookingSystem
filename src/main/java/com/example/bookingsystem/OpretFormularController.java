@@ -68,22 +68,44 @@ public class OpretFormularController {
     public OpretFormularController() throws SQLException {
     }
 
-    public void opsæt(LocalDate d, Time st, Time et){
+    public void opsæt(LocalDate d, Time st, Time et) {
         startTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
         slutTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
-        startTid.setValue(String.valueOf(st).substring(0,5));
-        slutTid.setValue(String.valueOf(et).substring(0,5));
+        startTid.setValue(String.valueOf(st).substring(0, 5));
+        slutTid.setValue(String.valueOf(et).substring(0, 5));
         forløb.getItems().addAll("Idéfabrikken", "Digital fabrikation med laserskærer", "Robot på job",
                 "Robotten rydder op", "Naturturisme ved Vadehavet", "Skab sikkerhedi i Vadehavet");
         forplejningLink.setVisible(false);
         bookingDato.setValue(d);
         forp = 'n';
         type = 'p';
-
     }
+    
+    public void initialize() {
+        fNavn.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\sa-zA-Z*")) {
+                fNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+        }
+            });
 
+            eNavn.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    eNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", "));"
+                }
+            });
+
+            eamil.textProperty().addListener((observable, oldValue, newValue) -> {
+                    if (!newValue.matches(""^[Aa-z0-9+_.-]+@(.+)$\", ^[A-Za-z0-9+_.-]")) {
+                        email.setText(newValue.replaceAll("^[A-Za-z0-9+_.-]+@(.+)$\", ^[A-Za-z0-9+_.-]", ""));
+            });
+
+            org.textProper
+
+                    tlf
+        }
+        
     @FXML
     void forplejningToggle(ActionEvent event) {
         if (forplejning.getSelectedToggle() == yesToggle){
@@ -119,6 +141,9 @@ public class OpretFormularController {
             if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
                 slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
             }
+            
+            if()
+            
             if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
                     bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
                     bookingDato.getValue().getDayOfWeek() == DayOfWeek.SUNDAY){
