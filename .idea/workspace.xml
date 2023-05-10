@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Create on drag">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Textfield limitiation">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/Forløb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
     <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="Changes by Marc" />
@@ -136,7 +139,7 @@
       <option name="presentableId" value="Default" />
       <updated>1682586763652</updated>
       <workItem from="1682586766193" duration="123250000" />
-      <workItem from="1683713354625" duration="340000" />
+      <workItem from="1683713354625" duration="1590000" />
     </task>
     <task id="LOCAL-00001" summary="Booking object">
       <created>1682670984919</created>
@@ -397,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683713451783</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Textfield limitiation">
+      <created>1683713929900</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1683713929900</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,6 +449,7 @@
     <MESSAGE value="Mailing" />
     <MESSAGE value="Create on drag" />
     <MESSAGE value="Changes by Marc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by Marc" />
+    <MESSAGE value="Textfield limitiation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Textfield limitiation" />
   </component>
 </project>

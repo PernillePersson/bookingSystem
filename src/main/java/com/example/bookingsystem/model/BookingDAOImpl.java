@@ -291,5 +291,40 @@ public class BookingDAOImpl implements BookingDAO {
         return emailList;
     }
 
+    @Override
+    public void addForløb(int b, int f) {
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO BookingForløb VALUES(?,?)");
+            ps.setInt(1, b);
+            ps.setInt(2, f);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Kunne ikke slette booking" + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Forløb> getAllForløb() {
+        List<Forløb> allForløb = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Forløb;");
+            ResultSet rs = ps.executeQuery();
+
+            Forløb f;
+            while (rs.next()){
+                int id = rs.getInt(1);
+                String forløb = rs.getString(2);
+
+
+                f = new Forløb(id, forløb);
+                allForløb.add(f);
+
+            }
+        } catch (SQLException e){
+            System.err.println("Kan ikke finde forløb " + e.getMessage());
+        }
+        return allForløb;
+    }
+
 
 }
