@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Overlap fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" afterDir="false" />
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Create on drag">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
-    <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
-    </list>
-    <list id="02c98e23-04d4-4334-a258-ed5a81e47d3d" name="Changes by Rizztopher Columbus" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
-    </list>
+    <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="Changes by Marc" />
+    <list id="02c98e23-04d4-4334-a258-ed5a81e47d3d" name="Changes by Rizztopher Columbus" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,30 +30,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java">
-      <ranges>
-        <range start1="70" end1="71" start2="70" end2="71" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
-        <range start1="75" end1="77" start2="75" end2="77" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
-        <range start1="83" end1="83" start2="83" end2="102" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
-        <range start1="84" end1="86" start2="103" end2="108" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
-        <range start1="121" end1="121" start2="143" end2="146" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java">
-      <ranges>
-        <range start1="56" end1="57" start2="56" end2="57" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="184" end1="185" start2="184" end2="184" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
-        <range start1="264" end1="265" start2="263" end2="264" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
-        <range start1="295" end1="304" start2="294" end2="294" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
-        <range start1="486" end1="486" start2="476" end2="503" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="508" end1="509" start2="525" end2="525" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="515" end1="518" start2="531" end2="531" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="535" end1="541" start2="548" end2="553" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="542" end1="547" start2="554" end2="554" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -69,30 +39,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "list.type.of.created.stylesheet": "CSS",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem" />
@@ -166,6 +136,7 @@
       <option name="presentableId" value="Default" />
       <updated>1682586763652</updated>
       <workItem from="1682586766193" duration="123250000" />
+      <workItem from="1683713354625" duration="340000" />
     </task>
     <task id="LOCAL-00001" summary="Booking object">
       <created>1682670984919</created>
@@ -412,7 +383,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683631552979</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Create on drag">
+      <created>1683713424190</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1683713424190</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Changes by Marc">
+      <created>1683713451783</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1683713451783</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,7 +430,6 @@
     <MESSAGE value="Kontaktinfo" />
     <MESSAGE value="Change bookings" />
     <MESSAGE value="Commit" />
-    <MESSAGE value="Changes by Marc" />
     <MESSAGE value="Bookingtime update" />
     <MESSAGE value="Bug fixed" />
     <MESSAGE value="Changes by Magnus" />
@@ -453,6 +437,8 @@
     <MESSAGE value="Bugs fixed" />
     <MESSAGE value="Overlap fixed" />
     <MESSAGE value="Mailing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mailing" />
+    <MESSAGE value="Create on drag" />
+    <MESSAGE value="Changes by Marc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Marc" />
   </component>
 </project>

@@ -82,29 +82,42 @@ public class OpretFormularController {
         forp = 'n';
         type = 'p';
     }
-    
+
     public void initialize() {
+        eNavn.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                eNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+
         fNavn.textProperty().addListener((observable, oldValue, newValue) -> {
-        if (!newValue.matches("\\sa-zA-Z*")) {
+            if (!newValue.matches("\\sa-zA-Z*")) {
                 fNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
-        }
-            });
+            }
+        });
 
-            eNavn.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (!newValue.matches("\\sa-zA-Z*")) {
-                    eNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", "));"
-                }
-            });
+        email.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z-\\d-@-.*")) {
+                email.setText(newValue.replaceAll("[^\\sa-zA-Z-\\d-.-@]", ""));
+            }
+        });
 
-            eamil.textProperty().addListener((observable, oldValue, newValue) -> {
-                    if (!newValue.matches(""^[Aa-z0-9+_.-]+@(.+)$\", ^[A-Za-z0-9+_.-]")) {
-                        email.setText(newValue.replaceAll("^[A-Za-z0-9+_.-]+@(.+)$\", ^[A-Za-z0-9+_.-]", ""));
-            });
+        org.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z")) {
+                org.setText(newValue.replaceAll("[\\sa-zA-Z]", ""));
+            }
+        });
 
-            org.textProper
-
-                    tlf
-        }
+        tlf.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tlf.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            if (tlf.getLength() > 8) {
+                String MAX = tlf.getText().substring(0,8);
+                tlf.setText(MAX);
+            }
+        });
+    }
         
     @FXML
     void forplejningToggle(ActionEvent event) {
