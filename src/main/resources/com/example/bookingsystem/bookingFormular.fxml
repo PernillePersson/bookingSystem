@@ -69,8 +69,8 @@
                         <DatePicker fx:id="bookingDato" onAction="#tjekDato" prefHeight="26.0" prefWidth="159.0" promptText="dato" />
                         <HBox spacing="10.0">
                             <children>
-                                <ComboBox fx:id="startTid" onMousePressed="#opdaterStartTid" />
-                                <ComboBox fx:id="slutTid" onMousePressed="#opdaterSlutTid" />
+                                <ComboBox fx:id="startTid" onAction="#opdaterStartTid" />
+                                <ComboBox fx:id="slutTid" onAction="#opdaterSlutTid" />
                             </children>
                         </HBox>
                   <Spinner fx:id="antalDeltagere" max="28" min="0" prefHeight="26.0" prefWidth="66.0" />

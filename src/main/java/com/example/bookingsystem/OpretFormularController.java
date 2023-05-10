@@ -141,13 +141,11 @@ public class OpretFormularController {
 
     @FXML
     void formålValgt(ActionEvent event) {
-        formål.setOnAction((e) -> {
-            if (formål.getSelectionModel().getSelectedIndex() == 1){
-                forløb.setVisible(true);
-            } else {
-                forløb.setVisible(false);
-            }
-        });
+        if (formål.getSelectionModel().getSelectedIndex() == 1){
+            forløb.setVisible(true);
+        } else {
+            forløb.setVisible(false);
+        }
     }
 
     @FXML
@@ -169,36 +167,31 @@ public class OpretFormularController {
     }
 
     @FXML
-    void opdaterSlutTid(MouseEvent event) {
-        slutTid.setOnAction((e) -> {
-            if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
-                slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
-            }
+    void opdaterSlutTid(ActionEvent event) {
+        if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
+            slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
+        }
 
-            
-            if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
-                    bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
-                    bookingDato.getValue().getDayOfWeek() == DayOfWeek.SUNDAY){
-                opretBookingKnap.setText("Anmod om booking");
-                bemærkning.setVisible(true);
-                type = 't';
-                midlertidig = true;
-            }else {
-                opretBookingKnap.setText("Opret booking");
-                bemærkning.setVisible(false);
-                type = 'p';
-                midlertidig = false;
-            }
-        });
+        if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
+                bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
+                bookingDato.getValue().getDayOfWeek() == DayOfWeek.SUNDAY){
+            opretBookingKnap.setText("Anmod om booking");
+            bemærkning.setVisible(true);
+            type = 't';
+            midlertidig = true;
+        }else {
+            opretBookingKnap.setText("Opret booking");
+            bemærkning.setVisible(false);
+            type = 'p';
+            midlertidig = false;
+        }
     }
 
     @FXML
-    void opdaterStartTid(MouseEvent event) {
-        startTid.setOnAction((e) -> {
-            if (startTid.getSelectionModel().getSelectedIndex() >= slutTid.getSelectionModel().getSelectedIndex()){
-                startTid.setValue(startTid.getItems().get(slutTid.getSelectionModel().getSelectedIndex() -1));
-            }
-        });
+    void opdaterStartTid(ActionEvent event) {
+        if (startTid.getSelectionModel().getSelectedIndex() >= slutTid.getSelectionModel().getSelectedIndex()){
+            startTid.setValue(startTid.getItems().get(slutTid.getSelectionModel().getSelectedIndex() -1));
+        }
     }
 
     @FXML
