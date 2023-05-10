@@ -292,14 +292,23 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void addForløb(int b, int f) {
+    public void addForløb(String bk, int f) {
         try {
+            int id = 0;
+            PreparedStatement ps1 = con.prepareStatement("SELECT bookingID FROM Booking WHERE bookingCode = ?");
+            ps1.setString(1, bk);
+            ResultSet rs = ps1.getResultSet();
+
+            while (rs.next()){
+                id = rs.getInt(1);
+            }
+
             PreparedStatement ps = con.prepareStatement("INSERT INTO BookingForløb VALUES(?,?)");
-            ps.setInt(1, b);
+            ps.setInt(1, id);
             ps.setInt(2, f);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Kunne ikke slette booking" + e.getMessage());
+            System.err.println("Kunne ikke tilføje forløb til booking" + e.getMessage());
         }
     }
 

@@ -1,10 +1,7 @@
 package com.example.bookingsystem;
 
 import com.example.bookingsystem.Gmail.GEmail;
-import com.example.bookingsystem.model.Booking;
-import com.example.bookingsystem.model.BookingCode;
-import com.example.bookingsystem.model.BookingDAO;
-import com.example.bookingsystem.model.BookingDAOImpl;
+import com.example.bookingsystem.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -62,6 +59,8 @@ public class OpretFormularController {
 
     private Boolean midlertidig;
 
+    private Booking b;
+
     final Clipboard clipboard = Clipboard.getSystemClipboard();
     final ClipboardContent content = new ClipboardContent();
 
@@ -75,8 +74,12 @@ public class OpretFormularController {
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
         startTid.setValue(String.valueOf(st).substring(0, 5));
         slutTid.setValue(String.valueOf(et).substring(0, 5));
-        forløb.getItems().addAll("Idéfabrikken", "Digital fabrikation med laserskærer", "Robot på job",
-                "Robotten rydder op", "Naturturisme ved Vadehavet", "Skab sikkerhedi i Vadehavet");
+
+        List<Forløb> forl = bdi.getAllForløb();
+        for (Forløb f : forl){
+            forløb.getItems().add(f);
+        }
+
         forplejningLink.setVisible(false);
         bookingDato.setValue(d);
         forp = 'n';
@@ -228,9 +231,12 @@ public class OpretFormularController {
         }
 
         if(!overlaps){
+
             bdi.addBooking(fNavn.getText(), eNavn.getText(), organisation, email.getText(), nr,
                     type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
                     Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
+            Forløb f = (Forløb) forløb.getSelectionModel().getSelectedItem();
+            bdi.addForløb(bKode, f.getId());
 
             Dialog<ButtonType> dialog = new Dialog();
 

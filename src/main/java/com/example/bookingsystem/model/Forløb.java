@@ -9,6 +9,11 @@ public class Forløb {
         this.forløb = forløb;
     }
 
+    @Override
+    public String toString() {
+        return forløb;
+    }
+
     public int getId() {
         return id;
     }
