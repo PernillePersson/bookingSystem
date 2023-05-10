@@ -44,7 +44,7 @@ public class OpretFormularController {
     private Button opretBookingKnap;
 
     @FXML
-    private ComboBox forløb, slutTid, startTid;
+    private ComboBox formål, forløb, slutTid, startTid;
 
     @FXML
     private Text bemærkning;
@@ -77,10 +77,13 @@ public class OpretFormularController {
         startTid.setValue(String.valueOf(st).substring(0, 5));
         slutTid.setValue(String.valueOf(et).substring(0, 5));
 
+        formål.getItems().addAll("Lokaleleje", "Åbent skoleforløb", "Andet");
+
         List<Forløb> forl = bdi.getAllForløb();
         for (Forløb f : forl){
             forløb.getItems().add(f);
         }
+        forløb.setValue("Ingen");
 
         forplejningLink.setVisible(false);
         bookingDato.setValue(d);
@@ -133,6 +136,17 @@ public class OpretFormularController {
             forplejningLink.setVisible(false);
             forp = 'n';
         }
+    }
+
+    @FXML
+    void formålValgt(ActionEvent event) {
+        formål.setOnAction((e) -> {
+            if (formål.getSelectionModel().getSelectedIndex() == 1){
+                forløb.setVisible(true);
+            } else {
+                forløb.setVisible(false);
+            }
+        });
     }
 
     @FXML
@@ -254,7 +268,7 @@ public class OpretFormularController {
 
             //GEmail gmailSender = new GEmail();
 
-            gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
+            //gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
 
             VBox vb = new VBox(l1, kodeLabel, infoLabel);
             vb.setSpacing(10);
@@ -281,4 +295,5 @@ public class OpretFormularController {
     }
 
     BookingDAO bdi = new BookingDAOImpl();
+
 }

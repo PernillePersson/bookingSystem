@@ -154,7 +154,7 @@ public class FormularController {
             bdi.updateBooking(booking.getId(), booking.getBookingType(), booking.getCatering(),
                     booking.getBookingDate(), booking.getStartTid(), booking.getSlutTid());
 
-            gmailSender.ændringsMail(booking.getEmail());
+            //gmailSender.ændringsMail(booking.getEmail());
 
             Node source = (Node) event.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
@@ -176,7 +176,7 @@ public class FormularController {
 
         if (knap.get() == ButtonType.OK)
             try {
-                gmailSender.aflystMail(booking.getEmail());
+                //gmailSender.aflystMail(booking.getEmail());
                 bdi.cancelBooking(booking);
             } catch (Exception e) {
                 System.err.println("Noget gik galt");

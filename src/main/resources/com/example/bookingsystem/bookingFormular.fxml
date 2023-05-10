@@ -49,7 +49,12 @@
                   <TextField fx:id="email" maxWidth="204.0" promptText="Er du lærer, benyt skoletdr@dk" />
                   <TextField fx:id="tlf" maxWidth="204.0" prefWidth="212.0" promptText="12345678" />
                   <TextField fx:id="org" maxWidth="204.0" promptText="Udfyld hvis muligt " />
-                        <ComboBox fx:id="forløb" prefWidth="150.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="260.0" spacing="2.0">
+                            <children>
+                                <ComboBox fx:id="formål" onAction="#formålValgt" prefWidth="150.0" promptText="Formål.." />
+                                <ComboBox fx:id="forløb" prefWidth="159.0" promptText="Forløb.." visible="false" />
+                            </children>
+                        </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
                                 <RadioButton fx:id="yesToggle" mnemonicParsing="false" onAction="#forplejningToggle" selected="true" text="Ja">
