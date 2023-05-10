@@ -142,7 +142,7 @@ public class FormularController {
             String comboSlut = value4.substring(0,2);
             int comboSlt = Integer.valueOf(comboSlut);
 
-            if(bookingDato.getValue().equals(b.getBookingDate()) && comboSlt >= start && comboStrt <= slut){
+            if(bookingDato.getValue().equals(b.getBookingDate()) & b.getId() != b.getId() && comboSlt >= start && comboStrt <= slut){
                 overlaps = true;
                 break;
             }
