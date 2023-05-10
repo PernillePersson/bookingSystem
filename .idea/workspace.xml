@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Bugs fixed">
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Overlap fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingFormular.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingFormular.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
-    <list id="7e85e5d8-c9a2-4980-9147-59bfad441177" name="Changes by Rex" comment="">
+    <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
+    </list>
+    <list id="02c98e23-04d4-4334-a258-ed5a81e47d3d" name="Changes by Rizztopher Columbus" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/Gmail/GEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/Gmail/GEmail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,50 +37,26 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java">
+    <file path="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/OpretFormularController.java">
       <ranges>
-        <range start1="18" end1="18" start2="18" end2="19" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="41" end1="41" start2="42" end2="44" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="119" end1="121" start2="122" end2="154" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="122" end1="123" start2="155" end2="156" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="124" end1="128" start2="157" end2="161" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="129" end1="140" start2="162" end2="162" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="155" end1="155" start2="177" end2="178" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="160" end1="161" start2="183" end2="183" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
+        <range start1="70" end1="71" start2="70" end2="71" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
+        <range start1="75" end1="77" start2="75" end2="77" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
+        <range start1="83" end1="83" start2="83" end2="102" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
+        <range start1="84" end1="86" start2="103" end2="108" changelist="67630302-fbe9-4961-b000-80f445b20c66" />
+        <range start1="121" end1="121" start2="143" end2="146" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
       </ranges>
     </file>
     <file path="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/BookingController.java">
       <ranges>
-        <range start1="29" end1="30" start2="29" end2="29" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="32" end1="33" start2="31" end2="31" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="58" end1="61" start2="56" end2="57" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="64" end1="65" start2="60" end2="60" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="81" end1="82" start2="76" end2="76" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="93" end1="94" start2="87" end2="87" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="95" end1="96" start2="88" end2="88" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="101" end1="103" start2="93" end2="94" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="105" end1="106" start2="96" end2="97" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="112" end1="113" start2="103" end2="104" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="269" end1="270" start2="260" end2="260" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="303" end1="306" start2="293" end2="293" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="312" end1="313" start2="299" end2="299" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="317" end1="318" start2="303" end2="303" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="386" end1="389" start2="371" end2="371" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="405" end1="408" start2="387" end2="387" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="424" end1="426" start2="403" end2="403" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="443" end1="445" start2="420" end2="420" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="460" end1="462" start2="435" end2="435" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="479" end1="482" start2="452" end2="452" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="498" end1="501" start2="468" end2="468" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="518" end1="526" start2="485" end2="485" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="528" end1="529" start2="487" end2="487" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="532" end1="533" start2="490" end2="490" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="546" end1="547" start2="503" end2="503" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="551" end1="552" start2="507" end2="509" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
-        <range start1="585" end1="586" start2="542" end2="542" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="589" end1="591" start2="545" end2="545" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="704" end1="704" start2="658" end2="660" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
-        <range start1="705" end1="714" start2="661" end2="662" changelist="7e85e5d8-c9a2-4980-9147-59bfad441177" />
+        <range start1="56" end1="57" start2="56" end2="57" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="184" end1="185" start2="184" end2="184" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
+        <range start1="264" end1="265" start2="263" end2="264" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
+        <range start1="295" end1="304" start2="294" end2="294" changelist="02c98e23-04d4-4334-a258-ed5a81e47d3d" />
+        <range start1="486" end1="486" start2="476" end2="503" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="508" end1="509" start2="525" end2="525" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="515" end1="518" start2="531" end2="531" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="535" end1="541" start2="548" end2="553" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
+        <range start1="542" end1="547" start2="554" end2="554" changelist="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" />
       </ranges>
     </file>
   </component>
@@ -194,7 +165,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682586763652</updated>
-      <workItem from="1682586766193" duration="120413000" />
+      <workItem from="1682586766193" duration="123250000" />
     </task>
     <task id="LOCAL-00001" summary="Booking object">
       <created>1682670984919</created>
@@ -427,7 +398,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683550202248</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Overlap fixed">
+      <created>1683631411466</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1683631411466</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Mailing">
+      <created>1683631552979</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1683631552979</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -459,7 +444,6 @@
     <MESSAGE value="Comments specified" />
     <MESSAGE value="Kontaktinfo" />
     <MESSAGE value="Change bookings" />
-    <MESSAGE value="Mailing" />
     <MESSAGE value="Commit" />
     <MESSAGE value="Changes by Marc" />
     <MESSAGE value="Bookingtime update" />
@@ -467,6 +451,8 @@
     <MESSAGE value="Changes by Magnus" />
     <MESSAGE value="Notification update" />
     <MESSAGE value="Bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bugs fixed" />
+    <MESSAGE value="Overlap fixed" />
+    <MESSAGE value="Mailing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mailing" />
   </component>
 </project>

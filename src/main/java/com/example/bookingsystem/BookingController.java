@@ -54,7 +54,7 @@ public class BookingController {
     @FXML
     private ImageView notits;
 
-    private LocalDate shownDate, today;
+    private LocalDate shownDate, today, lde;
 
     private int listSize;
 
@@ -182,7 +182,6 @@ public class BookingController {
         });
 
         notiStage.show();
-
     } //Viser seneste oprettet booking og kommende bookings
 
     public void seKontaktInfo(ListView l){
@@ -262,7 +261,7 @@ public class BookingController {
 
         //Åbner nyt vindue med mail
         mail.setOnAction(event -> {
-            sendMail(b);
+            
         });
 
         //Åbner nyt vindue med bookingsoversigt
@@ -292,15 +291,6 @@ public class BookingController {
             }
         });
         oversigtStage.show();
-    }
-
-    public void sendMail(Booking b){
-        //Åben tekstfelt der skal sendes som mail
-        System.out.println("Sender mail til " + b.getFirstName());
-        String to = b.getEmail();
-        String from = "noreplybookingsystemem@gmail.com";
-        String subject; // getText fra eventuel subject textfield eller lign
-        String text; // getText fra textField eller lign.
     }
 
     @FXML
@@ -484,6 +474,33 @@ public class BookingController {
 
     public void addStack(Pane p, ArrayList<Rectangle> rect){
 
+        HashMap<Double, Time> locationMap = new HashMap<>();
+
+                // Tjekker hvilken pane tingene foregår i. Bliver brugt til at indsætte dato til vores opretBooking metode
+        if(p == mandagPane) {
+            lde = shownDate.with(DayOfWeek.MONDAY);
+        } else if(p == tirsdagPane){
+            lde = shownDate.with(DayOfWeek.TUESDAY);
+        } else if(p == onsdagPane){
+            lde = shownDate.with(DayOfWeek.WEDNESDAY);
+        } else if(p == torsdagPane){
+            lde = shownDate.with(DayOfWeek.THURSDAY);
+        } else if(p == fredagPane){
+            lde = shownDate.with(DayOfWeek.FRIDAY);
+        } else if(p == lørdagPane){
+            lde = shownDate.with(DayOfWeek.SATURDAY);
+        } else if(p == søndagPane){
+            lde = shownDate.with(DayOfWeek.SUNDAY);
+        }
+
+        // Et HashMap med tidsværdier og deres korresponderende y-aksis værdier. Bruges til at indsætte bookings på de rigtige pladser
+        locationMap.put(0.0,Time.valueOf("07:00:00")); locationMap.put(44.0,Time.valueOf("08:00:00")); locationMap.put(89.0,Time.valueOf("09:00:00"));
+        locationMap.put(134.0,Time.valueOf("10:00:00")); locationMap.put(179.0,Time.valueOf("11:00:00")); locationMap.put(224.0,Time.valueOf("12:00:00"));
+        locationMap.put(269.0,Time.valueOf("13:00:00")); locationMap.put(314.0,Time.valueOf("14:00:00")); locationMap.put(359.0,Time.valueOf("15:00:00"));
+        locationMap.put(404.0,Time.valueOf("16:00:00")); locationMap.put(449.0,Time.valueOf("17:00:00")); locationMap.put(494.0,Time.valueOf("18:00:00"));
+        locationMap.put(539.0,Time.valueOf("19:00:00")); locationMap.put(584.0,Time.valueOf("20:00:00")); locationMap.put(629.0,Time.valueOf("21:00:00"));
+        locationMap.put(674.0,Time.valueOf("22:00:00")); locationMap.put(719.0,Time.valueOf("23:00:00")); locationMap.put(764.0,Time.valueOf("24:00:00"));
+
         // Array med de værdier som vi skal bruge mht. at indsætte rektangel på det korrekte sted
         double[] yValues = {0, 44, 89, 134, 179, 224, 269, 314, 359, 404, 449, 494, 539, 584, 629, 674, 719, 764};
 
@@ -506,16 +523,12 @@ public class BookingController {
         if (startIndex != -1 && endIndex != -1) {
             Rectangle r = new Rectangle();
             Label l = new Label();
-            Booking book = new Booking((int) Math.random(),"Mognus","Hansen","EASV","madmedmig@gmail.com",1234,'t','y', LocalDate.of(2023,04,03),LocalDate.of(2023,03,30),"131231",Time.valueOf("10:00:00"),Time.valueOf("15:00:00"), 10);
 
             r.setY(yValues[startIndex] + 1);
             r.setX(0);
             r.setWidth(133);
             r.setHeight(yValues[endIndex] - yValues[startIndex] - 1);
             r.setOpacity(0.3);
-
-            l.setLayoutY(yValues[endIndex] - r.getHeight() / 2);
-            l.setText(book.toString());
 
             r.layoutYProperty().addListener((obs,oldVal,newVal) -> {
                 l.setLayoutY(newVal.doubleValue() / 2);
@@ -533,18 +546,12 @@ public class BookingController {
             // Hvis den ikke overlapper allerede eksisterende rektangler, så bliver den tilføjet
             // til kalenderen
             if (!intersects) {
-                // indsæt en tilføjelse af booking her eller i vores MandagPane release event
-                rectangleBooking.put(r,book);
-                rect.add(r);
-                labels.add(l);
-                p.getChildren().add(r);
-                p.getChildren().add(l);
+                try {
+                    opretBooking(lde,locationMap.get(yValues[startIndex]),locationMap.get(yValues[endIndex]));
+                } catch (IOException e){
+                    System.err.println("Noget gik galt " + e.getMessage());
+                }
             }
-            // MouseEvent der gør, at når man klikker på en rektangel, så vil der komme et nyt vindue op
-            // med kontakt info i forhold til personen der har lavet bookingen.
-            r.onMouseClickedProperty().set(mouseEvent -> {
-                åbenKontaktInfo(book);
-            });
         }
     } // Tilføjer en rektangel til der hvor brugeren har klikket vha. mouse drag events.
 
