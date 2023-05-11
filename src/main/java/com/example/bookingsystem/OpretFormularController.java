@@ -2,6 +2,7 @@ package com.example.bookingsystem;
 
 import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.*;
+import com.example.bookingsystem.model.Forløb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -60,6 +61,7 @@ public class OpretFormularController {
     private Boolean midlertidig;
 
     private Booking b;
+    private Forløb f;
 
     final Clipboard clipboard = Clipboard.getSystemClipboard();
     final ClipboardContent content = new ClipboardContent();
@@ -83,7 +85,6 @@ public class OpretFormularController {
         for (Forløb f : forl){
             forløb.getItems().add(f);
         }
-        forløb.setValue("Ingen");
 
         forplejningLink.setVisible(false);
         //forplejningLink.setV
@@ -92,7 +93,7 @@ public class OpretFormularController {
         type = 'p';
     }
 
-    public void initialize() {
+    public void tjekCharacter(){
         eNavn.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\sa-zA-Z*")) {
                 eNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
@@ -127,6 +128,11 @@ public class OpretFormularController {
             }
         });
     }
+
+    public void initialize() {
+        tjekCharacter();
+
+    }
         
     @FXML
     void forplejningToggle(ActionEvent event) {
@@ -143,8 +149,10 @@ public class OpretFormularController {
     void formålValgt(ActionEvent event) {
         if (formål.getSelectionModel().getSelectedIndex() == 1){
             forløb.setVisible(true);
+            f = (Forløb) forløb.getValue();
         } else {
             forløb.setVisible(false);
+            f = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
         }
     }
 
@@ -243,7 +251,6 @@ public class OpretFormularController {
 
         if(!overlaps){
 
-            Forløb f = (Forløb) forløb.getSelectionModel().getSelectedItem();
             bdi.addBooking(fNavn.getText(), eNavn.getText(), organisation, email.getText(), nr,
                     type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
                     Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());

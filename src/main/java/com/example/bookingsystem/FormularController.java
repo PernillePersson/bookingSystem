@@ -119,6 +119,11 @@ public class FormularController {
     }
 
     @FXML
+    void tilføjNote(ActionEvent event) {
+
+    }
+
+    @FXML
     void opdaterBooking(ActionEvent event) throws SQLException {
 
         List<Booking> allBookings = bdi.getAllBooking();
