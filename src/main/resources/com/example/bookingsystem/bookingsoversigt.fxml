@@ -66,7 +66,7 @@
       </HBox>
    </center>
    <top>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox BorderPane.alignment="CENTER" style="-fx-background-color: rgb(148, 198, 70);">
          <children>
             <Label text="Bookingsoversigt">
                <font>
