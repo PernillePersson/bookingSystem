@@ -161,7 +161,7 @@ public class OpretFormularController {
     @FXML
     void hentForplejning(ActionEvent event) {
         try {
-            File pdf = new File("/Users/pernillepersson/IdeaProjects/bookingSystem/src/main/resources/com/example/bookingsystem/forplejning.pdf");
+            File pdf = new File(this.getClass().getResource("forplejning.pdf").toURI());
             Desktop.getDesktop().open(pdf);
         } catch (Exception e){
             System.out.println("Kunne ikke hente pdf" + e.getMessage());
