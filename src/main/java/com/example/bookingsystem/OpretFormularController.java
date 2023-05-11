@@ -4,6 +4,7 @@ import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.*;
 import com.example.bookingsystem.model.Forløb;
 import javafx.event.ActionEvent;
+import java.awt.Desktop;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -17,6 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
@@ -67,6 +69,7 @@ public class OpretFormularController {
     final ClipboardContent content = new ClipboardContent();
 
     GEmail gmailSender = new GEmail();
+
 
     public OpretFormularController() throws SQLException {
     }
@@ -152,6 +155,16 @@ public class OpretFormularController {
         } else {
             forløb.setVisible(false);
             f = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
+        }
+    }
+
+    @FXML
+    void hentForplejning(ActionEvent event) {
+        try {
+            File pdf = new File("/Users/pernillepersson/IdeaProjects/bookingSystem/src/main/resources/com/example/bookingsystem/forplejning.pdf");
+            Desktop.getDesktop().open(pdf);
+        } catch (Exception e){
+            System.out.println("Kunne ikke hente pdf" + e.getMessage());
         }
     }
 

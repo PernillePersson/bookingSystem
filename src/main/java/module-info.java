@@ -3,6 +3,7 @@ module com.example.bookingsystem {
     requires javafx.fxml;
     requires java.sql;
     requires jakarta.mail;
+    requires java.desktop;
 
 
     opens com.example.bookingsystem to javafx.fxml;

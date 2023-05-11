@@ -63,7 +63,7 @@
                                     </toggleGroup>
                                 </RadioButton>
                                 <RadioButton fx:id="noToggle" mnemonicParsing="false" onAction="#forplejningToggle" selected="true" text="Nej" toggleGroup="$forplejning" />
-                        <Hyperlink fx:id="forplejningLink" text="Forplejningsformular" />
+                        <Hyperlink fx:id="forplejningLink" onAction="#hentForplejning" text="Forplejningsformular" />
                             </children>
                         </HBox>
                         <DatePicker fx:id="bookingDato" onAction="#tjekDato" prefHeight="26.0" prefWidth="159.0" promptText="dato" />
