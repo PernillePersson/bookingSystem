@@ -14,7 +14,7 @@
 
 <BorderPane stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookingsystem.FormularController">
    <center>
-      <HBox maxHeight="-Infinity"  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <children>
             <VBox spacing="10.0">
                <children>
@@ -31,7 +31,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
-            <VBox spacing="10.0">
+            <VBox fx:id="changeBox" spacing="10.0">
                <children>
                   <Label fx:id="navnLabel" text="Label" />
                   <Label fx:id="mailLabel" text="Label" />
@@ -66,7 +66,7 @@
       </HBox>
    </center>
    <top>
-      <HBox BorderPane.alignment="CENTER" style="-fx-background-color: rgb(148, 198, 70);">
+      <HBox style="-fx-background-color: rgb(148, 198, 70);" BorderPane.alignment="CENTER">
          <children>
             <Label text="Bookingsoversigt">
                <font>

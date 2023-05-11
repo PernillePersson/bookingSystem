@@ -131,7 +131,6 @@ public class OpretFormularController {
 
     public void initialize() {
         tjekCharacter();
-
     }
         
     @FXML

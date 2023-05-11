@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -20,6 +21,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class FormularController {
+
+    @FXML
+    private VBox changeBox;
+
+    private TextArea noteText = new TextArea();
 
     @FXML
     private DatePicker bookingDato;
@@ -120,7 +126,7 @@ public class FormularController {
 
     @FXML
     void tilføjNote(ActionEvent event) {
-
+        changeBox.getChildren().add(noteText);
     }
 
     @FXML
@@ -183,6 +189,7 @@ public class FormularController {
             try {
                 //gmailSender.aflystMail(booking.getEmail());
                 bdi.cancelBooking(booking);
+
             } catch (Exception e) {
                 System.err.println("Noget gik galt");
                 System.err.println(e.getMessage());

@@ -638,12 +638,19 @@ public class BookingController {
 
     public void removeVisuals(){
         mandagPane.getChildren().removeAll(manRectangles);
+        manRectangles.clear();
         tirsdagPane.getChildren().removeAll(tirsRectangles);
+        tirsRectangles.clear();
         onsdagPane.getChildren().removeAll(onsRectangles);
+        onsRectangles.clear();
         torsdagPane.getChildren().removeAll(torsRectangles);
+        torsRectangles.clear();
         fredagPane.getChildren().removeAll(freRectangles);
+        freRectangles.clear();
         lørdagPane.getChildren().removeAll(lørRectangles);
+        lørRectangles.clear();
         søndagPane.getChildren().removeAll(sønRectangles);
+        sønRectangles.clear();
         mandagPane.getChildren().removeAll(labels);
         tirsdagPane.getChildren().removeAll(labels);
         onsdagPane.getChildren().removeAll(labels);
@@ -651,6 +658,7 @@ public class BookingController {
         fredagPane.getChildren().removeAll(labels);
         lørdagPane.getChildren().removeAll(labels);
         søndagPane.getChildren().removeAll(labels);
+        labels.clear();
     } // Fjerner alt det visuelle. Dvs. rektangler og labels.
 
     public void sendNotificationEmails(){
