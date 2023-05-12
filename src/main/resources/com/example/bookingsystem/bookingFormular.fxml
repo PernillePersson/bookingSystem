@@ -52,7 +52,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="260.0" spacing="2.0">
                             <children>
                                 <ComboBox fx:id="formål" onAction="#formålValgt" prefWidth="150.0" promptText="Formål.." />
-                                <ComboBox fx:id="forløb" prefWidth="159.0" promptText="Forløb.." visible="false" />
+                                <ComboBox fx:id="forløb" onAction="#forløbValgt" prefWidth="159.0" promptText="Forløb.." visible="false" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">

@@ -63,7 +63,7 @@ public class OpretFormularController {
     private Boolean midlertidig;
 
     private Booking b;
-    private Forløb f;
+    private Forløb f1;
 
     final Clipboard clipboard = Clipboard.getSystemClipboard();
     final ClipboardContent content = new ClipboardContent();
@@ -72,6 +72,7 @@ public class OpretFormularController {
 
 
     public OpretFormularController() throws SQLException {
+
     }
 
     public void opsæt(LocalDate d, Time st, Time et) {
@@ -90,7 +91,6 @@ public class OpretFormularController {
         }
 
         forplejningLink.setVisible(false);
-        //forplejningLink.setV
         bookingDato.setValue(d);
         forp = 'n';
         type = 'p';
@@ -149,13 +149,18 @@ public class OpretFormularController {
 
     @FXML
     void formålValgt(ActionEvent event) {
+        f1 = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
         if (formål.getSelectionModel().getSelectedIndex() == 1){
             forløb.setVisible(true);
-            f = (Forløb) forløb.getValue();
         } else {
             forløb.setVisible(false);
-            f = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
+            f1 = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
         }
+    }
+
+    @FXML
+    void forløbValgt(ActionEvent event){
+        f1 = (Forløb) forløb.getValue();
     }
 
     @FXML
@@ -267,7 +272,7 @@ public class OpretFormularController {
                     type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
                     Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
 
-            bdi.addForløb(bKode, f.getId());
+            bdi.addForløb(bKode, f1.getId());
 
             Dialog<ButtonType> dialog = new Dialog();
 
