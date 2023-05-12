@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="forløb bug fixed">
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Translation fixed">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/Note.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/FormularController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/model/BookingDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingsoversigt.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/bookingsoversigt.fxml" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
     <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="Changes by Marc" />
@@ -140,14 +144,7 @@
       <workItem from="1683713354625" duration="8261000" />
       <workItem from="1683722642915" duration="3539000" />
       <workItem from="1683734532493" duration="1407000" />
-      <workItem from="1683797031078" duration="12820000" />
-    </task>
-    <task id="LOCAL-00004" summary="DB implementation">
-      <created>1682679464264</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1682679464264</updated>
+      <workItem from="1683797031078" duration="15077000" />
     </task>
     <task id="LOCAL-00005" summary="Exception handling">
       <created>1682680460733</created>
@@ -485,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683876855335</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Translation fixed">
+      <created>1683877267454</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1683877267454</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +507,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Check if bookingcode already exists" />
     <MESSAGE value="Checks if bookingcode exists" />
     <MESSAGE value="Colorchange" />
     <MESSAGE value="add note method" />
@@ -528,6 +531,7 @@
     <MESSAGE value="Deleting bug fixed" />
     <MESSAGE value="Catering pdf" />
     <MESSAGE value="forløb bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="forløb bug fixed" />
+    <MESSAGE value="Translation fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Translation fixed" />
   </component>
 </project>

@@ -4,6 +4,7 @@ import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.Booking;
 import com.example.bookingsystem.model.BookingDAO;
 import com.example.bookingsystem.model.BookingDAOImpl;
+import com.example.bookingsystem.model.Note;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class FormularController {
     private ComboBox slutTid, startTid;
 
     @FXML
-    private Button godkendKnap, opdaterBookingKnap;
+    private Button godkendKnap, opdaterBookingKnap, noteKnap;
 
     private Booking booking;
 
@@ -83,6 +84,20 @@ public class FormularController {
             godkendLabel.setVisible(false);
             godkendKnap.setVisible(false);
         }
+
+        try {
+            Note n = bdi.getNote(b.getId());
+            if (n != null){
+                noteText.setPrefWidth(159);
+                noteText.setPrefHeight(60);
+                changeBox.getChildren().add(noteText);
+                changeBox.getChildren().remove(noteKnap);
+                noteText.setText(n.getNote());
+            }
+        }catch (NullPointerException e){
+            System.out.println("Denne booking har ingen note");
+        }
+
 
     }
     @FXML
@@ -126,7 +141,11 @@ public class FormularController {
 
     @FXML
     void tilføjNote(ActionEvent event) {
+        noteText.setPrefWidth(159);
+        noteText.setPrefHeight(60);
         changeBox.getChildren().add(noteText);
+        changeBox.getChildren().remove(noteKnap);
+
     }
 
     @FXML
@@ -164,6 +183,10 @@ public class FormularController {
 
             bdi.updateBooking(booking.getId(), booking.getBookingType(), booking.getCatering(),
                     booking.getBookingDate(), booking.getStartTid(), booking.getSlutTid());
+
+            if (!noteText.getText().isEmpty()){
+                bdi.addNote(booking, noteText.getText());
+            }
 
             //gmailSender.ændringsMail(booking.getEmail());
 
