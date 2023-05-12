@@ -21,6 +21,8 @@ public interface BookingDAO {
 
     public void addNote(Booking b, String s);
 
+    public Note getNote(int id);
+
     public List<Booking> recentlyCreated();
 
     public List<Booking> upcoming();

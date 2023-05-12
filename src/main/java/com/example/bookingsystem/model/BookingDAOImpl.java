@@ -147,6 +147,27 @@ public class BookingDAOImpl implements BookingDAO {
     } //kun til AS brug
 
     @Override
+    public Note getNote(int id){
+        Note n = null;
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT noteID, note FROM Note WHERE bookingID = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                int i = rs.getInt(1);
+                String s = rs.getString(2);
+
+                n = new Note(i, s);
+            }
+
+        }catch(SQLException e){
+            System.out.println("Kunne ikke finde note " + e.getMessage());
+        }
+        return n;
+    }
+
+    @Override
     public List<Booking> recentlyCreated(){
         List<Booking> newBookings = new ArrayList<>();
         try {
