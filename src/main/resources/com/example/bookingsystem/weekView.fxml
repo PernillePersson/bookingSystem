@@ -67,7 +67,7 @@
             <HBox alignment="BOTTOM_RIGHT" layoutX="942.0" layoutY="61.0" prefHeight="27.0" prefWidth="158.0" spacing="2.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#forrigeUgeKnap" text="&lt;" />
-                  <Button mnemonicParsing="false" onAction="#todayKnap" text="Today" />
+                  <Button mnemonicParsing="false" onAction="#todayKnap" text="I dag" />
                   <Button mnemonicParsing="false" onAction="#næsteUgeKnap" text="&gt;" />
                </children>
             </HBox>
