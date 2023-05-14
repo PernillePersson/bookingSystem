@@ -81,13 +81,13 @@
       </HBox>
    </top>
    <bottom>
-      <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" style="-fx-background-color: rgb(84, 86, 90);" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#sletBooking" text="Slet booking" />
             <Button fx:id="opdaterBookingKnap" mnemonicParsing="false" onAction="#opdaterBooking" text="Opdater booking" />
          </children>
          <padding>
-            <Insets bottom="10.0" left="20.0" right="10.0" top="20.0" />
+            <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
          </padding>
       </HBox>
    </bottom>
