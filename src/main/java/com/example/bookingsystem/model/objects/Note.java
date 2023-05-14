@@ -1,4 +1,4 @@
-package com.example.bookingsystem.model;
+package com.example.bookingsystem.model.objects;
 
 public class Note {
     private int id;

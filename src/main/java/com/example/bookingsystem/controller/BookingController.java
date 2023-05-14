@@ -1,9 +1,10 @@
-package com.example.bookingsystem;
+package com.example.bookingsystem.controller;
 
+import com.example.bookingsystem.BookingApplication;
 import com.example.bookingsystem.Gmail.GEmail;
-import com.example.bookingsystem.model.Booking;
-import com.example.bookingsystem.model.BookingDAO;
-import com.example.bookingsystem.model.BookingDAOImpl;
+import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.DAO.BookingDAO;
+import com.example.bookingsystem.model.DAO.BookingDAOImpl;
 import com.example.bookingsystem.model.SimpleThread;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +29,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.lang.Math;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;

@@ -1,4 +1,8 @@
-package com.example.bookingsystem.model;
+package com.example.bookingsystem.model.DAO;
+
+import com.example.bookingsystem.model.ConnectionSingleton;
+import com.example.bookingsystem.model.DAO.DataCountDAO;
+import com.example.bookingsystem.model.DataCount;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

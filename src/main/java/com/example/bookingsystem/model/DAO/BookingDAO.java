@@ -1,4 +1,8 @@
-package com.example.bookingsystem.model;
+package com.example.bookingsystem.model.DAO;
+
+import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.objects.Forløb;
+import com.example.bookingsystem.model.objects.Note;
 
 import java.sql.SQLException;
 import java.sql.Time;
@@ -7,7 +11,7 @@ import java.util.List;
 
 public interface BookingDAO {
     public List<Booking> getAllBooking();
-    public void addBooking(String fn, String ln, String org,
+    public void addBooking(String fn, String ln,
                            String mail, int phone, char bt,
                            char catering, LocalDate bd,
                            String bk, Time st, Time et, int p);

@@ -1,4 +1,6 @@
-package com.example.bookingsystem.model;
+package com.example.bookingsystem.model.DAO;
+
+import com.example.bookingsystem.model.DataCount;
 
 import java.util.List;
 

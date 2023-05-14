@@ -1,10 +1,8 @@
 package com.example.bookingsystem.model;
 
 
-import com.example.bookingsystem.BookingController;
+import com.example.bookingsystem.controller.BookingController;
 import javafx.application.Platform;
-
-import java.sql.SQLException;
 
 public class SimpleThread extends Thread {
 

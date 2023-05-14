@@ -1,4 +1,4 @@
-package com.example.bookingsystem.model;
+package com.example.bookingsystem.model.objects;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -17,14 +17,13 @@ public class Booking {
     
     private Time startTid, slutTid;
 
-    public Booking(int id, String firstName, String lastName, String organisation, String email, int phoneNumber,
+    public Booking(int id, String firstName, String lastName, String email, int phoneNumber,
                    char bookingType,char catering, LocalDate bookingDate, LocalDate dateCreated, String bookingCode,
                    Time startTid, Time slutTid, int participants){
 
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.organisation = organisation;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.bookingType = bookingType;

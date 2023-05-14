@@ -1,5 +1,8 @@
 package com.example.bookingsystem.model;
 
+import com.example.bookingsystem.model.DAO.BookingDAO;
+import com.example.bookingsystem.model.DAO.BookingDAOImpl;
+
 import java.sql.SQLException;
 
 public class BookingCode {

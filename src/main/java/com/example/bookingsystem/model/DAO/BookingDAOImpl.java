@@ -1,4 +1,10 @@
-package com.example.bookingsystem.model;
+package com.example.bookingsystem.model.DAO;
+
+import com.example.bookingsystem.model.ConnectionSingleton;
+import com.example.bookingsystem.model.DAO.BookingDAO;
+import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.objects.Forløb;
+import com.example.bookingsystem.model.objects.Note;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -24,21 +30,20 @@ public class BookingDAOImpl implements BookingDAO {
                 int id = rs.getInt(1);
                 String fName = rs.getString(2);
                 String lName = rs.getString(3);
-                String org = rs.getString(4);
-                String mail = rs.getString(5);
-                int phone = Integer.parseInt(rs.getString(6));
-                char bType = rs.getString(7).charAt(0);
-                char catering = rs.getString(8).charAt(0);
-                LocalDate bDate = LocalDate.parse(rs.getString(9));
-                LocalDate created = LocalDate.parse(rs.getString(10));
-                String bCode = rs.getString(11);
-                Time startTime = rs.getTime(12);
-                Time endTime = rs.getTime(13);
-                int part = rs.getInt(14);
+                String mail = rs.getString(4);
+                int phone = Integer.parseInt(rs.getString(5));
+                char bType = rs.getString(6).charAt(0);
+                char catering = rs.getString(7).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(8));
+                LocalDate created = LocalDate.parse(rs.getString(9));
+                String bCode = rs.getString(10);
+                Time startTime = rs.getTime(11);
+                Time endTime = rs.getTime(12);
+                int participants = rs.getInt(13);
 
 
-                b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime, part);
+                b = new Booking(id, fName, lName, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 allBookings.add(b);
 
             }
@@ -49,23 +54,22 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public void addBooking(String fn, String ln, String org, String mail, int phone, char bt, char catering,
+    public void addBooking(String fn, String ln, String mail, int phone, char bt, char catering,
                            LocalDate bd, String bk, Time st, Time et, int p) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?,?," +
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Booking VALUES(?,?,?,?,?,?," +
                     "?, GETDATE(), ?, ?, ?, ?)");
             ps.setString(1, fn);
             ps.setString(2, ln);
-            ps.setString(3, org);
-            ps.setString(4, mail);
-            ps.setInt(5, phone);
-            ps.setString(6, String.valueOf(bt));
-            ps.setString(7, String.valueOf(catering));
-            ps.setDate(8, Date.valueOf(bd));
-            ps.setString(9, bk);
-            ps.setTime(10, st);
-            ps.setTime(11, et);
-            ps.setInt(12, p);
+            ps.setString(3, mail);
+            ps.setInt(4, phone);
+            ps.setString(5, String.valueOf(bt));
+            ps.setString(6, String.valueOf(catering));
+            ps.setDate(7, Date.valueOf(bd));
+            ps.setString(8, bk);
+            ps.setTime(9, st);
+            ps.setTime(10, et);
+            ps.setInt(11, p);
 
             ps.executeUpdate();
         }catch(SQLException e){
@@ -180,21 +184,20 @@ public class BookingDAOImpl implements BookingDAO {
                 int id = rs.getInt(1);
                 String fName = rs.getString(2);
                 String lName = rs.getString(3);
-                String org = rs.getString(4);
-                String mail = rs.getString(5);
-                int phone = Integer.parseInt(rs.getString(6));
-                char bType = rs.getString(7).charAt(0);
-                char catering = rs.getString(8).charAt(0);
-                LocalDate bDate = LocalDate.parse(rs.getString(9));
-                LocalDate created = LocalDate.parse(rs.getString(10));
-                String bCode = rs.getString(11);
-                Time startTime = rs.getTime(12);
-                Time endTime = rs.getTime(13);
-                int part = rs.getInt(14);
+                String mail = rs.getString(4);
+                int phone = Integer.parseInt(rs.getString(5));
+                char bType = rs.getString(6).charAt(0);
+                char catering = rs.getString(7).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(8));
+                LocalDate created = LocalDate.parse(rs.getString(9));
+                String bCode = rs.getString(10);
+                Time startTime = rs.getTime(11);
+                Time endTime = rs.getTime(12);
+                int participants = rs.getInt(13);
 
 
-                b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime, part);
+                b = new Booking(id, fName, lName, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 newBookings.add(b);
 
             }
@@ -217,21 +220,20 @@ public class BookingDAOImpl implements BookingDAO {
                 int id = rs.getInt(1);
                 String fName = rs.getString(2);
                 String lName = rs.getString(3);
-                String org = rs.getString(4);
-                String mail = rs.getString(5);
-                int phone = Integer.parseInt(rs.getString(6));
-                char bType = rs.getString(7).charAt(0);
-                char catering = rs.getString(8).charAt(0);
-                LocalDate bDate = LocalDate.parse(rs.getString(9));
-                LocalDate created = LocalDate.parse(rs.getString(10));
-                String bCode = rs.getString(11);
-                Time startTime = rs.getTime(12);
-                Time endTime = rs.getTime(13);
-                int part = rs.getInt(14);
+                String mail = rs.getString(4);
+                int phone = Integer.parseInt(rs.getString(5));
+                char bType = rs.getString(6).charAt(0);
+                char catering = rs.getString(7).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(8));
+                LocalDate created = LocalDate.parse(rs.getString(9));
+                String bCode = rs.getString(10);
+                Time startTime = rs.getTime(11);
+                Time endTime = rs.getTime(12);
+                int participants = rs.getInt(13);
 
 
-                b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime, part);
+                b = new Booking(id, fName, lName, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 ucBookings.add(b);
 
             }
@@ -255,21 +257,20 @@ public class BookingDAOImpl implements BookingDAO {
                 int id = rs.getInt(1);
                 String fName = rs.getString(2);
                 String lName = rs.getString(3);
-                String org = rs.getString(4);
-                String mail = rs.getString(5);
-                int phone = Integer.parseInt(rs.getString(6));
-                char bType = rs.getString(7).charAt(0);
-                char catering = rs.getString(8).charAt(0);
-                LocalDate bDate = LocalDate.parse(rs.getString(9));
-                LocalDate created = LocalDate.parse(rs.getString(10));
-                String bCode = rs.getString(11);
-                Time startTime = rs.getTime(12);
-                Time endTime = rs.getTime(13);
-                int part = rs.getInt(14);
+                String mail = rs.getString(4);
+                int phone = Integer.parseInt(rs.getString(5));
+                char bType = rs.getString(6).charAt(0);
+                char catering = rs.getString(7).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(8));
+                LocalDate created = LocalDate.parse(rs.getString(9));
+                String bCode = rs.getString(10);
+                Time startTime = rs.getTime(11);
+                Time endTime = rs.getTime(12);
+                int participants = rs.getInt(13);
 
 
-                b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime, part);
+                b = new Booking(id, fName, lName, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 showBookings.add(b);
 
             }
@@ -294,20 +295,20 @@ public class BookingDAOImpl implements BookingDAO {
                 int id = rs.getInt(1);
                 String fName = rs.getString(2);
                 String lName = rs.getString(3);
-                String org = rs.getString(4);
-                String mail = rs.getString(5);
-                int phone = Integer.parseInt(rs.getString(6));
-                char bType = rs.getString(7).charAt(0);
-                char catering = rs.getString(8).charAt(0);
-                LocalDate bDate = LocalDate.parse(rs.getString(9));
-                LocalDate created = LocalDate.parse(rs.getString(10));
-                String bCode = rs.getString(11);
-                Time startTime = rs.getTime(12);
-                Time endTime = rs.getTime(13);
-                int part = rs.getInt(14);
+                String mail = rs.getString(4);
+                int phone = Integer.parseInt(rs.getString(5));
+                char bType = rs.getString(6).charAt(0);
+                char catering = rs.getString(7).charAt(0);
+                LocalDate bDate = LocalDate.parse(rs.getString(8));
+                LocalDate created = LocalDate.parse(rs.getString(9));
+                String bCode = rs.getString(10);
+                Time startTime = rs.getTime(11);
+                Time endTime = rs.getTime(12);
+                int participants = rs.getInt(13);
 
-                b = new Booking(id, fName, lName, org, mail, phone,
-                        bType, catering, bDate, created, bCode, startTime, endTime, part);
+
+                b = new Booking(id, fName, lName, mail, phone,
+                        bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 emailList.add(b);
             }
         } catch (SQLException e) {

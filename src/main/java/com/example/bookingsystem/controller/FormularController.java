@@ -1,17 +1,17 @@
-package com.example.bookingsystem;
+package com.example.bookingsystem.controller;
 
 import com.example.bookingsystem.Gmail.GEmail;
-import com.example.bookingsystem.model.Booking;
-import com.example.bookingsystem.model.BookingDAO;
-import com.example.bookingsystem.model.BookingDAOImpl;
-import com.example.bookingsystem.model.Note;
-import javafx.collections.ObservableList;
+import com.example.bookingsystem.model.DAO.OrganisationDAO;
+import com.example.bookingsystem.model.DAO.OrganisationDAOImpl;
+import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.DAO.BookingDAO;
+import com.example.bookingsystem.model.DAO.BookingDAOImpl;
+import com.example.bookingsystem.model.objects.Note;
+import com.example.bookingsystem.model.objects.Organisation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -67,7 +67,18 @@ public class FormularController {
 
         navnLabel.setText(b.getFirstName() + " " + b.getLastName());
         mailLabel.setText(b.getEmail());
-        organisationLabel.setText(b.getOrganisation());
+
+        try {
+            Organisation o = odi.getOrg(b.getId());
+            if (o.getId() == 6){
+                organisationLabel.setText(odi.getCompany(b.getId()).getCompany());
+            }else{
+                organisationLabel.setText(o.getOrganisation());
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
         tlfLabel.setText(String.valueOf(b.getPhoneNumber()));
 
         if (b.getCatering() == 'y'){
@@ -220,4 +231,5 @@ public class FormularController {
     }
 
     BookingDAO bdi = new BookingDAOImpl();
+    OrganisationDAO odi = new OrganisationDAOImpl();
 }

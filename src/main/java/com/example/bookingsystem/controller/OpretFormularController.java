@@ -1,8 +1,14 @@
-package com.example.bookingsystem;
+package com.example.bookingsystem.controller;
 
 import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.*;
-import com.example.bookingsystem.model.Forløb;
+import com.example.bookingsystem.model.DAO.BookingDAO;
+import com.example.bookingsystem.model.DAO.BookingDAOImpl;
+import com.example.bookingsystem.model.DAO.OrganisationDAO;
+import com.example.bookingsystem.model.DAO.OrganisationDAOImpl;
+import com.example.bookingsystem.model.objects.Forløb;
+import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.objects.Organisation;
 import javafx.event.ActionEvent;
 import java.awt.Desktop;
 import javafx.fxml.FXML;
@@ -11,7 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -47,7 +52,7 @@ public class OpretFormularController {
     private Button opretBookingKnap;
 
     @FXML
-    private ComboBox formål, forløb, slutTid, startTid;
+    private ComboBox orgBox, formål, forløb, slutTid, startTid;
 
     @FXML
     private Text bemærkning;
@@ -64,6 +69,7 @@ public class OpretFormularController {
 
     private Booking b;
     private Forløb f1;
+    private Organisation o1;
 
     final Clipboard clipboard = Clipboard.getSystemClipboard();
     final ClipboardContent content = new ClipboardContent();
@@ -84,12 +90,18 @@ public class OpretFormularController {
         slutTid.setValue(String.valueOf(et).substring(0, 5));
 
         formål.getItems().addAll("Lokaleleje", "Åbent skoleforløb", "Andet");
+        formål.setValue("Lokaleleje");
+
+        List<Organisation> org = odi.getAllOrg();
+        for (Organisation o : org){
+            orgBox.getItems().add(o);
+        }
 
         List<Forløb> forl = bdi.getAllForløb();
         for (Forløb f : forl){
             forløb.getItems().add(f);
         }
-
+        f1 = (Forløb) forløb.getItems().get(6);//Det index hvor forløb er "ingen"
         forplejningLink.setVisible(false);
         bookingDato.setValue(d);
         forp = 'n';
@@ -145,6 +157,16 @@ public class OpretFormularController {
             forplejningLink.setVisible(false);
             forp = 'n';
         }
+    }
+
+    @FXML
+    void orgValgt(ActionEvent event) {
+        if (orgBox.getSelectionModel().getSelectedIndex() == 5){
+            org.setVisible(true);
+        } else {
+            org.setVisible(false);
+        }
+        o1 = (Organisation) orgBox.getValue();
     }
 
     @FXML
@@ -268,11 +290,16 @@ public class OpretFormularController {
 
         if(!overlaps){
 
-            bdi.addBooking(fNavn.getText(), eNavn.getText(), organisation, email.getText(), nr,
+            bdi.addBooking(fNavn.getText(), eNavn.getText(), email.getText(), nr,
                     type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
                     Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
 
             bdi.addForløb(bKode, f1.getId());
+            odi.addOrg(bKode, o1.getId());
+
+            if (o1.getId() == 6){
+                odi.addCompany(bKode, org.getText());
+            }
 
             Dialog<ButtonType> dialog = new Dialog();
 
@@ -313,5 +340,6 @@ public class OpretFormularController {
     }
 
     BookingDAO bdi = new BookingDAOImpl();
+    OrganisationDAO odi = new OrganisationDAOImpl();
 
 }
