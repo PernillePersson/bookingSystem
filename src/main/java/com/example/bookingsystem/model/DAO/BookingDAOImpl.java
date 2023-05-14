@@ -105,9 +105,17 @@ public class BookingDAOImpl implements BookingDAO {
             ps1.setInt(1, b.getId());
             ps1.executeUpdate();
 
-            PreparedStatement ps2 = con.prepareStatement("DELETE FROM BookingForløb WHERE bookingID = ?");
+            PreparedStatement ps2 = con.prepareStatement("DELETE FROM BookingOrg WHERE bookingID = ?");
             ps2.setInt(1, b.getId());
             ps2.executeUpdate();
+
+            PreparedStatement ps3 = con.prepareStatement("DELETE FROM BookingForløb WHERE bookingID = ?");
+            ps3.setInt(1, b.getId());
+            ps3.executeUpdate();
+
+            PreparedStatement ps4 = con.prepareStatement("DELETE FROM Company WHERE bookingID = ?");
+            ps4.setInt(1, b.getId());
+            ps4.executeUpdate();
 
             PreparedStatement ps = con.prepareStatement("DELETE FROM Booking WHERE bookingID = ?");
             ps.setInt(1, b.getId());
