@@ -294,8 +294,21 @@ public class BookingController {
     }
 
     @FXML
-    void statestikKnap(ActionEvent event) {
+    void statestikKnap(ActionEvent event) throws IOException {
         //Åben ny scene med statestikker
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("statestik.fxml"));
+        Scene statestikScene = new Scene(fxmlLoader.load());
+        Stage statestikStage = new Stage();
+        statestikStage.setScene(statestikScene);
+
+        // Hvis der klikkes udenfor vinduet, lukkes det
+        statestikStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                statestikStage.hide();
+                insertSystemBookings();
+            }
+        });
+        statestikStage.show();
     }
 
     @FXML
