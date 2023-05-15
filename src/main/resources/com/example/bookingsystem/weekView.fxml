@@ -48,13 +48,6 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <Image url="@iconmonstr-chart-1-240.png" />
-                        </ImageView>
-                     </graphic>
-                  </Button>
                </children>
                <padding>
                   <Insets left="16.0" right="16.0" />

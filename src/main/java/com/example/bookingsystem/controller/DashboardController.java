@@ -3,6 +3,8 @@ package com.example.bookingsystem.controller;
 import com.example.bookingsystem.BookingApplication;
 import com.example.bookingsystem.model.DAO.BookingDAO;
 import com.example.bookingsystem.model.DAO.BookingDAOImpl;
+import com.example.bookingsystem.model.DashThread;
+import com.example.bookingsystem.model.SimpleThread;
 import com.example.bookingsystem.model.objects.Booking;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,13 +14,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -39,7 +40,15 @@ public class DashboardController {
     @FXML
     private ImageView notits;
 
+    private final DashThread dashThread;
+
+
     public DashboardController() throws SQLException {
+        dashThread = new DashThread(this);
+    }
+
+    public void initialize(){
+        dashThread.start();
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
@@ -154,13 +163,9 @@ public class DashboardController {
         t.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         t.setText("tlf.: ");
 
-        //Space + knap
-        StackPane space = new StackPane();
-        space.setPrefHeight(10);
-        Button mail = new Button("Send mail");
 
         //opsætning i vbox
-        VBox vb1 = new VBox(n, e, t, space, mail);
+        VBox vb1 = new VBox(n, e, t);
         vb1.setSpacing(4.0);
         vb1.setAlignment(Pos.CENTER_LEFT);
         vb1.setPadding(new Insets(0, 20, 0, 0));
@@ -173,13 +178,9 @@ public class DashboardController {
         Label tlf = new Label();
         tlf.setText(String.valueOf(b.getPhoneNumber()));
 
-        //Space + knap
-        StackPane space1 = new StackPane();
-        space1.setPrefHeight(10);
-        Button ændre = new Button("Ændre booking");
 
         //Opsætning i vbox
-        VBox vb2 = new VBox(navn, email, tlf, space1, ændre);
+        VBox vb2 = new VBox(navn, email, tlf);
         vb2.setSpacing(4.0);
         vb2.setAlignment(Pos.CENTER_LEFT);
 
@@ -205,12 +206,14 @@ public class DashboardController {
         });
         contStage.show();
 
-        //Åbner nyt vindue med mail
-        mail.setOnAction(event -> {
-
-        });
     } //Åbner vindue med kontaktinfo fra object
 
 
     BookingDAO bdi = new BookingDAOImpl();
+
+    public void todayPress(MouseEvent mouseEvent) {
+    }
+
+    public void todayRelease(MouseEvent mouseEvent) {
+    }
 }

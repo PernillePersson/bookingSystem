@@ -2,11 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1200.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bookingsystem.controller.DashboardController">
    <top>
@@ -17,7 +22,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="1000.0" style="-fx-background-color: rgb(84, 86, 90) rgb(84, 86, 90);">
                <children>
-                  <Button mnemonicParsing="false"  prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Dashboard" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Dashboard" />
                   <Button mnemonicParsing="false" onAction="#weekviewKnap" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Kalender" />
                   <Button mnemonicParsing="false" onAction="#statestikKnap" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Statestik" />
                </children>
@@ -52,6 +57,205 @@
       </HBox>
    </top>
    <center>
-      <Pane prefWidth="1200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER" />
+      <Pane prefWidth="1200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="800.0" layoutY="120.0" prefHeight="500.0" prefWidth="360.0">
+               <content>
+                  <HBox spacing="1.0" style="-fx-background-color: WHITESMOKE;">
+                     <children>
+                        <Pane minHeight="765.0" minWidth="45.0" prefHeight="765.0" prefWidth="45.0" style="-fx-background-color: WHITESMOKE;">
+                           <children>
+                              <VBox alignment="TOP_RIGHT" prefHeight="658.0" prefWidth="45.0" spacing="22.0">
+                                 <padding>
+                                    <Insets right="4.0" />
+                                 </padding>
+                              </VBox>
+                              <StackPane prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="07.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="08.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="90.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="09.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="135.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="10.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="180.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="11.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="225.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="12.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="270.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="13.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="315.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="14.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="360.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="15.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="405.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="16.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="450.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="17.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="495.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="18.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="540.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="19.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="585.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="20.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="630.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="21.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="675.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="22.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                              <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: WHITE;">
+                                 <children>
+                                    <Label text="23.00" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="1.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="mandagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#todayPress" onMouseReleased="#todayRelease" prefHeight="765.0" prefWidth="314.0" style="-fx-background-color: WHITESMOKE;">
+                           <children>
+                              <StackPane prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="90.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="135.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="180.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="225.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="270.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="315.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="360.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="405.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="450.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
+                              <StackPane layoutY="495.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: #FCFCFC;" />
+                              <StackPane layoutY="540.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: #FCFCFC;" />
+                              <StackPane layoutY="585.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: #FCFCFC;" />
+                              <StackPane layoutY="630.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: #FCFCFC;" />
+                              <StackPane layoutY="675.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: #FCFCFC;" />
+                              <StackPane layoutY="720.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: #FCFCFC;" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+            <Label layoutX="800.0" layoutY="75.0" text="Dagsoversigt">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="dashImage" fitHeight="237.0" fitWidth="432.0" layoutX="185.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
    </center>
 </BorderPane>
