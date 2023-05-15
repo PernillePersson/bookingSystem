@@ -3,9 +3,8 @@ package com.example.bookingsystem.controller;
 import com.example.bookingsystem.BookingApplication;
 import com.example.bookingsystem.model.DAO.BookingDAO;
 import com.example.bookingsystem.model.DAO.BookingDAOImpl;
-import com.example.bookingsystem.model.DashThread;
-import com.example.bookingsystem.model.SimpleThread;
 import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.objects.SlideImage;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,22 +13,25 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardController {
+public class DashboardController extends Thread{
     private int listSize;
     ListView recent = new ListView<>();
     ListView upcoming = new ListView<>();
@@ -38,17 +40,17 @@ public class DashboardController {
     private Image greyNo, redNo;
 
     @FXML
-    private ImageView notits;
+    private ImageView notits,dashImage;
 
-    private final DashThread dashThread;
+    private final List<File> images = new ArrayList<>();
+
+    private int currentImageIndex = 0;
+
+    private SlideImage shownImage = null;
+
 
 
     public DashboardController() throws SQLException {
-        dashThread = new DashThread(this);
-    }
-
-    public void initialize(){
-        dashThread.start();
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
@@ -163,9 +165,13 @@ public class DashboardController {
         t.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
         t.setText("tlf.: ");
 
+        //Space + knap
+        StackPane space = new StackPane();
+        space.setPrefHeight(10);
+        Button mail = new Button("Send mail");
 
         //opsætning i vbox
-        VBox vb1 = new VBox(n, e, t);
+        VBox vb1 = new VBox(n, e, t, space, mail);
         vb1.setSpacing(4.0);
         vb1.setAlignment(Pos.CENTER_LEFT);
         vb1.setPadding(new Insets(0, 20, 0, 0));
@@ -178,9 +184,13 @@ public class DashboardController {
         Label tlf = new Label();
         tlf.setText(String.valueOf(b.getPhoneNumber()));
 
+        //Space + knap
+        StackPane space1 = new StackPane();
+        space1.setPrefHeight(10);
+        Button ændre = new Button("Ændre booking");
 
         //Opsætning i vbox
-        VBox vb2 = new VBox(navn, email, tlf);
+        VBox vb2 = new VBox(navn, email, tlf, space1, ændre);
         vb2.setSpacing(4.0);
         vb2.setAlignment(Pos.CENTER_LEFT);
 
@@ -206,14 +216,47 @@ public class DashboardController {
         });
         contStage.show();
 
+        //Åbner nyt vindue med mail
+        mail.setOnAction(event -> {
+
+        });
     } //Åbner vindue med kontaktinfo fra object
+
+    public void imageShow() {
+
+        File f1 = new File("src/main/resources/com/example/bookingsystem/A64I3378-34.jpg");
+        File f2 = new File("src/main/resources/com/example/bookingsystem/A64I5269.JPG");
+        File f3 = new File("src/main/resources/com/example/bookingsystem/P19C0086.jpg");
+        File f4 = new File("src/main/resources/com/example/bookingsystem/P19C0420.jpg");
+        File f5 = new File("src/main/resources/com/example/bookingsystem/P19C0626.jpg");
+
+        images.add(f1);
+        images.add(f2);
+        images.add(f3);
+        images.add(f4);
+        images.add(f5);
+
+
+        if (shownImage == null) {
+
+            shownImage = new SlideImage(images, currentImageIndex);
+            shownImage.valueProperty().addListener((ov, oldImage, newImage) -> {
+                dashImage.setImage(newImage);
+
+                if(newImage != oldImage){
+                    currentImageIndex = shownImage.getIndex();
+                }
+
+            });
+            Thread imageThread = new Thread(shownImage);
+            imageThread.setDaemon(true);
+            imageThread.start();
+        }
+    }
+
+
+
 
 
     BookingDAO bdi = new BookingDAOImpl();
-
-    public void todayPress(MouseEvent mouseEvent) {
-    }
-
-    public void todayRelease(MouseEvent mouseEvent) {
-    }
 }

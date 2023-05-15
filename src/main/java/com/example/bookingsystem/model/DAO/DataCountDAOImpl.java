@@ -45,7 +45,7 @@ public class DataCountDAOImpl implements DataCountDAO {
     }
 
     @Override
-    public List<DataCount> importOrgData(String s1) {
+    public List<DataCount> importOrgData(String s1) { //Tilføj flere parametre (date eller whatever) for at tilføje funktion mht vælge specific dato som dataens skal være ud fra
 
         List<DataCount> data = new ArrayList<>();
         try{
