@@ -3,7 +3,10 @@ package com.example.bookingsystem.controller;
 import com.example.bookingsystem.BookingApplication;
 import com.example.bookingsystem.model.DAO.BookingDAO;
 import com.example.bookingsystem.model.DAO.BookingDAOImpl;
+import com.example.bookingsystem.model.DAO.DataCountDAO;
+import com.example.bookingsystem.model.DAO.DataCountDAOImpl;
 import com.example.bookingsystem.model.DashThread;
+import com.example.bookingsystem.model.DataCount;
 import com.example.bookingsystem.model.SimpleThread;
 import com.example.bookingsystem.model.objects.Booking;
 import com.example.bookingsystem.model.objects.SlideImage;
@@ -15,6 +18,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -43,6 +49,9 @@ public class DashboardController {
     @FXML
     private ImageView notits,dashImage;
 
+    @FXML
+    private BarChart dashboardChart;
+
     private final DashThread dashThread;
 
     private final List<File> images = new ArrayList<>();
@@ -59,6 +68,7 @@ public class DashboardController {
     public void initialize(){
         dashThread.start();
         imageShow();
+        generateData();
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
@@ -220,11 +230,11 @@ public class DashboardController {
 
     public void imageShow() {
 
-        File f1 = new File("src/main/resources/com/example/bookingsystem/A64I3378-34.jpg");
-        File f2 = new File("src/main/resources/com/example/bookingsystem/A64I5269.JPG");
-        File f3 = new File("src/main/resources/com/example/bookingsystem/P19C0086.jpg");
-        File f4 = new File("src/main/resources/com/example/bookingsystem/P19C0420.jpg");
-        File f5 = new File("src/main/resources/com/example/bookingsystem/P19C0626.jpg");
+        File f1 = new File("src/main/resources/com/example/bookingsystem/image.png");
+        File f2 = new File("src/main/resources/com/example/bookingsystem/image (1).png");
+        File f3 = new File("src/main/resources/com/example/bookingsystem/image (2).png");
+        File f4 = new File("src/main/resources/com/example/bookingsystem/image (3).png");
+        File f5 = new File("src/main/resources/com/example/bookingsystem/image (4).png");
 
         images.add(f1);
         images.add(f2);
@@ -250,8 +260,74 @@ public class DashboardController {
         }
     }
 
+    public void generateData(){
+
+        Axis<Number> xAxis = dashboardChart.getXAxis();
+        xAxis.setLabel("Bookede forløb");
+        Axis<String> yAxis = dashboardChart.getYAxis();
+        yAxis.setLabel("Organisationer");
+
+
+        List<DataCount> eccoData = dc.importOrgData("Ecco");
+        List<DataCount> folkeskoleData = dc.importOrgData("Folkeskole");
+        List<DataCount> tønderGymData = dc.importOrgData("Tønder Gymnasium");
+        List<DataCount> detBlåGymData = dc.importOrgData("Det Blå Gymnasium");
+        List<DataCount> tønderKomData = dc.importOrgData("Tønder Kommune");
+        List<DataCount> andetData = dc.importOrgData("Andet");
+
+        XYChart.Series<Number, String> eccoBar = new XYChart.Series<>();
+        XYChart.Series<Number, String> folkeskoleBar = new XYChart.Series<>();
+        XYChart.Series<Number, String> tønderGymBar = new XYChart.Series<>();
+        XYChart.Series<Number, String> detBlåGymBar = new XYChart.Series<>();
+        XYChart.Series<Number, String> tønderKomBar = new XYChart.Series<>();
+        XYChart.Series<Number, String> andetBar = new XYChart.Series<>();
+
+        int ecco = 0;
+        int folkeskole = 0;
+        int tønderGym = 0;
+        int detBlå = 0;
+        int tønderKom = 0;
+        int andet = 0;
+
+        for(DataCount e : eccoData){
+            ecco++;
+            eccoBar.getData().add(new XYChart.Data<>(ecco,"Ecco"));
+        }
+
+        for(DataCount f : folkeskoleData){
+            folkeskole++;
+            folkeskoleBar.getData().add(new XYChart.Data<>(folkeskole,"Folkeskole"));
+        }
+
+        for(DataCount tg : tønderGymData){
+            tønderGym++;
+            tønderGymBar.getData().add(new XYChart.Data<>(tønderGym,"Tønder Gymnasium"));
+        }
+
+        for(DataCount dbg : detBlåGymData){
+            detBlå++;
+            detBlåGymBar.getData().add(new XYChart.Data<>(detBlå,"Det Blå Gymnasium"));
+        }
+
+        for(DataCount tk : tønderKomData){
+            tønderKom++;
+            tønderKomBar.getData().add(new XYChart.Data<>(tønderKom,"Tønder Kommune"));
+        }
+
+        for(DataCount a : andetData){
+            andet++;
+            andetBar.getData().add(new XYChart.Data<>(andet,"Andet"));
+        }
+
+        System.out.println(ecco + " " + tønderGym);
+
+
+        dashboardChart.getData().addAll(eccoBar,folkeskoleBar,tønderGymBar,detBlåGymBar,tønderKomBar,andetBar);
+    }
+
 
     BookingDAO bdi = new BookingDAOImpl();
+    DataCountDAO dc = new DataCountDAOImpl();
 
     public void todayPress(MouseEvent mouseEvent) {
     }
