@@ -43,4 +43,31 @@ public class DataCountDAOImpl implements DataCountDAO {
 
         return data;
     }
+
+    @Override
+    public List<DataCount> importOrgData(String s1) {
+
+        List<DataCount> data = new ArrayList<>();
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT DISTINCT BookingOrg.boOrgID,BookingOrg.bookingID,BookingOrg.organisationID FROM BookingOrg,Organisation,Booking WHERE BookingOrg.organisationID = Organisation.organisationID AND Organisation.organisation = ?;");
+
+            ps.setString(1,s1);
+            ResultSet rs = ps.executeQuery();
+
+            DataCount dc;
+
+            while (rs.next()){
+                int id1 = rs.getInt(1);
+                int id2 = rs.getInt(2);
+                int id3 = rs.getInt(3);
+
+                dc = new DataCount(id1, id2, id3);
+                data.add(dc);
+            }
+        } catch (SQLException e) { System.out.println(e); }
+
+        return data;
+    }
+
+
 }

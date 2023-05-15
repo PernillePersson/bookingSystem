@@ -11,4 +11,5 @@ public interface DataCountDAO {
 
 ////
 
+    public List<DataCount> importOrgData(String s1);
 }
