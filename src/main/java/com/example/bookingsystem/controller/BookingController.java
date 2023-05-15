@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -298,17 +299,18 @@ public class BookingController {
         //Åben ny scene med statestikker
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("statestik.fxml"));
         Scene statestikScene = new Scene(fxmlLoader.load());
-        Stage statestikStage = new Stage();
-        statestikStage.setScene(statestikScene);
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.setScene(statestikScene);
 
-        // Hvis der klikkes udenfor vinduet, lukkes det
-        statestikStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (! isNowFocused) {
-                statestikStage.hide();
-                insertSystemBookings();
-            }
-        });
-        statestikStage.show();
+    }
+
+    public void dashboardKnap(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
+        Scene statestikScene = new Scene(fxmlLoader.load());
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.setScene(statestikScene);
     }
 
     @FXML
@@ -691,4 +693,6 @@ public class BookingController {
         }
     } // Sender mails med påmindelse om at de har en booking 1 uge inden.
     BookingDAO bdi = new BookingDAOImpl();
+
+
 }

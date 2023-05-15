@@ -9,7 +9,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class StatestikController {
+public class DashboardController {
+    public void statestikKnap(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("statestik.fxml"));
+        Scene statestikScene = new Scene(fxmlLoader.load());
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.setScene(statestikScene);
+    }
 
     public void weekviewKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("weekView.fxml"));
@@ -19,21 +26,13 @@ public class StatestikController {
         stage.setScene(statestikScene);
     }
 
-    public void notifikationKnap(ActionEvent event) {
+    public void opretBookingKnap(ActionEvent event) {
+        BookingController bookingController
     }
 
     public void mailKnap(ActionEvent event) {
     }
 
-    public void opretBookingKnap(ActionEvent event) {
-    }
-
-
-    public void dashboardKnap(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
-        Scene statestikScene = new Scene(fxmlLoader.load());
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
+    public void notifikationKnap(ActionEvent event) {
     }
 }

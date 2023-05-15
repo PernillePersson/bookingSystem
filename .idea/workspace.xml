@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="bug fixed">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" afterDir="false" />
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Statestik side kan åbnes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/DashboardController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/dashboard.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
     <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="Changes by Marc" />
@@ -146,14 +150,7 @@
       <workItem from="1683713354625" duration="8261000" />
       <workItem from="1683722642915" duration="3539000" />
       <workItem from="1683734532493" duration="1407000" />
-      <workItem from="1683797031078" duration="21531000" />
-    </task>
-    <task id="LOCAL-00009" summary="add note method">
-      <created>1682930158874</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1682930158874</updated>
+      <workItem from="1683797031078" duration="27346000" />
     </task>
     <task id="LOCAL-00010" summary="add note method">
       <created>1682930734064</created>
@@ -491,7 +488,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684050095043</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Statestik side kan åbnes">
+      <created>1684052972997</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1684052972998</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +513,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Show and change dates." />
     <MESSAGE value="Comments specified" />
     <MESSAGE value="Kontaktinfo" />
     <MESSAGE value="Change bookings" />
@@ -534,6 +537,7 @@
     <MESSAGE value="Organisation update" />
     <MESSAGE value="CSS added" />
     <MESSAGE value="bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixed" />
+    <MESSAGE value="Statestik side kan åbnes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Statestik side kan åbnes" />
   </component>
 </project>
