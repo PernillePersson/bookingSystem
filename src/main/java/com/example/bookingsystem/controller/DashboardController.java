@@ -42,7 +42,6 @@ public class DashboardController {
 
     private final DashThread dashThread;
 
-    //Hej Magnus
 
     public DashboardController() throws SQLException {
         dashThread = new DashThread(this);
