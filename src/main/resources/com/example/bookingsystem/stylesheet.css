@@ -56,3 +56,9 @@ DatePicker{
     -fx-background-color: TRANSPARENT;
     -fx-text-fill: WHITESMOKE;
 }
+
+.widget {
+    -fx-border-radius: 15px;
+    -fx-border-width: 2px;
+    -fx-border-color: rgba(245, 245, 245, 0.7);;
+}
