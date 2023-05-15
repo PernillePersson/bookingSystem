@@ -6,6 +6,7 @@ import com.example.bookingsystem.model.DAO.BookingDAOImpl;
 import com.example.bookingsystem.model.DashThread;
 import com.example.bookingsystem.model.SimpleThread;
 import com.example.bookingsystem.model.objects.Booking;
+import com.example.bookingsystem.model.objects.SlideImage;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,8 +26,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardController {
@@ -38,9 +41,15 @@ public class DashboardController {
     private Image greyNo, redNo;
 
     @FXML
-    private ImageView notits;
+    private ImageView notits,dashImage;
 
     private final DashThread dashThread;
+
+    private final List<File> images = new ArrayList<>();
+
+    private int currentImageIndex = 0;
+
+    private SlideImage shownImage = null;
 
 
     public DashboardController() throws SQLException {
@@ -49,6 +58,7 @@ public class DashboardController {
 
     public void initialize(){
         dashThread.start();
+        imageShow();
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
@@ -207,6 +217,38 @@ public class DashboardController {
         contStage.show();
 
     } //Åbner vindue med kontaktinfo fra object
+
+    public void imageShow() {
+
+        File f1 = new File("src/main/resources/com/example/bookingsystem/A64I3378-34.jpg");
+        File f2 = new File("src/main/resources/com/example/bookingsystem/A64I5269.JPG");
+        File f3 = new File("src/main/resources/com/example/bookingsystem/P19C0086.jpg");
+        File f4 = new File("src/main/resources/com/example/bookingsystem/P19C0420.jpg");
+        File f5 = new File("src/main/resources/com/example/bookingsystem/P19C0626.jpg");
+
+        images.add(f1);
+        images.add(f2);
+        images.add(f3);
+        images.add(f4);
+        images.add(f5);
+
+
+        if (shownImage == null) {
+
+            shownImage = new SlideImage(images, currentImageIndex);
+            shownImage.valueProperty().addListener((ov, oldImage, newImage) -> {
+                dashImage.setImage(newImage);
+
+                if(newImage != oldImage){
+                    currentImageIndex = shownImage.getIndex();
+                }
+            });
+
+            Thread imageThread = new Thread(shownImage);
+            imageThread.setDaemon(true);
+            imageThread.start();
+        }
+    }
 
 
     BookingDAO bdi = new BookingDAOImpl();
