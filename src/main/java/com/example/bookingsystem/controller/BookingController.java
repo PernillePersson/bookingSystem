@@ -6,6 +6,7 @@ import com.example.bookingsystem.model.objects.Booking;
 import com.example.bookingsystem.model.DAO.BookingDAO;
 import com.example.bookingsystem.model.DAO.BookingDAOImpl;
 import com.example.bookingsystem.model.SimpleThread;
+import com.example.bookingsystem.model.objects.Forløb;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,6 +95,7 @@ public class BookingController {
     ArrayList<Rectangle> sønRectangles = new ArrayList<>();
     ArrayList<Label> labels = new ArrayList<>();
     ArrayList<ImageView> imageViews = new ArrayList<>();
+    ArrayList<Forløb> allForløb = new ArrayList<>();
     HashMap<Rectangle, Booking> rectangleBooking = new HashMap<>();
 
     ListView recent = new ListView<>();
@@ -108,6 +110,7 @@ public class BookingController {
     }
 
     public void initialize(){
+        fåForløb();
         shownDate = LocalDate.now();
         today = LocalDate.now();
         opsætDato();
@@ -115,6 +118,14 @@ public class BookingController {
         simpleThread.start();
         // sendNotificationEmails(); // Aktiver den her når vi får sat en værdi på db der tjekker om der er blevet
         // sendt en notifikation før.
+    }
+
+    public void fåForløb(){
+        List<Forløb> alleForløb = bdi.getAllForløb();
+        for (Forløb f : alleForløb)
+        {
+            allForløb.add(f);
+        }
     }
     @FXML
     void opretBookingKnap(ActionEvent event) throws IOException {
@@ -639,7 +650,31 @@ public class BookingController {
             iv.setLayoutY(r.getY() + 5);
             iv.setFitHeight(20);
             iv.setFitWidth(20);
-            Image img = new Image(laser);
+
+            Image img;
+            if (book.getForløb().equals(allForløb.get(0))){
+                Image im = new Image(idea);
+                img = im;
+            } else if (book.getForløb().equals(allForløb.get(1))) {
+                Image im = new Image(laser);
+                img = im;
+            } else if (book.getForløb().equals(allForløb.get(2))) {
+                Image im = new Image(robot);
+                img = im;
+            } else if (book.getForløb().equals(allForløb.get(3))) {
+                Image im = new Image(recycle);
+                img = im;
+            } else if (book.getForløb().equals(allForløb.get(4))) {
+                Image im = new Image(sea);
+                img = im;
+            } else if (book.getForløb().equals(allForløb.get(5))) {
+                Image im = new Image(lifering);
+                img = im;
+            } else {
+                Image im = new Image(sea); // skal lige rettes til lokaleleje?
+                img = im;
+            }
+
             iv.setImage(img);
 
             labels.add(l);
@@ -658,14 +693,17 @@ public class BookingController {
                 manRectangles.add(r);
                 mandagPane.getChildren().add(r);
                 mandagPane.getChildren().add(l);
+                mandagPane.getChildren().add(iv);
             } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.TUESDAY))){
                 tirsRectangles.add(r);
                 tirsdagPane.getChildren().add(r);
                 tirsdagPane.getChildren().add(l);
+                tirsdagPane.getChildren().add(iv);
             } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.WEDNESDAY))){
                 onsRectangles.add(r);
                 onsdagPane.getChildren().add(r);
                 onsdagPane.getChildren().add(l);
+                onsdagPane.getChildren().add(iv);
             } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.THURSDAY))){
                 torsRectangles.add(r);
                 torsdagPane.getChildren().add(r);
@@ -680,10 +718,12 @@ public class BookingController {
                 lørRectangles.add(r);
                 lørdagPane.getChildren().add(r);
                 lørdagPane.getChildren().add(l);
+                lørdagPane.getChildren().add(iv);
             } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.SUNDAY))){
                 sønRectangles.add(r);
                 søndagPane.getChildren().add(r);
                 søndagPane.getChildren().add(l);
+                søndagPane.getChildren().add(iv);
             }
         }
     } //Indsætter bookings fra database i kalenderoversigt
@@ -712,14 +752,14 @@ public class BookingController {
         søndagPane.getChildren().removeAll(labels);
         labels.clear();
 
-        /*mandagPane.getChildren().removeAll(imageViews);
+        mandagPane.getChildren().removeAll(imageViews);
         tirsdagPane.getChildren().removeAll(imageViews);
         onsdagPane.getChildren().removeAll(imageViews);
         torsdagPane.getChildren().removeAll(imageViews);
         fredagPane.getChildren().removeAll(imageViews);
         lørdagPane.getChildren().removeAll(imageViews);
         søndagPane.getChildren().removeAll(imageViews);
-        imageViews.clear();*/
+        imageViews.clear();
     } // Fjerner alt det visuelle. Dvs. rektangler og labels.
 
     public void sendNotificationEmails(){
