@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Forløb update">
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Forløb ikon">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/icon/andet.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/stylesheet.css" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
     <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="Changes by Marc" />
@@ -146,14 +151,7 @@
       <workItem from="1683722642915" duration="3539000" />
       <workItem from="1683734532493" duration="1407000" />
       <workItem from="1683797031078" duration="44769000" />
-      <workItem from="1684220855064" duration="4380000" />
-    </task>
-    <task id="LOCAL-00018" summary="Kontaktinfo">
-      <created>1683103781973</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1683103781973</updated>
+      <workItem from="1684220855064" duration="10234000" />
     </task>
     <task id="LOCAL-00019" summary="Change bookings">
       <created>1683116422159</created>
@@ -491,7 +489,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684223576553</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Forløb ikon">
+      <created>1684225379919</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1684225379919</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +514,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changes by Magnus" />
     <MESSAGE value="Notification update" />
     <MESSAGE value="Overlap fixed" />
     <MESSAGE value="Mailing" />
@@ -534,6 +538,7 @@
     <MESSAGE value="Dashboard UI" />
     <MESSAGE value="Icons" />
     <MESSAGE value="Forløb update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Forløb update" />
+    <MESSAGE value="Forløb ikon" />
+    <option name="LAST_COMMIT_MESSAGE" value="Forløb ikon" />
   </component>
 </project>

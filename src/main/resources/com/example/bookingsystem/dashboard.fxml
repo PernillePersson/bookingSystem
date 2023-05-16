@@ -303,7 +303,7 @@
                </children></Pane>
             <Pane layoutX="477.0" layoutY="45.0" prefHeight="250.0" prefWidth="250.0" styleClass="widget">
                <children>
-                  <ListView layoutX="20.0" layoutY="25.0" prefHeight="210.0" prefWidth="210.0" />
+                  <ListView fx:id="dashBookingList" layoutX="20.0" layoutY="25.0" prefHeight="210.0" prefWidth="210.0" />
                   <Label layoutX="20.0" layoutY="5.0" text="Kommende bookings" />
                </children>
             </Pane>

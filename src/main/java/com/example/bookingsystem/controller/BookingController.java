@@ -68,19 +68,22 @@ public class BookingController {
 
     private int listSize;
 
-    /*private File print1 = new File("com/example/bookingsystem/icon/3dprint.png");
-    private Image print = ImageIO.read(print1);
-    private File idea = new File("com/example/bookingsystem/icon/3dprint.png");
-    private File laser = new File("com/example/bookingsystem/icon/3dprint.png");
-    private File leaf = new File("com/example/bookingsystem/icon/3dprint.png");
-    private File lifering = new File("com/example/bookingsystem/icon/3dprint.png");*/
+
 
     InputStream robot = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/robot.png");
+    Image robotImg = new Image(robot);
     InputStream idea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/idea.png");
+    Image ideaImg = new Image(idea);
     InputStream laser = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/laser.png");
+    Image laserImg = new Image(laser);
     InputStream recycle = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/recycle.png");
+    Image recycleImg = new Image(recycle);
     InputStream lifering = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/lifering.png");
+    Image liferingImg = new Image(lifering);
     InputStream sea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/sea.png");
+    Image seaImg = new Image(sea);
+    InputStream other = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/andet.png");
+    Image otherImg = new Image(other);
 
 
 
@@ -95,7 +98,6 @@ public class BookingController {
     ArrayList<Rectangle> sønRectangles = new ArrayList<>();
     ArrayList<Label> labels = new ArrayList<>();
     ArrayList<ImageView> imageViews = new ArrayList<>();
-    ArrayList<Forløb> allForløb = new ArrayList<>();
     HashMap<Rectangle, Booking> rectangleBooking = new HashMap<>();
 
     ListView recent = new ListView<>();
@@ -110,7 +112,6 @@ public class BookingController {
     }
 
     public void initialize(){
-        fåForløb();
         shownDate = LocalDate.now();
         today = LocalDate.now();
         opsætDato();
@@ -120,13 +121,6 @@ public class BookingController {
         // sendt en notifikation før.
     }
 
-    public void fåForløb(){
-        List<Forløb> alleForløb = bdi.getAllForløb();
-        for (Forløb f : alleForløb)
-        {
-            allForløb.add(f);
-        }
-    }
     @FXML
     void opretBookingKnap(ActionEvent event) throws IOException {
         opretBooking(LocalDate.now(), Time.valueOf("07:00:00"), Time.valueOf("12:00:00"));
@@ -645,34 +639,29 @@ public class BookingController {
 
 
             l.setText(book.toString());
-            l.setLayoutY(r.getY() + 20); //r.getY() + r.getHeight() / 2 - 5
+            l.setLayoutY(r.getY() + 5); //r.getY() + r.getHeight() / 2 - 5
 
             iv.setLayoutY(r.getY() + 5);
+            iv.setLayoutX(r.getWidth() - 25);
             iv.setFitHeight(20);
             iv.setFitWidth(20);
 
+
             Image img;
-            if (book.getForløb().equals(allForløb.get(0))){
-                Image im = new Image(idea);
-                img = im;
-            } else if (book.getForløb().equals(allForløb.get(1))) {
-                Image im = new Image(laser);
-                img = im;
-            } else if (book.getForløb().equals(allForløb.get(2))) {
-                Image im = new Image(robot);
-                img = im;
-            } else if (book.getForløb().equals(allForløb.get(3))) {
-                Image im = new Image(recycle);
-                img = im;
-            } else if (book.getForløb().equals(allForløb.get(4))) {
-                Image im = new Image(sea);
-                img = im;
-            } else if (book.getForløb().equals(allForløb.get(5))) {
-                Image im = new Image(lifering);
-                img = im;
+            if (book.getForløb().getId() == 1){
+                img = ideaImg;
+            } else if (book.getForløb().getId() == 2) {
+                img = laserImg;
+            } else if (book.getForløb().getId() == 3) {
+                img = robotImg;
+            } else if (book.getForløb().getId() == 4) {
+                img = recycleImg;
+            } else if (book.getForløb().getId() == 5) {
+                img = seaImg;
+            } else if (book.getForløb().getId() == 6) {
+                img = liferingImg;
             } else {
-                Image im = new Image(sea); // skal lige rettes til lokaleleje?
-                img = im;
+                img = otherImg;
             }
 
             iv.setImage(img);

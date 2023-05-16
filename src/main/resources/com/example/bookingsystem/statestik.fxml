@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -60,6 +66,41 @@
       </HBox>
    </top>
    <center>
-      <Pane prefWidth="1200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER" />
+      <Pane prefWidth="1200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="60.0" layoutY="80.0" prefHeight="510.0" prefWidth="750.0" style="-fx-background-color: WHITE;">
+               <children>
+                  <Pane prefHeight="510.0" prefWidth="750.0" style="-fx-background-color: rgb(148, 198, 70, 0.7);" styleClass="widget">
+                     <children>
+                        <BarChart fx:id="orgChart" layoutX="28.0" layoutY="42.0" prefHeight="444.0" prefWidth="684.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <DatePicker fx:id="oChartStart" layoutX="305.0" layoutY="15.0" onAction="#oStartDatoValgt" />
+                        <DatePicker fx:id="oChartSlut" layoutX="515.0" layoutY="15.0" onAction="#oSlutDatoValgt" />
+                        <Label layoutX="180.0" layoutY="20.0" text="Vis statestik for dato:" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane layoutX="861.0" layoutY="80.0" prefHeight="374.0" prefWidth="300.0" style="-fx-background-color: rgb(80,82,86, 0.4);" styleClass="widget">
+               <children>
+                  <PieChart fx:id="forløbChart" layoutX="20.0" layoutY="20.0" prefHeight="260.0" prefWidth="260.0" />
+                  <DatePicker fx:id="fChartStart" layoutX="90.0" layoutY="300.0" onAction="#fStartDatoValgt" />
+                  <DatePicker fx:id="fChartSlut" layoutX="90.0" layoutY="335.0" onAction="#fSlutDatoValgt" />
+                  <Label layoutX="30.0" layoutY="305.0" text="Fra" textFill="WHITE" />
+                  <Label layoutX="30.0" layoutY="340.0" text="Til" textFill="WHITE" />
+               </children>
+            </Pane>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="983.0" layoutY="495.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logo.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
    </center>
 </BorderPane>
