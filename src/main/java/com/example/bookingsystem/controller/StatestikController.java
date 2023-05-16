@@ -4,6 +4,9 @@ import com.example.bookingsystem.BookingApplication;
 import com.example.bookingsystem.model.DAO.DataCountDAO;
 import com.example.bookingsystem.model.DAO.DataCountDAOImpl;
 import com.example.bookingsystem.model.DataCount;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatestikController {
@@ -77,16 +81,124 @@ public class StatestikController {
     @FXML
     void fSlutDatoValgt(ActionEvent event) {
 
+        forløbChart.getData().clear();
+
+        List<DataCount> ideData = dc.importData("Idéfabrikken",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> laserData = dc.importData("Digital fabrikation med laserskærer",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> robotPåJobData = dc.importData("Robot på job",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> robotOprydData = dc.importData("Robotten rydder op",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> naturData = dc.importData("Naturturisme ved Vadehavet",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> sikkerhedData = dc.importData("Skab sikkerhed i Vadehavet",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> ingenData = dc.importData("Ingen",fChartStart.getValue(),fChartSlut.getValue());
+
+        int ide = 0;
+        int laser = 0;
+        int rpj = 0;
+        int ro = 0;
+        int natur = 0;
+        int sik = 0;
+        int ing = 0;
+
+        for(DataCount i : ideData)
+            ide++;
+
+        for(DataCount l : laserData)
+            laser++;
+
+        for(DataCount r : robotPåJobData)
+            rpj++;
+
+        for(DataCount rod : robotOprydData)
+            ro++;
+
+        for(DataCount n : naturData)
+            natur++;
+
+        for(DataCount s : sikkerhedData)
+            sik++;
+
+        for(DataCount in : ingenData)
+            ing++;
+
+
+        ObservableList<PieChart.Data> forløbData = FXCollections.observableArrayList(
+                new PieChart.Data("Idéfabrikken",ide),
+                new PieChart.Data("Digital fabrikation med laserskærer",laser),
+                new PieChart.Data("Robot på job",rpj),
+                new PieChart.Data("Robotten rydder op",ro),
+                new PieChart.Data("Naturturisme ved Vadehavet",natur),
+                new PieChart.Data("Skab sikkerhed i Vadehavet",sik),
+                new PieChart.Data("Ingen",ing)
+        );
+
+
+        forløbChart.setLegendVisible(true);
+        forløbChart.setLabelsVisible(true);
+        forløbChart.titleProperty().set("Bookings af forløb");
+        forløbChart.setData(forløbData);
+        forløbChart.setStartAngle(180);
+        forløbChart.getLabelsVisible();
     }
 
     @FXML
     void fStartDatoValgt(ActionEvent event) {
 
+        forløbChart.getData().clear();
+
+        List<DataCount> ideData = dc.importData("Idéfabrikken",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> laserData = dc.importData("Digital fabrikation med laserskærer",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> robotPåJobData = dc.importData("Robot på job",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> robotOprydData = dc.importData("Robotten rydder op",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> naturData = dc.importData("Naturturisme ved Vadehavet",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> sikkerhedData = dc.importData("Skab sikkerhed i Vadehavet",fChartStart.getValue(),fChartSlut.getValue());
+        List<DataCount> ingenData = dc.importData("Ingen",fChartStart.getValue(),fChartSlut.getValue());
+
+        int ide = 0;
+        int laser = 0;
+        int rpj = 0;
+        int ro = 0;
+        int natur = 0;
+        int sik = 0;
+        int ing = 0;
+
+        for(DataCount i : ideData)
+            ide++;
+
+        for(DataCount l : laserData)
+            laser++;
+
+        for(DataCount r : robotPåJobData)
+            rpj++;
+
+        for(DataCount rod : robotOprydData)
+            ro++;
+
+        for(DataCount n : naturData)
+            natur++;
+
+        for(DataCount s : sikkerhedData)
+            sik++;
+
+        for(DataCount in : ingenData)
+            ing++;
 
 
+        ObservableList<PieChart.Data> forløbData = FXCollections.observableArrayList(
+                new PieChart.Data("Idéfabrikken",ide),
+                new PieChart.Data("Digital fabrikation med laserskærer",laser),
+                new PieChart.Data("Robot på job",rpj),
+                new PieChart.Data("Robotten rydder op",ro),
+                new PieChart.Data("Naturturisme ved Vadehavet",natur),
+                new PieChart.Data("Skab sikkerhed i Vadehavet",sik),
+                new PieChart.Data("Ingen",ing));
+
+        forløbChart.setLegendVisible(true);
+        forløbChart.setLabelsVisible(true);
+        forløbChart.setTitle("Bookede forløb");
+        forløbChart.setData(forløbData);
+        forløbChart.setStartAngle(180);
+        forløbChart.getLabelsVisible();
     }
-
-
 
     @FXML
     void oSlutDatoValgt(ActionEvent event) {
@@ -169,8 +281,6 @@ public class StatestikController {
         yAxis.setTickLength(1.0);
 
 
-
-
         List<DataCount> eccoData = dc.importOrgStatData("Ecco", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> folkeskoleData = dc.importOrgStatData("Folkeskole", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> tønderGymData = dc.importOrgStatData("Tønder Gymnasium", oChartStart.getValue(), oChartSlut.getValue());
@@ -223,15 +333,15 @@ public class StatestikController {
         }
 
         orgChart.getData().addAll(eccoBar,folkeskoleBar,tønderGymBar,detBlåGymBar,tønderKomBar,andetBar);
-
     }
 
     public void setTime(){
         oChartSlut.setValue(LocalDate.now());
         oChartStart.setValue(LocalDate.now());
         fChartSlut.setValue(LocalDate.now());
-        fChartSlut.setValue(LocalDate.now());
+        fChartStart.setValue(LocalDate.now());
         orgChart.setAnimated(false);
+        forløbChart.setAnimated(false);
     }
 
 
