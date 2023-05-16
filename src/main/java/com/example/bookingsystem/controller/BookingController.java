@@ -33,7 +33,9 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -71,6 +73,16 @@ public class BookingController {
     private File laser = new File("com/example/bookingsystem/icon/3dprint.png");
     private File leaf = new File("com/example/bookingsystem/icon/3dprint.png");
     private File lifering = new File("com/example/bookingsystem/icon/3dprint.png");*/
+
+    InputStream robot = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/robot.png");
+    InputStream idea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/idea.png");
+    InputStream laser = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/laser.png");
+    InputStream recycle = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/recycle.png");
+    InputStream lifering = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/lifering.png");
+    InputStream sea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/sea.png");
+
+
+
 
     private double y_start,y_end;
     ArrayList<Rectangle> manRectangles = new ArrayList<>();
@@ -276,7 +288,6 @@ public class BookingController {
 
         //Åbner nyt vindue med mail
         mail.setOnAction(event -> {
-            
         });
 
         //Åbner nyt vindue med bookingsoversigt
@@ -604,8 +615,7 @@ public class BookingController {
 
             Rectangle r = new Rectangle();
             Label l = new Label();
-            //ImageView iv = new ImageView();
-
+            ImageView iv = new ImageView();
 
             double yStart = locationMap.get(book.getStartTid());
             double yEnd = locationMap.get(book.getSlutTid());
@@ -626,13 +636,14 @@ public class BookingController {
             l.setText(book.toString());
             l.setLayoutY(r.getY() + 20); //r.getY() + r.getHeight() / 2 - 5
 
-            /*iv.setLayoutY(r.getY() + 5);
+            iv.setLayoutY(r.getY() + 5);
             iv.setFitHeight(20);
             iv.setFitWidth(20);
-            iv.setImage(print);*/
+            Image img = new Image(laser);
+            iv.setImage(img);
 
             labels.add(l);
-            //imageViews.add(iv);
+            imageViews.add(iv);
 
             // Tilføjer rektangel og book til HashMap der bruges til at tjekke at der ikke er overlap
             rectangleBooking.put(r,book);
@@ -659,10 +670,12 @@ public class BookingController {
                 torsRectangles.add(r);
                 torsdagPane.getChildren().add(r);
                 torsdagPane.getChildren().add(l);
+                torsdagPane.getChildren().add(iv);
             } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.FRIDAY))){
                 freRectangles.add(r);
                 fredagPane.getChildren().add(r);
                 fredagPane.getChildren().add(l);
+                fredagPane.getChildren().add(iv);
             } else if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.SATURDAY))){
                 lørRectangles.add(r);
                 lørdagPane.getChildren().add(r);
