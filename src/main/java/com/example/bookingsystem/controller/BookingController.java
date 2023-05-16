@@ -29,7 +29,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
@@ -38,6 +43,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class BookingController {
 
@@ -59,6 +65,13 @@ public class BookingController {
 
     private int listSize;
 
+    /*private File print1 = new File("com/example/bookingsystem/icon/3dprint.png");
+    private Image print = ImageIO.read(print1);
+    private File idea = new File("com/example/bookingsystem/icon/3dprint.png");
+    private File laser = new File("com/example/bookingsystem/icon/3dprint.png");
+    private File leaf = new File("com/example/bookingsystem/icon/3dprint.png");
+    private File lifering = new File("com/example/bookingsystem/icon/3dprint.png");*/
+
     private double y_start,y_end;
     ArrayList<Rectangle> manRectangles = new ArrayList<>();
     ArrayList<Rectangle> tirsRectangles = new ArrayList<>();
@@ -68,6 +81,7 @@ public class BookingController {
     ArrayList<Rectangle> lørRectangles = new ArrayList<>();
     ArrayList<Rectangle> sønRectangles = new ArrayList<>();
     ArrayList<Label> labels = new ArrayList<>();
+    ArrayList<ImageView> imageViews = new ArrayList<>();
     HashMap<Rectangle, Booking> rectangleBooking = new HashMap<>();
 
     ListView recent = new ListView<>();
@@ -77,7 +91,7 @@ public class BookingController {
 
     GEmail ge = new GEmail();
 
-    public BookingController() throws SQLException {
+    public BookingController() throws SQLException, IOException {
         simpleThread = new SimpleThread(this);
     }
 
@@ -590,6 +604,8 @@ public class BookingController {
 
             Rectangle r = new Rectangle();
             Label l = new Label();
+            //ImageView iv = new ImageView();
+
 
             double yStart = locationMap.get(book.getStartTid());
             double yEnd = locationMap.get(book.getSlutTid());
@@ -605,10 +621,18 @@ public class BookingController {
             if (book.getBookingType() == 't'){ r.setFill(Color.RED);}
             else {r.setFill(Color.DODGERBLUE);}
 
+
+
             l.setText(book.toString());
-            l.setLayoutY(r.getY() + r.getHeight() / 2 - 5);
+            l.setLayoutY(r.getY() + 20); //r.getY() + r.getHeight() / 2 - 5
+
+            /*iv.setLayoutY(r.getY() + 5);
+            iv.setFitHeight(20);
+            iv.setFitWidth(20);
+            iv.setImage(print);*/
 
             labels.add(l);
+            //imageViews.add(iv);
 
             // Tilføjer rektangel og book til HashMap der bruges til at tjekke at der ikke er overlap
             rectangleBooking.put(r,book);
@@ -674,6 +698,15 @@ public class BookingController {
         lørdagPane.getChildren().removeAll(labels);
         søndagPane.getChildren().removeAll(labels);
         labels.clear();
+
+        /*mandagPane.getChildren().removeAll(imageViews);
+        tirsdagPane.getChildren().removeAll(imageViews);
+        onsdagPane.getChildren().removeAll(imageViews);
+        torsdagPane.getChildren().removeAll(imageViews);
+        fredagPane.getChildren().removeAll(imageViews);
+        lørdagPane.getChildren().removeAll(imageViews);
+        søndagPane.getChildren().removeAll(imageViews);
+        imageViews.clear();*/
     } // Fjerner alt det visuelle. Dvs. rektangler og labels.
 
     public void sendNotificationEmails(){

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class BookingApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("weekView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(BookingApplication.class.getResourceAsStream("logo.png")));
         stage.setTitle("Booking System");
