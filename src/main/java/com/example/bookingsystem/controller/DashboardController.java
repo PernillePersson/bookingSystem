@@ -42,6 +42,7 @@ public class DashboardController {
     private int listSize;
     ListView recent = new ListView<>();
     ListView upcoming = new ListView<>();
+    ListView dashBookingList = new ListView<>();
 
     @FXML
     private Image greyNo, redNo;
@@ -69,6 +70,7 @@ public class DashboardController {
         dashThread.start();
         imageShow();
         generateData();
+        visKommende();
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
@@ -111,6 +113,14 @@ public class DashboardController {
         }
     }
 
+    public void visKommende(){
+        List<Booking> ucBooking = bdi.upcoming();
+        dashBookingList.setStyle("-fx-font-family: monospace");
+        for (Booking b : ucBooking)
+        {
+            dashBookingList.getItems().add(b);
+        }
+    }
     @FXML
     void notifikationKnap(ActionEvent event) {
 

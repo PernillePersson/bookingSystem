@@ -45,6 +45,7 @@ public class BookingDAOImpl implements BookingDAO {
                 b = new Booking(id, fName, lName, mail, phone,
                         bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 allBookings.add(b);
+                b.setForløb(getForløb(id));
 
             }
         } catch (SQLException e){
@@ -280,6 +281,7 @@ public class BookingDAOImpl implements BookingDAO {
                 b = new Booking(id, fName, lName, mail, phone,
                         bType, catering, bDate, created, bCode, startTime, endTime, participants);
                 showBookings.add(b);
+                b.setForløb(getForløb(id));
 
             }
         } catch (SQLException e){

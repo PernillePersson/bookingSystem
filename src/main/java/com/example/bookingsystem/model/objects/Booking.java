@@ -17,6 +17,8 @@ public class Booking {
     
     private Time startTid, slutTid;
 
+    private Forløb forløb;
+
     public Booking(int id, String firstName, String lastName, String email, int phoneNumber,
                    char bookingType,char catering, LocalDate bookingDate, LocalDate dateCreated, String bookingCode,
                    Time startTid, Time slutTid, int participants){
@@ -40,6 +42,14 @@ public class Booking {
     public String toString() {
         return String.format(" %-10s %-1s - %-10s", firstName,
                 String.valueOf(startTid).substring(0,2), String.valueOf(slutTid).substring(0,2));
+    }
+
+    public Forløb getForløb() {
+        return forløb;
+    }
+
+    public void setForløb(Forløb forløb) {
+        this.forløb = forløb;
     }
 
     public String getFirstName() {
