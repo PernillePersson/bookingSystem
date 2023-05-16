@@ -73,7 +73,7 @@
          <children>
             <Pane layoutX="750.0" layoutY="45.0" prefHeight="570.0" prefWidth="400.0" styleClass="widget">
                <children>
-                  <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="20.0" layoutY="50.0" prefHeight="500.0" prefWidth="360.0">
+                  <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" hmax="0.0" layoutX="20.0" layoutY="50.0" prefHeight="500.0" prefWidth="360.0">
                      <content>
                         <HBox spacing="1.0" style="-fx-background-color: WHITESMOKE;">
                            <children>
@@ -239,7 +239,7 @@
                                     </StackPane>
                                  </children>
                               </Pane>
-                              <Pane fx:id="mandagPane" minHeight="765.0" minWidth="133.0" onMousePressed="#todayPress" onMouseReleased="#todayRelease" prefHeight="765.0" prefWidth="314.0" style="-fx-background-color: WHITESMOKE;">
+                              <Pane fx:id="dagsPane" minHeight="765.0" minWidth="133.0" prefHeight="765.0" prefWidth="314.0" style="-fx-background-color: WHITESMOKE;">
                                  <children>
                                     <StackPane prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />
                                     <StackPane layoutY="45.0" prefHeight="44.0" prefWidth="314.0" style="-fx-background-color: WHITE;" />

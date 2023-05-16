@@ -1,13 +1,13 @@
-package com.example.bookingsystem.model;
-import com.example.bookingsystem.controller.DashboardController;
+package com.example.bookingsystem.model.thread;
+import com.example.bookingsystem.controller.StatestikController;
 import javafx.application.Platform;
 
-public class DashThread extends Thread {
+public class StatsThread extends Thread {
 
-    private final DashboardController controller;
+    private final StatestikController controller;
     private boolean isRunning;
 
-    public DashThread(DashboardController controller) {
+    public StatsThread(StatestikController controller) {
         this.controller = controller;
         isRunning = true;
     }

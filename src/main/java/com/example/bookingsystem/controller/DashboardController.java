@@ -5,9 +5,8 @@ import com.example.bookingsystem.model.DAO.BookingDAO;
 import com.example.bookingsystem.model.DAO.BookingDAOImpl;
 import com.example.bookingsystem.model.DAO.DataCountDAO;
 import com.example.bookingsystem.model.DAO.DataCountDAOImpl;
-import com.example.bookingsystem.model.DashThread;
+import com.example.bookingsystem.model.thread.DashThread;
 import com.example.bookingsystem.model.DataCount;
-import com.example.bookingsystem.model.SimpleThread;
 import com.example.bookingsystem.model.objects.Booking;
 import com.example.bookingsystem.model.objects.SlideImage;
 import javafx.collections.ObservableList;
@@ -27,22 +26,33 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DashboardController {
     private int listSize;
-    ListView recent = new ListView<>();
-    ListView upcoming = new ListView<>();
-    ListView dashBookingList = new ListView<>();
+    private ListView recent = new ListView<>();
+    private ListView upcoming = new ListView<>();
+
+    @FXML
+    private Pane dagsPane;
+
+    @FXML
+    private ListView dashBookingList = new ListView<>();
 
     @FXML
     private Image greyNo, redNo;
@@ -61,8 +71,25 @@ public class DashboardController {
 
     private SlideImage shownImage = null;
 
+    InputStream robot = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/robot.png");
+    Image robotImg = new Image(robot);
+    InputStream idea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/idea.png");
+    Image ideaImg = new Image(idea);
+    InputStream laser = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/laser.png");
+    Image laserImg = new Image(laser);
+    InputStream recycle = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/recycle.png");
+    Image recycleImg = new Image(recycle);
+    InputStream lifering = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/lifering.png");
+    Image liferingImg = new Image(lifering);
+    InputStream sea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/sea.png");
+    Image seaImg = new Image(sea);
+    InputStream other = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/andet.png");
+    Image otherImg = new Image(other);
 
-    public DashboardController() throws SQLException {
+    HashMap<Rectangle, Booking> rectangleBooking = new HashMap<>();
+
+
+    public DashboardController() throws SQLException, FileNotFoundException {
         dashThread = new DashThread(this);
     }
 
@@ -71,6 +98,7 @@ public class DashboardController {
         imageShow();
         generateData();
         visKommende();
+        insertTodaysBooking();
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
@@ -118,7 +146,7 @@ public class DashboardController {
         dashBookingList.setStyle("-fx-font-family: monospace");
         for (Booking b : ucBooking)
         {
-            dashBookingList.getItems().add(b);
+            dashBookingList.getItems().add(String.format("%-10s %-1s", b.getFirstName(), b.getBookingDate()));
         }
     }
     @FXML
@@ -329,19 +357,93 @@ public class DashboardController {
             andetBar.getData().add(new XYChart.Data<>(andet,"Andet"));
         }
 
-        System.out.println(ecco + " " + tønderGym);
-
 
         dashboardChart.getData().addAll(eccoBar,folkeskoleBar,tønderGymBar,detBlåGymBar,tønderKomBar,andetBar);
+    }
+
+    public void insertTodaysBooking(){
+        List<Booking> bookings = bdi.showBooking(LocalDate.now());
+
+        HashMap<Time, Double> locationMap = new HashMap<>();
+
+        // Et HashMap med tidsværdier og deres korresponderende y-aksis værdier. Bruges til at indsætte bookings på de rigtige placeringer
+        locationMap.put(Time.valueOf("07:00:00"),0.0); locationMap.put(Time.valueOf("08:00:00"),44.0); locationMap.put(Time.valueOf("09:00:00"),89.0);
+        locationMap.put(Time.valueOf("10:00:00"),134.0); locationMap.put(Time.valueOf("11:00:00"),179.0); locationMap.put(Time.valueOf("12:00:00"),224.0);
+        locationMap.put(Time.valueOf("13:00:00"),269.0); locationMap.put(Time.valueOf("14:00:00"),314.0); locationMap.put(Time.valueOf("15:00:00"),359.0);
+        locationMap.put(Time.valueOf("16:00:00"),404.0); locationMap.put(Time.valueOf("17:00:00"),449.0); locationMap.put(Time.valueOf("18:00:00"),494.0);
+        locationMap.put(Time.valueOf("19:00:00"),539.0); locationMap.put(Time.valueOf("20:00:00"),584.0); locationMap.put(Time.valueOf("21:00:00"),629.0);
+        locationMap.put(Time.valueOf("22:00:00"),674.0); locationMap.put(Time.valueOf("23:00:00"),719.0); locationMap.put(Time.valueOf("24:00:00"),764.0);
+
+        for(Booking book : bookings){
+
+            Rectangle r = new Rectangle();
+            Label l = new Label();
+            ImageView iv = new ImageView();
+
+            double yStart = locationMap.get(book.getStartTid());
+            double yEnd = locationMap.get(book.getSlutTid());
+
+            // Opsæætter formular for hvor at rektanglen skal være i det pane den skal ind i
+            r.setY(yStart + 1);
+            r.setHeight(yEnd - yStart - 1);
+            r.setX(0);
+            r.setWidth(314);
+            r.setOpacity(0.3);
+
+            // Sætter farven alt efter booking type
+            if (book.getBookingType() == 't'){ r.setFill(Color.RED);}
+            else {r.setFill(Color.DODGERBLUE);}
+
+
+            l.setText(book.toString());
+            l.setLayoutY(r.getY() + 5); //r.getY() + r.getHeight() / 2 - 5
+
+            iv.setLayoutY(r.getY() + 5);
+            iv.setLayoutX(r.getWidth() - 25);
+            iv.setFitHeight(20);
+            iv.setFitWidth(20);
+
+            Image img;
+            if (book.getForløb().getId() == 1){
+                img = ideaImg;
+            } else if (book.getForløb().getId() == 2) {
+                img = laserImg;
+            } else if (book.getForløb().getId() == 3) {
+                img = robotImg;
+            } else if (book.getForløb().getId() == 4) {
+                img = recycleImg;
+            } else if (book.getForløb().getId() == 5) {
+                img = seaImg;
+            } else if (book.getForløb().getId() == 6) {
+                img = liferingImg;
+            } else {
+                img = otherImg;
+            }
+
+            iv.setImage(img);
+
+            if (book.getBookingDate().isEqual(LocalDate.now())){
+
+                dagsPane.getChildren().add(r);
+                dagsPane.getChildren().add(l);
+                dagsPane.getChildren().add(iv);
+            }
+
+
+            // Tilføjer rektangel og book til HashMap der bruges til at tjekke at der ikke er overlap
+            rectangleBooking.put(r,book);
+
+            r.onMouseClickedProperty().set(mouseEvent -> {
+                //Booking bk = bookings.get(book); // Får information om lige præcis den Booking der hører til objektet
+                System.out.println("Clicked on: " + book.getFirstName());
+                åbenKontaktInfo(book);
+            });
+
+        }
     }
 
 
     BookingDAO bdi = new BookingDAOImpl();
     DataCountDAO dc = new DataCountDAOImpl();
 
-    public void todayPress(MouseEvent mouseEvent) {
-    }
-
-    public void todayRelease(MouseEvent mouseEvent) {
-    }
 }

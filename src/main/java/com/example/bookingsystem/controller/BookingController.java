@@ -5,8 +5,7 @@ import com.example.bookingsystem.Gmail.GEmail;
 import com.example.bookingsystem.model.objects.Booking;
 import com.example.bookingsystem.model.DAO.BookingDAO;
 import com.example.bookingsystem.model.DAO.BookingDAOImpl;
-import com.example.bookingsystem.model.SimpleThread;
-import com.example.bookingsystem.model.objects.Forløb;
+import com.example.bookingsystem.model.thread.SimpleThread;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,13 +30,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
@@ -46,7 +41,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class BookingController {
 
@@ -84,7 +78,6 @@ public class BookingController {
     Image seaImg = new Image(sea);
     InputStream other = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/andet.png");
     Image otherImg = new Image(other);
-
 
 
 
@@ -152,7 +145,6 @@ public class BookingController {
     }
 
     public void updateNotifications(){
-
         recent.getItems().clear();
         List<Booking> notiBooking = bdi.recentlyCreated();
         for (Booking b : notiBooking)
@@ -170,7 +162,6 @@ public class BookingController {
 
     @FXML
     void notifikationKnap(ActionEvent event) {
-
         recent.setPrefHeight(200.0);
         recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
         recent.setOnMouseClicked(mouseEvent ->{
@@ -332,7 +323,6 @@ public class BookingController {
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.setScene(statestikScene);
-
     }
 
     public void dashboardKnap(ActionEvent event) throws IOException {

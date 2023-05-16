@@ -1,15 +1,13 @@
-package com.example.bookingsystem.model;
-
-
-import com.example.bookingsystem.controller.BookingController;
+package com.example.bookingsystem.model.thread;
+import com.example.bookingsystem.controller.DashboardController;
 import javafx.application.Platform;
 
-public class SimpleThread extends Thread {
+public class DashThread extends Thread {
 
-    private final BookingController controller;
+    private final DashboardController controller;
     private boolean isRunning;
 
-    public SimpleThread(BookingController controller) {
+    public DashThread(DashboardController controller) {
         this.controller = controller;
         isRunning = true;
     }
@@ -17,7 +15,6 @@ public class SimpleThread extends Thread {
     public void run() {
         while (isRunning) {
             Platform.runLater(() -> {
-                controller.insertSystemBookings();
                 controller.updateNotifications();
             });
             try {
@@ -31,4 +28,5 @@ public class SimpleThread extends Thread {
     public void stopThread() {
         isRunning = false;
     }
+
 }
