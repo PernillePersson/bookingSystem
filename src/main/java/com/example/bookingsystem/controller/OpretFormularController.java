@@ -17,6 +17,9 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -30,6 +33,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.TRANSPARENT;
 
 public class OpretFormularController {
 
@@ -110,26 +116,26 @@ public class OpretFormularController {
 
     public void tjekCharacter(){
         eNavn.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\sa-zA-Z*")) {
-                eNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            if (!newValue.matches("a-zæøå A-ZÆØÅ -*")) {
+                eNavn.setText(newValue.replaceAll("[^a-zæøå A-ZÆØÅ]", ""));
             }
         });
 
         fNavn.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\sa-zA-Z*")) {
-                fNavn.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            if (!newValue.matches("a-zæøå A-ZÆØÅ*")) {
+                fNavn.setText(newValue.replaceAll("[^a-zæøå A-ZÆØÅ]", ""));
             }
         });
 
         email.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\sa-zA-Z-\\d-@-.*")) {
-                email.setText(newValue.replaceAll("[^\\sa-zA-Z-\\d-.-@]", ""));
+            if (!newValue.matches("a-zæøå A-ZÆØÅ \\d @ - .*")) {
+                email.setText(newValue.replaceAll("[^a-zæøå A-ZÆØÅ \\d . @ -]", ""));
             }
         });
 
         org.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\sa-zA-Z*")) {
-                org.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            if (!newValue.matches("a-zæøå A-ZÆØÅ -*")) {
+                org.setText(newValue.replaceAll("[^a-zæøå A-ZÆØÅ -]", ""));
             }
         });
 
@@ -254,81 +260,107 @@ public class OpretFormularController {
 
     @FXML
     void opretBooking(ActionEvent event) throws InterruptedException {
+        fNavn.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
+        eNavn.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
+        tlf.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
+        email.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
+        antalDeltagere.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
+        forløb.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
 
-        int nr = Integer.parseInt(tlf.getText());
-        bKode = BookingCode.generateBookingCode();
-        String organisation = org.getText();
-        if (org.getText().isEmpty()){
-            organisation = "Ingen";
-        }
-        List<Booking> allBookings = bdi.getAllBooking();
-        boolean overlaps = false;
+        if (fNavn.getLength() == 0) {
+            fNavn.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-        for(Booking b : allBookings){
+        } else if (eNavn.getLength() == 0) {
+            eNavn.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-            String value = String.valueOf(b.getStartTid());
-            String strt = value.substring(0,2);
-            int start = Integer.valueOf(strt);
+        } else if (tlf.getLength() != 8) {
+            tlf.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-            String value2 = String.valueOf(b.getSlutTid());
-            String slt = value2.substring(0,2);
-            int slut = Integer.valueOf(slt);
+        } else if (email.getLength() == 0) {
+            email.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-            String value3 = String.valueOf(startTid.getValue());
-            String comboStart = value3.substring(0,2);
-            int comboStrt = Integer.valueOf(comboStart);
+        } else if (antalDeltagere.getValue().equals(0)) {
+            antalDeltagere.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-            String value4 = String.valueOf(slutTid.getValue());
-            String comboSlut = value4.substring(0,2);
-            int comboSlt = Integer.valueOf(comboSlut);
+        } else if (formål.getValue().equals("Åbent skoleforløb") && forløb.getValue().equals("Intet")) {
+            forløb.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-            if(bookingDato.getValue().equals(b.getBookingDate()) && comboSlt >= start && comboStrt <= slut){
-                overlaps = true;
-                break;
+        } else if (fNavn.getLength() > 0 && eNavn.getLength() > 0 && email.getLength() > 0 && tlf.getLength() == 8 && formål.getValue().equals("Åbent skoleforløb") && !forløb.getValue().equals("Intet")) {
+            int nr = Integer.parseInt(tlf.getText());
+            bKode = BookingCode.generateBookingCode();
+            String organisation = org.getText();
+            if (org.getText().isEmpty()) {
+                organisation = "Ingen";
             }
-        }
+            List<Booking> allBookings = bdi.getAllBooking();
+            boolean overlaps = false;
 
-        if(!overlaps){
+            for (Booking b : allBookings) {
 
-            bdi.addBooking(fNavn.getText(), eNavn.getText(), email.getText(), nr,
-                    type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
-                    Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
+                String value = String.valueOf(b.getStartTid());
+                String strt = value.substring(0, 2);
+                int start = Integer.valueOf(strt);
 
-            bdi.addForløb(bKode, f1.getId());
-            odi.addOrg(bKode, o1.getId());
+                String value2 = String.valueOf(b.getSlutTid());
+                String slt = value2.substring(0, 2);
+                int slut = Integer.valueOf(slt);
 
-            if (o1.getId() == 6){
-                odi.addCompany(bKode, org.getText());
-            }
+                String value3 = String.valueOf(startTid.getValue());
+                String comboStart = value3.substring(0, 2);
+                int comboStrt = Integer.valueOf(comboStart);
 
-            Dialog<ButtonType> dialog = new Dialog();
+                String value4 = String.valueOf(slutTid.getValue());
+                String comboSlut = value4.substring(0, 2);
+                int comboSlt = Integer.valueOf(comboSlut);
 
-            dialog.setTitle("Din bookingkode");
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-
-            Label l1 = new Label("Din bookingkode:");
-            Label kodeLabel = new Label(bKode);
-            kodeLabel.setFont(Font.font("ARIAL", FontWeight.BOLD, 20));
-            Label infoLabel = new Label("Gem denne kode til senere brug");
-
-            //GEmail gmailSender = new GEmail();
-
-            //gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
-
-            VBox vb = new VBox(l1, kodeLabel, infoLabel);
-            vb.setSpacing(10);
-            vb.setPadding(new Insets(10,30,10,30));
-
-            dialog.getDialogPane().setContent(vb);
-
-            Optional<ButtonType> knap = dialog.showAndWait();
-
-            if (knap.get() == ButtonType.OK)
-                try {
-                    content.putString(bKode);
-                    clipboard.setContent(content);
-                } catch (Exception e) {
+                if (bookingDato.getValue().equals(b.getBookingDate()) && comboSlt >= start && comboStrt <= slut) {
+                    overlaps = true;
+                    break;
                 }
+            }
+
+            if (!overlaps) {
+
+                bdi.addBooking(fNavn.getText(), eNavn.getText(), email.getText(), nr,
+                        type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
+                        Time.valueOf(slutTid.getValue() + ":00"), (Integer) antalDeltagere.getValue());
+
+                bdi.addForløb(bKode, f1.getId());
+                odi.addOrg(bKode, o1.getId());
+
+                if (o1.getId() == 6) {
+                    odi.addCompany(bKode, org.getText());
+                }
+
+                Dialog<ButtonType> dialog = new Dialog();
+
+                dialog.setTitle("Din bookingkode");
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+
+                Label l1 = new Label("Din bookingkode:");
+                Label kodeLabel = new Label(bKode);
+                kodeLabel.setFont(Font.font("ARIAL", FontWeight.BOLD, 20));
+                Label infoLabel = new Label("Gem denne kode til senere brug");
+
+                //GEmail gmailSender = new GEmail();
+
+                //gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
+
+                VBox vb = new VBox(l1, kodeLabel, infoLabel);
+                vb.setSpacing(10);
+                vb.setPadding(new Insets(10, 30, 10, 30));
+
+                dialog.getDialogPane().setContent(vb);
+
+                Optional<ButtonType> knap = dialog.showAndWait();
+
+                if (knap.get() == ButtonType.OK)
+                    try {
+                        content.putString(bKode);
+                        clipboard.setContent(content);
+                    } catch (Exception e) {
+                    }
+            }
         }
     }
 
