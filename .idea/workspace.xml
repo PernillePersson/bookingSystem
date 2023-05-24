@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Mail update">
+    <list default="true" id="677ee01d-c56b-4966-b1dc-c938cd9d7a6f" name="Changes" comment="Notifikation kommer ikke hver gang man skifter scene">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/OpretFormularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/OpretFormularController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookingsystem/controller/StatestikController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/statestik.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bookingsystem/weekView.fxml" afterDir="false" />
     </list>
     <list id="f60e2970-9899-45ef-b7b9-4004d5a5ac81" name="Changes by Chef Ramsay" comment="Changes by Magnus" />
     <list id="67630302-fbe9-4961-b000-80f445b20c66" name="Changes by Marc" comment="Changes by Marc" />
@@ -153,14 +152,7 @@
       <workItem from="1683734532493" duration="1407000" />
       <workItem from="1683797031078" duration="44769000" />
       <workItem from="1684220855064" duration="32089000" />
-      <workItem from="1684913937320" duration="9149000" />
-    </task>
-    <task id="LOCAL-00022" summary="Changes by Marc">
-      <created>1683116607998</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1683116607998</updated>
+      <workItem from="1684913937320" duration="13407000" />
     </task>
     <task id="LOCAL-00023" summary="Changes by Marc">
       <created>1683116700339</created>
@@ -498,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684924115470</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Notifikation kommer ikke hver gang man skifter scene">
+      <created>1684927085257</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1684927085258</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +515,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create on drag" />
     <MESSAGE value="Changes by Marc" />
     <MESSAGE value="Textfield limitiation" />
     <MESSAGE value="Forløb added" />
@@ -541,6 +539,7 @@
     <MESSAGE value="Statestik interface" />
     <MESSAGE value="Dagsoversigt" />
     <MESSAGE value="Mail update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mail update" />
+    <MESSAGE value="Notifikation kommer ikke hver gang man skifter scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="Notifikation kommer ikke hver gang man skifter scene" />
   </component>
 </project>

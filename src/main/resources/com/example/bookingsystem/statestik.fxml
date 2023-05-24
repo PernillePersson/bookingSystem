@@ -33,7 +33,7 @@
                   </ImageView>
                   <Button mnemonicParsing="false" onAction="#dashboardKnap" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Dashboard" />
                   <Button mnemonicParsing="false" onAction="#weekviewKnap" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Kalender" />
-                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Statestik" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" styleClass="navigation" text="Statistik" />
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -82,7 +82,7 @@
                         </BarChart>
                         <DatePicker fx:id="oChartStart" layoutX="305.0" layoutY="15.0" onAction="#oStartDatoValgt" />
                         <DatePicker fx:id="oChartSlut" layoutX="515.0" layoutY="15.0" onAction="#oSlutDatoValgt" />
-                        <Label layoutX="180.0" layoutY="20.0" text="Vis statestik for dato:" />
+                        <Label layoutX="180.0" layoutY="20.0" text="Vis statistik for dato:" />
                      </children>
                   </Pane>
                </children>
