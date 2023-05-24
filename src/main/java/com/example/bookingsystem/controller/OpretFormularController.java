@@ -280,7 +280,7 @@ public class OpretFormularController {
         } else if (formål.getValue().equals("Åbent skoleforløb") && forløb.getValue().equals("Intet")) {
             forløb.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-        } else if (fNavn.getLength() > 0 && eNavn.getLength() > 0 && email.getLength() > 0 && tlf.getLength() == 8 && formål.getValue().equals("Åbent skoleforløb") && !forløb.getValue().equals("Intet")) {
+        } else {
             int nr = Integer.parseInt(tlf.getText());
             bKode = BookingCode.generateBookingCode();
             String organisation = org.getText();

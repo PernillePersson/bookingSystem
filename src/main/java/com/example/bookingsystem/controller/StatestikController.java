@@ -76,10 +76,25 @@ public class StatestikController {
         setTime();
     }
 
+    public void passListsize(int size){
+        listSize = size;
+    }
 
     public void weekviewKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("weekView.fxml"));
         Scene statestikScene = new Scene(fxmlLoader.load());
+        BookingController boController = fxmlLoader.getController();
+        boController.passListsize(listSize);
+        Node source = (Node)  event.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.setScene(statestikScene);
+    }
+
+    public void dashboardKnap(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
+        Scene statestikScene = new Scene(fxmlLoader.load());
+        DashboardController dbController = fxmlLoader.getController();
+        dbController.passListsize(listSize);
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.setScene(statestikScene);
@@ -244,15 +259,6 @@ public class StatestikController {
         });
 
         oversigtStage.show();
-    }
-
-
-    public void dashboardKnap(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
-        Scene statestikScene = new Scene(fxmlLoader.load());
-        Node source = (Node)  event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
     }
 
     @FXML

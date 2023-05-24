@@ -117,6 +117,10 @@ public class BookingController {
         // sendt en notifikation før.
     }
 
+    public void passListsize(int size){
+        listSize = size;
+    }
+
     @FXML
     void opretBookingKnap(ActionEvent event) throws IOException {
         opretBooking(LocalDate.now(), Time.valueOf("07:00:00"), Time.valueOf("12:00:00"));
@@ -332,6 +336,8 @@ public class BookingController {
         //Åben ny scene med statestikker
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("statestik.fxml"));
         Scene statestikScene = new Scene(fxmlLoader.load());
+        StatestikController stController = fxmlLoader.getController();
+        stController.passListsize(listSize);
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.setScene(statestikScene);
@@ -340,6 +346,8 @@ public class BookingController {
     public void dashboardKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
         Scene statestikScene = new Scene(fxmlLoader.load());
+        DashboardController dbController = fxmlLoader.getController();
+        dbController.passListsize(listSize);
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.setScene(statestikScene);
