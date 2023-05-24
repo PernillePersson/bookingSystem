@@ -30,9 +30,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
@@ -140,8 +143,9 @@ public class BookingController {
     }
 
     @FXML
-    void mailKnap(ActionEvent event) {
+    void mailKnap(ActionEvent event) throws IOException {
         //Skift scene
+        Desktop.getDesktop().mail();
     }
 
     public void updateNotifications(){
@@ -284,6 +288,14 @@ public class BookingController {
 
         //Åbner nyt vindue med mail
         mail.setOnAction(event -> {
+            try {
+                URI mailto = new URI("mailto:" + b.getEmail() + "?subject=Booking");
+                Desktop.getDesktop().mail(mailto);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         //Åbner nyt vindue med bookingsoversigt

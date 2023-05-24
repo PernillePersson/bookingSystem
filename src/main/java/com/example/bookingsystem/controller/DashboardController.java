@@ -32,8 +32,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.*;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -117,11 +119,31 @@ public class DashboardController {
         stage.setScene(statestikScene);
     }
 
-    public void opretBookingKnap(ActionEvent event) {
-
+    public void opretBookingKnap(ActionEvent event) throws IOException {
+        opretBooking(LocalDate.now(), Time.valueOf("07:00:00"), Time.valueOf("12:00:00"));
     }
 
-    public void mailKnap(ActionEvent event) {
+    public void opretBooking(LocalDate d, Time st, Time et) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("bookingFormular.fxml"));
+        Scene oversigtScene = new Scene(fxmlLoader.load());
+        OpretFormularController formController = fxmlLoader.getController();
+        Stage oversigtStage = new Stage();
+        oversigtStage.setScene(oversigtScene);
+        formController.opsæt(d, st, et);
+
+        // Hvis der klikkes udenfor vinduet, lukkes det
+       // oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            //if (! isNowFocused) {
+                //oversigtStage.hide();
+            //}
+        //});
+
+
+        oversigtStage.show();
+    }
+
+    public void mailKnap(ActionEvent event) throws IOException {
+        Desktop.getDesktop().mail();
     }
 
     public void updateNotifications(){

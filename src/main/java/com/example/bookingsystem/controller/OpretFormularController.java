@@ -27,6 +27,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.DayOfWeek;
@@ -61,7 +63,7 @@ public class OpretFormularController {
     private ComboBox orgBox, formål, forløb, slutTid, startTid;
 
     @FXML
-    private Text bemærkning;
+    private Text bemærkning, optagetTekst;
 
     @FXML
     private Spinner antalDeltagere;
@@ -194,7 +196,7 @@ public class OpretFormularController {
     @FXML
     void hentForplejning(ActionEvent event) {
         try {
-            File pdf = new File(this.getClass().getResource("forplejning.pdf").toURI());
+            File pdf = new File("src/main/resources/com/example/bookingsystem/forplejning.pdf");
             Desktop.getDesktop().open(pdf);
         } catch (Exception e){
             System.out.println("Kunne ikke hente pdf" + e.getMessage());
@@ -259,14 +261,7 @@ public class OpretFormularController {
     }
 
     @FXML
-    void opretBooking(ActionEvent event) throws InterruptedException {
-        fNavn.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
-        eNavn.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
-        tlf.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
-        email.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
-        antalDeltagere.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
-        forløb.setBorder(new Border(new BorderStroke(TRANSPARENT, BorderStrokeStyle.SOLID, null, null)));
-
+    void opretBooking(ActionEvent event) throws InterruptedException, URISyntaxException {
         if (fNavn.getLength() == 0) {
             fNavn.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
@@ -343,7 +338,6 @@ public class OpretFormularController {
                 Label infoLabel = new Label("Gem denne kode til senere brug");
 
                 //GEmail gmailSender = new GEmail();
-
                 //gmailSender.sendBookingCode(email.getText(),fNavn.getText(),bKode);
 
                 VBox vb = new VBox(l1, kodeLabel, infoLabel);
@@ -360,6 +354,8 @@ public class OpretFormularController {
                         clipboard.setContent(content);
                     } catch (Exception e) {
                     }
+            } else {
+                optagetTekst.setVisible(true);
             }
         }
     }

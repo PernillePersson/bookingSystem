@@ -15,7 +15,7 @@ public class StatsThread extends Thread {
     public void run() {
         while (isRunning) {
             Platform.runLater(() -> {
-                //controller.updateNotifications();
+                controller.updateNotifications();
             });
             try {
                 Thread.sleep(1000);

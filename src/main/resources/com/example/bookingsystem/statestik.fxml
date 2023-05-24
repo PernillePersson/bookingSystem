@@ -73,12 +73,12 @@
                   <Pane prefHeight="510.0" prefWidth="750.0" style="-fx-background-color: rgb(148, 198, 70, 0.7);" styleClass="widget">
                      <children>
                         <BarChart fx:id="orgChart" layoutX="28.0" layoutY="42.0" prefHeight="444.0" prefWidth="684.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
+                           <xAxis>
+                              <NumberAxis side="LEFT" />
+                           </xAxis>
+                           <yAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </yAxis>
                         </BarChart>
                         <DatePicker fx:id="oChartStart" layoutX="305.0" layoutY="15.0" onAction="#oStartDatoValgt" />
                         <DatePicker fx:id="oChartSlut" layoutX="515.0" layoutY="15.0" onAction="#oSlutDatoValgt" />

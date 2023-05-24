@@ -18,7 +18,7 @@ public class BookingCode {
 
         for (int i = 0; i < 10; i++) {
 
-            // generate tilfældig nr fra 0 til characterStrings lændge
+            // indsætter tilfældig karakter fra characterString
             int index = (int)(characterString.length() * Math.random());
 
             // tilføj random character til stringBuilder
