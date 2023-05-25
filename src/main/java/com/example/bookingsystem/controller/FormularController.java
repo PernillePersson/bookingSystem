@@ -54,12 +54,13 @@ public class FormularController {
     }
 
 
-    public void passBooking(Booking b){
+    public void passBooking(Booking b){ //Henter valgt bookingobjekt fra forrige scene
         booking = b;
         setDetails(booking);
     }
 
     public void setDetails(Booking b){
+        //Indsætter detaljer fra valgt booking i alle felter
         startTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
         slutTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
@@ -98,7 +99,7 @@ public class FormularController {
 
         try {
             Note n = bdi.getNote(b.getId());
-            if (n != null){
+            if (n != null){ //Hvis der er en tilhørende note, skal den sættes ind istedet for "tilføj note"-knappen
                 noteText.setPrefWidth(159);
                 noteText.setPrefHeight(60);
                 changeBox.getChildren().add(noteText);
@@ -109,10 +110,9 @@ public class FormularController {
             System.out.println("Denne booking har ingen note");
         }
 
-
     }
     @FXML
-    void forplejningToggle(ActionEvent event) {
+    void forplejningToggle(ActionEvent event) { //Sætter forplejning for booking til y eller n (yes eller no)
         if (forplejning.getSelectedToggle() == yesToggle){
             booking.setCatering('y');
         } else if (forplejning.getSelectedToggle() == noToggle) {
@@ -121,7 +121,7 @@ public class FormularController {
     }
 
     @FXML
-    void opdaterStartTid(MouseEvent event) {
+    void opdaterStartTid(MouseEvent event) { //Opdaterer starttid for booking
         startTid.setOnAction((e) -> {
             if (startTid.getSelectionModel().getSelectedIndex() >= slutTid.getSelectionModel().getSelectedIndex()){
                 startTid.setValue(startTid.getItems().get(slutTid.getSelectionModel().getSelectedIndex() -1));
@@ -131,7 +131,7 @@ public class FormularController {
     }
 
     @FXML
-    void opdaterSlutTid(MouseEvent event) {
+    void opdaterSlutTid(MouseEvent event) { //Opdaterer sluttid for booking
         slutTid.setOnAction((e) -> {
             if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
                 slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
@@ -141,17 +141,17 @@ public class FormularController {
     }
 
     @FXML
-    void ændreDato(ActionEvent event) {
+    void ændreDato(ActionEvent event) { //Opdaterer dato for booking
         booking.setBookingDate(bookingDato.getValue());
     }
 
     @FXML
-    void godkendBooking(ActionEvent event) {
+    void godkendBooking(ActionEvent event) { //hvis booking er temporary, bliver den permanent
         booking.setBookingType('p');
     }
 
     @FXML
-    void tilføjNote(ActionEvent event) {
+    void tilføjNote(ActionEvent event) { //Tilføjer tekstfelt til note, og fjerne "tilføj note"-knappen
         noteText.setPrefWidth(159);
         noteText.setPrefHeight(60);
         changeBox.getChildren().add(noteText);
@@ -166,7 +166,7 @@ public class FormularController {
         boolean overlaps = false;
 
         for(Booking b : allBookings){
-
+            //Tjekker om der allerede er en booking på valgt date + tidpunkt
             String value = String.valueOf(b.getStartTid());
             String strt = value.substring(0,2);
             int start = Integer.valueOf(strt);
@@ -184,18 +184,19 @@ public class FormularController {
             int comboSlt = Integer.valueOf(comboSlut);
 
             if(bookingDato.getValue().equals(b.getBookingDate()) & b.getId() != b.getId() && comboSlt >= start && comboStrt <= slut){
+                //Overlapper hvis en booking i databasen har same dato og tidpunkt som den nye booking
+                //Tjekker ikke på det id som er ens med den booking vi opdaterer
                 overlaps = true;
                 break;
             }
         }
 
-        if(!overlaps) {
-
+        if(!overlaps) { //Hvis ny booking ikke overlapper en allerede eksisterende booking opdaterer vi den nye
 
             bdi.updateBooking(booking.getId(), booking.getBookingType(), booking.getCatering(),
                     booking.getBookingDate(), booking.getStartTid(), booking.getSlutTid());
 
-            if (!noteText.getText().isEmpty()){
+            if (!noteText.getText().isEmpty()){ //Hvis note-tekstfeltet ikke er tomt, opretter vi en note til booking
                 bdi.addNote(booking, noteText.getText());
             }
 
@@ -203,13 +204,13 @@ public class FormularController {
 
             Node source = (Node) event.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
-            stage.close();
+            stage.close(); //lukker formularen efter opdatering
         }
     }
 
     @FXML
     void sletBooking(ActionEvent event) throws SQLException {
-        Dialog<ButtonType> dialog = new Dialog();
+        Dialog<ButtonType> dialog = new Dialog(); //Åbner dialog for man kan nå at fortryde
 
         dialog.setTitle("Slet booking");
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
@@ -228,7 +229,7 @@ public class FormularController {
                 System.err.println("Noget gik galt");
                 System.err.println(e.getMessage());
             }
-    }
+    } //Sletter booking
 
     BookingDAO bdi = new BookingDAOImpl();
     OrganisationDAO odi = new OrganisationDAOImpl();

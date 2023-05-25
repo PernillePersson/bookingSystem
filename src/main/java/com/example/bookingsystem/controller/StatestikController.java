@@ -46,7 +46,7 @@ import java.util.List;
 
 public class StatestikController {
 
-    private int listSize;
+    private int listSize; //længde på notifikationslisten
     private ListView recent = new ListView<>();
     private ListView upcoming = new ListView<>();
 
@@ -77,32 +77,32 @@ public class StatestikController {
     }
 
     public void passListsize(int size){
-        listSize = size;
+        listSize = size; //Overfører længde på notifikationsliste fra andre scener
     }
 
     public void weekviewKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("weekView.fxml"));
-        Scene statestikScene = new Scene(fxmlLoader.load());
+        Scene weekScene = new Scene(fxmlLoader.load());
         BookingController boController = fxmlLoader.getController();
-        boController.passListsize(listSize);
+        boController.passListsize(listSize); //Overfører listsize fra denne scene til den nye
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
+        stage.setScene(weekScene); //Åbner scene med kalenderoversigt
     }
 
     public void dashboardKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
-        Scene statestikScene = new Scene(fxmlLoader.load());
+        Scene dashScene = new Scene(fxmlLoader.load());
         DashboardController dbController = fxmlLoader.getController();
-        dbController.passListsize(listSize);
+        dbController.passListsize(listSize); //Overfører listsize fra denne scene til den nye
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
+        stage.setScene(dashScene); //Åbner scene med kalenderoversigt
     }
 
     @FXML
     void notifikationKnap(ActionEvent event) {
-
+        //Samme medtode som i BookingController
         recent.setPrefHeight(200.0);
         recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
         recent.setOnMouseClicked(mouseEvent ->{
@@ -149,7 +149,7 @@ public class StatestikController {
     } //Viser seneste oprettet booking og kommende bookings
 
     public void updateNotifications(){
-
+        //Samme medtode som i BookingController
         recent.getItems().clear();
         List<Booking> notiBooking = bdi.recentlyCreated();
         for (Booking b : notiBooking)
@@ -165,7 +165,7 @@ public class StatestikController {
         }
     }
 
-    public void seKontaktInfo(ListView l){
+    public void seKontaktInfo(ListView l){ //Samme medtode som i BookingController
         ObservableList valgtBooking = l.getSelectionModel().getSelectedIndices();
         if (valgtBooking.isEmpty()){
             System.out.println("Vælg booking");
@@ -177,7 +177,7 @@ public class StatestikController {
             }
     } // Får object fra notifikationer - åbner vindue
 
-    public void åbenKontaktInfo(Booking b){
+    public void åbenKontaktInfo(Booking b){ //Samme medtode som i BookingController
         //Labels
         Label n = new Label();
         n.setFont(javafx.scene.text.Font.font("ARIAL", FontWeight.BOLD, 13.0));
@@ -235,14 +235,16 @@ public class StatestikController {
     } //Åbner vindue med kontaktinfo fra object
 
     public void mailKnap(ActionEvent event) throws IOException {
-        Desktop.getDesktop().mail();
+        Desktop.getDesktop().mail(); //Åbner default mailprogram på pc
     }
 
     public void opretBookingKnap(ActionEvent event) throws IOException {
+        //Samme medtode som i BookingController
         opretBooking(LocalDate.now(), Time.valueOf("07:00:00"), Time.valueOf("12:00:00"));
     }
 
     public void opretBooking(LocalDate d, Time st, Time et) throws IOException {
+        //Samme medtode som i BookingController
         //åben formular med alt booking info, og knap der opdaterer
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("bookingFormular.fxml"));
         Scene oversigtScene = new Scene(fxmlLoader.load());
@@ -266,8 +268,7 @@ public class StatestikController {
 
         forløbChart.getData().clear();
 
-
-
+        //Indsætter antal af forløb en booking har i lister
         List<DataCount> ideData = dc.importData("Idéfabrikken",fChartStart.getValue(),fChartSlut.getValue());
         List<DataCount> laserData = dc.importData("Digital fabrikation med laserskærer",fChartStart.getValue(),fChartSlut.getValue());
         List<DataCount> robotPåJobData = dc.importData("Robot på job",fChartStart.getValue(),fChartSlut.getValue());
@@ -276,6 +277,7 @@ public class StatestikController {
         List<DataCount> sikkerhedData = dc.importData("Skab sikkerhed i Vadehavet",fChartStart.getValue(),fChartSlut.getValue());
         List<DataCount> ingenData = dc.importData("Ingen",fChartStart.getValue(),fChartSlut.getValue());
 
+        //sætter antal forløb til 0
         int ide = 0;
         int laser = 0;
         int rpj = 0;
@@ -284,6 +286,7 @@ public class StatestikController {
         int sik = 0;
         int ing = 0;
 
+        //For hver booking der har bestemt forløb i databasen, tælles antal af forløb op
         for(DataCount i : ideData)
             ide++;
 
@@ -305,7 +308,7 @@ public class StatestikController {
         for(DataCount in : ingenData)
             ing++;
 
-
+        //Opsætter antal af forløb i pieChart
         ObservableList<PieChart.Data> forløbData = FXCollections.observableArrayList(
                 new PieChart.Data("Idéfabrikken",ide),
                 new PieChart.Data("Digital fabrikation med laserskærer",laser),
@@ -316,7 +319,7 @@ public class StatestikController {
                 new PieChart.Data("Ingen",ing)
         );
 
-
+        //Opætter piechartet visuelt
         forløbChart.setLegendVisible(true);
         forløbChart.setLabelsVisible(true);
         forløbChart.titleProperty().set("Bookings af forløb");
@@ -328,7 +331,7 @@ public class StatestikController {
         pieLabel.setTextFill(Color.BLACK);
         pieLabel.setStyle("-fx-font: 20 ARIAL;");
 
-        createToolTips(forløbChart);
+        createToolTips(forløbChart); //Kører man musen hen over en "pie", vises forløbnavn og antal
 
         forløbData.forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName())));
     }
@@ -338,6 +341,7 @@ public class StatestikController {
 
         forløbChart.getData().clear();
 
+        //Indsætter antal af forløb en booking har i lister
         List<DataCount> ideData = dc.importData("Idéfabrikken",fChartStart.getValue(),fChartSlut.getValue());
         List<DataCount> laserData = dc.importData("Digital fabrikation med laserskærer",fChartStart.getValue(),fChartSlut.getValue());
         List<DataCount> robotPåJobData = dc.importData("Robot på job",fChartStart.getValue(),fChartSlut.getValue());
@@ -346,6 +350,7 @@ public class StatestikController {
         List<DataCount> sikkerhedData = dc.importData("Skab sikkerhed i Vadehavet",fChartStart.getValue(),fChartSlut.getValue());
         List<DataCount> ingenData = dc.importData("Ingen",fChartStart.getValue(),fChartSlut.getValue());
 
+        //sætter antal forløb til 0
         int ide = 0;
         int laser = 0;
         int rpj = 0;
@@ -354,6 +359,7 @@ public class StatestikController {
         int sik = 0;
         int ing = 0;
 
+        //For hver booking der har bestemt forløb i databasen, tælles antal af forløb op
         for(DataCount i : ideData)
             ide++;
 
@@ -375,7 +381,7 @@ public class StatestikController {
         for(DataCount in : ingenData)
             ing++;
 
-
+        //Opsætter antal af forløb i pieChart
         ObservableList<PieChart.Data> forløbData = FXCollections.observableArrayList(
                 new PieChart.Data("Idéfabrikken",ide),
                 new PieChart.Data("Digital fabrikation med laserskærer",laser),
@@ -386,6 +392,7 @@ public class StatestikController {
                 new PieChart.Data("Ingen",ing)
                 );
 
+        //Opætter piechartet visuelt
         forløbChart.setLegendVisible(true);
         forløbChart.setLabelsVisible(true);
         forløbChart.setTitle("Bookede forløb");
@@ -398,7 +405,7 @@ public class StatestikController {
         pieLabel.setStyle("-fx-font: 20 ARIAL;");
 
 
-        createToolTips(forløbChart);
+        createToolTips(forløbChart); //Kører man musen hen over en "pie", vises forløbnavn og antal
 
         forløbData.forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName())));
     }
@@ -408,6 +415,7 @@ public class StatestikController {
 
         orgChart.getData().clear();
 
+        //Opsætter barchart
         Axis<Number> xAxis = orgChart.getXAxis();
         xAxis.setLabel("Bookede forløb");
         Axis<String> yAxis = orgChart.getYAxis();
@@ -416,6 +424,7 @@ public class StatestikController {
         xAxis.setTickLength(1.0);
         yAxis.setTickLength(1.0);
 
+        //Indsætter organisationer i lister for hver gang de har booket
         List<DataCount> eccoData = dc.importOrgStatData("Ecco", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> folkeskoleData = dc.importOrgStatData("Folkeskole", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> tønderGymData = dc.importOrgStatData("Tønder Gymnasium", oChartStart.getValue(), oChartSlut.getValue());
@@ -423,6 +432,7 @@ public class StatestikController {
         List<DataCount> tønderKomData = dc.importOrgStatData("Tønder Kommune", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> andetData = dc.importOrgStatData("Andet", oChartStart.getValue(), oChartSlut.getValue());
 
+        //Laver serie med organisationer
         XYChart.Series<Number, String> eccoBar = new XYChart.Series<>();
         XYChart.Series<Number, String> folkeskoleBar = new XYChart.Series<>();
         XYChart.Series<Number, String> tønderGymBar = new XYChart.Series<>();
@@ -430,6 +440,7 @@ public class StatestikController {
         XYChart.Series<Number, String> tønderKomBar = new XYChart.Series<>();
         XYChart.Series<Number, String> andetBar = new XYChart.Series<>();
 
+        //Sætter antal gange organisation har booket til 0
         int ecco = 0;
         int folkeskole = 0;
         int tønderGym = 0;
@@ -437,6 +448,8 @@ public class StatestikController {
         int tønderKom = 0;
         int andet = 0;
 
+        //Tæller antal gange organisationer har booket op, for hver der er i hver liste,
+        //og indsætter det i chart data
         for(DataCount e : eccoData){
             ecco++;
             eccoBar.getData().add(new XYChart.Data<>(ecco,"Ecco"));
@@ -466,6 +479,7 @@ public class StatestikController {
             andet++;
             andetBar.getData().add(new XYChart.Data<>(andet,"Andet"));
         }
+        //Indsætter alt chart data i barchartet for hver organisation
         orgChart.getData().addAll(eccoBar,folkeskoleBar,tønderGymBar,detBlåGymBar,tønderKomBar,andetBar);
 
     }
@@ -475,6 +489,7 @@ public class StatestikController {
 
         orgChart.getData().clear();
 
+        //Opsætter barchart
         Axis<Number> xAxis = orgChart.getXAxis();
         xAxis.setLabel("Bookede forløb");
         Axis<String> yAxis = orgChart.getYAxis();
@@ -483,7 +498,7 @@ public class StatestikController {
         xAxis.setTickLength(1.0);
         yAxis.setTickLength(1.0);
 
-
+        //Indsætter organisationer i lister for hver gang de har booket
         List<DataCount> eccoData = dc.importOrgStatData("Ecco", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> folkeskoleData = dc.importOrgStatData("Folkeskole", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> tønderGymData = dc.importOrgStatData("Tønder Gymnasium", oChartStart.getValue(), oChartSlut.getValue());
@@ -491,6 +506,7 @@ public class StatestikController {
         List<DataCount> tønderKomData = dc.importOrgStatData("Tønder Kommune", oChartStart.getValue(), oChartSlut.getValue());
         List<DataCount> andetData = dc.importOrgStatData("Andet", oChartStart.getValue(), oChartSlut.getValue());
 
+        //Laver serie med organisationer
         XYChart.Series<Number, String> eccoBar = new XYChart.Series<>();
         XYChart.Series<Number, String> folkeskoleBar = new XYChart.Series<>();
         XYChart.Series<Number, String> tønderGymBar = new XYChart.Series<>();
@@ -498,6 +514,7 @@ public class StatestikController {
         XYChart.Series<Number, String> tønderKomBar = new XYChart.Series<>();
         XYChart.Series<Number, String> andetBar = new XYChart.Series<>();
 
+        //Sætter antal gange organisation har booket til 0
         int ecco = 0;
         int folkeskole = 0;
         int tønderGym = 0;
@@ -505,6 +522,8 @@ public class StatestikController {
         int tønderKom = 0;
         int andet = 0;
 
+        //Tæller antal gange organisationer har booket op, for hver der er i hver liste,
+        //og indsætter det i chart data
         for(DataCount e : eccoData){
             ecco++;
             eccoBar.getData().add(new XYChart.Data<>(ecco,"Ecco"));
@@ -534,7 +553,7 @@ public class StatestikController {
             andet++;
             andetBar.getData().add(new XYChart.Data<>(andet,"Andet"));
         }
-
+        //Indsætter alt chart data i barchartet for hver organisation
         orgChart.getData().addAll(eccoBar,folkeskoleBar,tønderGymBar,detBlåGymBar,tønderKomBar,andetBar);
     }
 
@@ -545,10 +564,9 @@ public class StatestikController {
         fChartStart.setValue(LocalDate.now());
         orgChart.setAnimated(false);
         forløbChart.setAnimated(false);
-    }
+    } // Sætter dato for datepickers til dags dato
 
     private void createToolTips(PieChart pc) {
-
         for (PieChart.Data data: pc.getData()) {
             String msg = data.getName() + ": " + data.getPieValue();
 
@@ -557,12 +575,12 @@ public class StatestikController {
 
             Tooltip.install(data.getNode(), tp);
 
-            //update tooltip data when changed
+            //updater data når musen kører hen på ny "pie"
             data.pieValueProperty().addListener((observable, oldValue, newValue) ->
             {
                 tp.setText(newValue.toString());
             });
-        }
+        } //Når muser hoverer hen over en "pie", viser den navn og værdi for data på den pågældene "pie"
     }
 
 

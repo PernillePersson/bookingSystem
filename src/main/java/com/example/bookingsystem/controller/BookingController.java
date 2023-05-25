@@ -47,7 +47,7 @@ import java.util.List;
 
 public class BookingController {
 
-    @FXML
+    @FXML //Panes for hver dag i kalenderoversigtet
     private Pane fredagPane, lørdagPane, mandagPane, onsdagPane,
             søndagPane, tirsdagPane, torsdagPane;
 
@@ -55,18 +55,17 @@ public class BookingController {
     private Label monthLabel, yearLabel, mandagDato, tirsdagDato,
             onsdagDato, torsdagDato, fredagDato, lørdagDato, søndagDato;
 
-    @FXML
+    @FXML //Ikon for notikfation rød/grå
     private Image greyNo, redNo;
 
-    @FXML
+    @FXML //Til notifikationikon
     private ImageView notits;
 
     private LocalDate shownDate, today, lde;
 
     private int listSize;
 
-
-
+    //Images til ikoner for forløb
     InputStream robot = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/robot.png");
     Image robotImg = new Image(robot);
     InputStream idea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/idea.png");
@@ -82,8 +81,7 @@ public class BookingController {
     InputStream other = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/andet.png");
     Image otherImg = new Image(other);
 
-
-
+    //Koordinater og lister til rektangler der visualliserer bookings
     private double y_start,y_end;
     ArrayList<Rectangle> manRectangles = new ArrayList<>();
     ArrayList<Rectangle> tirsRectangles = new ArrayList<>();
@@ -96,6 +94,7 @@ public class BookingController {
     ArrayList<ImageView> imageViews = new ArrayList<>();
     HashMap<Rectangle, Booking> rectangleBooking = new HashMap<>();
 
+    //Lsitview til notifikationer
     ListView recent = new ListView<>();
     ListView upcoming = new ListView<>();
 
@@ -113,27 +112,27 @@ public class BookingController {
         opsætDato();
         insertSystemBookings();
         simpleThread.start();
-        // sendNotificationEmails(); // Aktiver den her når vi får sat en værdi på db der tjekker om der er blevet
-        // sendt en notifikation før.
+        // sendNotificationEmails();
     }
 
     public void passListsize(int size){
-        listSize = size;
+        listSize = size; //Overfører længde på notifikationsliste fra andre scener
     }
 
     @FXML
     void opretBookingKnap(ActionEvent event) throws IOException {
+        //Åbner bookingformular med dagsdato og tid fra 7-12
         opretBooking(LocalDate.now(), Time.valueOf("07:00:00"), Time.valueOf("12:00:00"));
     }
 
     public void opretBooking(LocalDate d, Time st, Time et) throws IOException {
-        //åben formular med alt booking info, og knap der opdaterer
+        //åben formular med felter til udfylde af bookinginfo
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("bookingFormular.fxml"));
         Scene oversigtScene = new Scene(fxmlLoader.load());
         OpretFormularController formController = fxmlLoader.getController();
         Stage oversigtStage = new Stage();
         oversigtStage.setScene(oversigtScene);
-        formController.opsæt(d, st, et);
+        formController.opsæt(d, st, et); //Fylder dato og tid ud, alt efter hvor der klikkes i kalenderoversigt
 
         // Hvis der klikkes udenfor vinduet, lukkes det
         oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -148,7 +147,7 @@ public class BookingController {
 
     @FXML
     void mailKnap(ActionEvent event) throws IOException {
-        //Skift scene
+        //åbner standart mailprogram på pc
         Desktop.getDesktop().mail();
     }
 
@@ -157,14 +156,14 @@ public class BookingController {
         List<Booking> notiBooking = bdi.recentlyCreated();
         for (Booking b : notiBooking)
         {
-            recent.getItems().add(b);
+            recent.getItems().add(b); //indsætter nyoprettede bookings i listview
         }
-
+        //Hvis længden på listen bliver større end tidligere længde, bliver notifikationsikonet rødt
         if(recent.getItems().size() > listSize){
             notits.setImage(redNo);
         }
         else{
-            notits.setImage(greyNo);
+            notits.setImage(greyNo); //Er listen ikke længere end listsize, bliver det gråt
         }
     }
 
@@ -173,10 +172,10 @@ public class BookingController {
         recent.setPrefHeight(200.0);
         recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
         recent.setOnMouseClicked(mouseEvent ->{
-            seKontaktInfo(recent);
+            seKontaktInfo(recent); //Åbner kontaktinfo hvis der klikkes på en booking i listviewet
         });
 
-        listSize = recent.getItems().size();
+        listSize = recent.getItems().size(); //Listsize bliver længden af recentlisten igen, så ikonet bliver gråt
 
         upcoming.getItems().clear();
         upcoming.setPrefHeight(200.0);
@@ -188,7 +187,7 @@ public class BookingController {
         List<Booking> ucBooking = bdi.upcoming();
         for (Booking b : ucBooking)
         {
-            upcoming.getItems().add(b);
+            upcoming.getItems().add(b); //indsætter kommende bookings i listview
         }
 
         Label l1 = new Label("Nyoprettede bookings");
@@ -196,9 +195,9 @@ public class BookingController {
         Label l2 = new Label("Kommende bookings");
         l2.setPadding(new Insets(4,0,0,4));
 
-        VBox vb = new VBox(l1, recent, l2, upcoming);
+        VBox vb = new VBox(l1, recent, l2, upcoming); //Indsætter overskifter og listviews i vbox
         vb.setSpacing(2);
-        Scene notiScene = new Scene(vb);
+        Scene notiScene = new Scene(vb); //Laver ny scene med vboxen
         Stage notiStage = new Stage();
         notiStage.setTitle("Notifikationer");
         notiStage.setScene(notiScene);
@@ -222,8 +221,7 @@ public class BookingController {
         }else
             for (Object indeks : valgtBooking){
                 Booking b = (Booking) l.getItems().get((int) indeks);
-                //Åben scene med kontakt info
-                åbenKontaktInfo(b);
+                åbenKontaktInfo(b); //Åben scene med kontakt info for valgt booking
             }
     } // Får object fra notifikationer - åbner vindue
 
@@ -250,7 +248,7 @@ public class BookingController {
         vb1.setAlignment(Pos.CENTER_LEFT);
         vb1.setPadding(new Insets(0, 20, 0, 0));
 
-        //Labels
+        //Labels - henter info fra valgt booking
         Label navn = new Label();
         navn.setText(b.getFirstName() + " " + b.getLastName());
         Label email = new Label();
@@ -277,10 +275,11 @@ public class BookingController {
 
         //Opsæt stage + scene
         Scene contScene = new Scene(hb, 400, 200);
+        //Henter styling fra stylesheet til at style knapper på samme måde som resten af programmet
         contScene.getStylesheets().add(String.valueOf(this.getClass().getResource("stylesheet.css")));
         Stage contStage = new Stage();
         contStage.setTitle("Kontaktinformation");
-        contStage.setScene(contScene);
+        contStage.setScene(contScene); //Contact information
 
         // Hvis der klikkes udenfor vinduet, lukkes det
         contStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
@@ -294,7 +293,7 @@ public class BookingController {
         mail.setOnAction(event -> {
             try {
                 URI mailto = new URI("mailto:" + b.getEmail() + "?subject=Booking");
-                Desktop.getDesktop().mail(mailto);
+                Desktop.getDesktop().mail(mailto); //Åbner mailprogram med email og emne udfyldt
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (URISyntaxException ex) {
@@ -305,7 +304,7 @@ public class BookingController {
         //Åbner nyt vindue med bookingsoversigt
         ændre.setOnAction(event -> {
             try {
-                ændreBooking(b);
+                ændreBooking(b); //Åbner bookingforumlar med alt udfyldt
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -319,13 +318,13 @@ public class BookingController {
         FormularController formController = fxmlLoader.getController();
         Stage oversigtStage = new Stage();
         oversigtStage.setScene(oversigtScene);
-        formController.passBooking(b);
+        formController.passBooking(b); //Udfylder felter med info fra pågældende booking
 
         // Hvis der klikkes udenfor vinduet, lukkes det
         oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (! isNowFocused) {
                 oversigtStage.hide();
-                insertSystemBookings();
+                insertSystemBookings(); //opdaterer kalenderoversigt
             }
         });
         oversigtStage.show();
@@ -337,41 +336,42 @@ public class BookingController {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("statestik.fxml"));
         Scene statestikScene = new Scene(fxmlLoader.load());
         StatestikController stController = fxmlLoader.getController();
-        stController.passListsize(listSize);
+        stController.passListsize(listSize); //Overfører listsize fra denne scene til den nye
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.setScene(statestikScene);
     }
 
     public void dashboardKnap(ActionEvent event) throws IOException {
+        //åbner scene med dashboard
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("dashboard.fxml"));
-        Scene statestikScene = new Scene(fxmlLoader.load());
+        Scene dashScene = new Scene(fxmlLoader.load());
         DashboardController dbController = fxmlLoader.getController();
-        dbController.passListsize(listSize);
+        dbController.passListsize(listSize); //overfører listsize fra denne scene til den nye
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
+        stage.setScene(dashScene);
     }
 
     @FXML
     void forrigeUgeKnap(ActionEvent event) {
-        shownDate = shownDate.minusWeeks(1);
-        opsætDato();
-        insertSystemBookings();
+        shownDate = shownDate.minusWeeks(1); //Sætter dato der bliver vist i øjeblikket, en uge tilbage
+        opsætDato(); //Ændrer labels så de viser korrekt dato, en uge tilbage
+        insertSystemBookings(); //Indsætter bookings passende til vist dato (en uge tilbage)
     } //Viser forrige uge i kalenderoversigt
 
     @FXML
     void todayKnap(ActionEvent event) {
-        shownDate = today;
-        opsætDato();
-        insertSystemBookings();
+        shownDate = today; //Sætter dato der bliver vist i øjeblikket, til dags dato
+        opsætDato(); //Ændrer labels så de viser korrekt dato, for dags dato
+        insertSystemBookings(); //Indsætter bookings passende til vist dato (dags dato)
     } //Viser denne uge i kalenderoversigt
 
     @FXML
     void næsteUgeKnap(ActionEvent event) {
-        shownDate = shownDate.plusWeeks(1);
-        opsætDato();
-        insertSystemBookings();
+        shownDate = shownDate.plusWeeks(1); //Sætter dato der bliver vist i øjeblikket, en uge frem
+        opsætDato(); //Ændrer labels så de viser korrekt dato, en uge frem
+        insertSystemBookings(); //Indsætter bookings passende til vist dato (en uge frem)
         System.out.println(shownDate);
     } //Viser næste uge i kalenderoversigt
 
@@ -385,7 +385,7 @@ public class BookingController {
         fredagDato.setText(String.valueOf(shownDate.with(DayOfWeek.FRIDAY).getDayOfMonth()));
         lørdagDato.setText(String.valueOf(shownDate.with(DayOfWeek.SATURDAY).getDayOfMonth()));
         søndagDato.setText(String.valueOf(shownDate.with(DayOfWeek.SUNDAY).getDayOfMonth()));
-    } //Sætter alle labels til at passe med datoer
+    } //Sætter alle labels til at passe med datoer der vises i øjeblikket
 
     public void oversætMdr(){
         if (shownDate.getMonth() == Month.JANUARY){
@@ -413,20 +413,20 @@ public class BookingController {
         } else if (shownDate.getMonth() == Month.DECEMBER) {
             monthLabel.setText("Dec");
         }
-    } //Sætter mdr labels til at være dansk
+    } //Sætter måned-label til at være dansk
 
     @FXML
-    void mondayPress(MouseEvent event) {
+    void mondayPress(MouseEvent event) { // Denne metode er præcis den samme for alle de andre ugedagPress events
         event.setDragDetect(true);
         y_start = event.getY();
-    }
+    }// Sætter drag til true og får en y_værdi ud fra musens lokation.
 
     @FXML
-    void mondayRelease(MouseEvent event) {
-        try {
+    void mondayRelease(MouseEvent event) { // Denne metode er præcis den samme for alle de andre ugedagRelease events.
+        try { // Får endnu en y_værdi ud fra hvor musen stopper med at være holdt nede.
             y_end = event.getY();
-            addStack(mandagPane, manRectangles);
-        }catch (IndexOutOfBoundsException e){
+            addStack(mandagPane, manRectangles); //Tilføjer et rektangel på dagens pane
+        }catch (IndexOutOfBoundsException e){ //Giver man slip udenfor oversigtet, catcher vi en exception
             System.err.println("Kan ikke oprette booking udenfor kalenderen");
         }
     }
@@ -531,7 +531,7 @@ public class BookingController {
 
         HashMap<Double, Time> locationMap = new HashMap<>();
 
-                // Tjekker hvilken pane tingene foregår i. Bliver brugt til at indsætte dato til vores opretBooking metode
+        // Tjekker hvilken pane tingene foregår i. Bliver brugt til at indsætte dato til vores opretBooking metode
         if(p == mandagPane) {
             lde = shownDate.with(DayOfWeek.MONDAY);
         } else if(p == tirsdagPane){
@@ -563,7 +563,7 @@ public class BookingController {
         int startIndex = -1;
         int endIndex = -1;
 
-        // For loop der finder start og slut index.
+        // For-loop der finder start og slut index.
         for (int i = 0; i < yValues.length; i++) {
             if (y_start >= yValues[i] && y_start < yValues[i + 1]) {
                 startIndex = i;
@@ -602,6 +602,8 @@ public class BookingController {
             // til kalenderen
             if (!intersects) {
                 try {
+                    //Prøver at oprette en booking, med tidspunkt for hvor man har klikket
+                    //via musens y værdi
                     opretBooking(lde,locationMap.get(yValues[startIndex]),locationMap.get(yValues[endIndex]));
                 } catch (IOException e){
                     System.err.println("Noget gik galt " + e.getMessage());
@@ -611,8 +613,8 @@ public class BookingController {
     } // Tilføjer en rektangel til der hvor brugeren har klikket vha. mouse drag events.
 
     public void insertSystemBookings(){
-        removeVisuals();
-
+        removeVisuals(); //Fjerner bookings før vi sætter ind på ny
+        //Laver liste af bookings for pågældende uge - (mandag og 7 dage frem)
         List<Booking> bookings = bdi.showBooking(shownDate.with(DayOfWeek.MONDAY));
 
         HashMap<Time, Double> locationMap = new HashMap<>();
@@ -625,41 +627,39 @@ public class BookingController {
         locationMap.put(Time.valueOf("19:00:00"),539.0); locationMap.put(Time.valueOf("20:00:00"),584.0); locationMap.put(Time.valueOf("21:00:00"),629.0);
         locationMap.put(Time.valueOf("22:00:00"),674.0); locationMap.put(Time.valueOf("23:00:00"),719.0); locationMap.put(Time.valueOf("24:00:00"),764.0);
 
-        // Begynder at indsætte rektangler
+        // Indsætter rektangler
         for(Booking book : bookings){
 
             Rectangle r = new Rectangle();
             Label l = new Label();
             ImageView iv = new ImageView();
 
-            double yStart = locationMap.get(book.getStartTid());
+            double yStart = locationMap.get(book.getStartTid()); //Sætter værdier passende med hashmap og bookingstid
             double yEnd = locationMap.get(book.getSlutTid());
 
-            // Opsæætter formular for hvor at rektanglen skal være i det pane den skal ind i
+            // Opsætter rektanglen for hvor det skal være i det pågældende pane
             r.setY(yStart + 1);
             r.setHeight(yEnd - yStart - 1);
             r.setX(0);
             r.setWidth(133);
             r.setOpacity(0.3);
 
-            // Sætter farven alt efter booking type
+            // Sætter farven alt efter booking type (temporary eller permanent)
             if (book.getBookingType() == 't'){ r.setFill(Color.RED);}
             else {r.setFill(Color.DODGERBLUE);}
 
+            l.setText(book.toString()); //Sætter navn og tidspunkt for booking
+            l.setLayoutY(r.getY() + 5); //Placerer label øverst til venstre på rektanget
 
-
-            l.setText(book.toString());
-            l.setLayoutY(r.getY() + 5); //r.getY() + r.getHeight() / 2 - 5
-
-            iv.setLayoutY(r.getY() + 5);
+            //Opsætter imageview der skal vise ikon for forløb
+            iv.setLayoutY(r.getY() + 5); //I højre hjørne ud for navn + tidspunkt
             iv.setLayoutX(r.getWidth() - 25);
             iv.setFitHeight(20);
             iv.setFitWidth(20);
 
-
-            Image img;
+            Image img; //Sætter image til at være ikon tilsvarende forløb
             if (book.getForløb().getId() == 1){
-                img = ideaImg;
+                img = ideaImg; //Er forløb id'et 1, er forløbet "Idefabrikken"
             } else if (book.getForløb().getId() == 2) {
                 img = laserImg;
             } else if (book.getForløb().getId() == 3) {
@@ -673,8 +673,7 @@ public class BookingController {
             } else {
                 img = otherImg;
             }
-
-            iv.setImage(img);
+            iv.setImage(img); //Sætter det tilsvarende ikon i imageviewet
 
             labels.add(l);
             imageViews.add(iv);
@@ -687,7 +686,7 @@ public class BookingController {
                 System.out.println("Clicked on: " + book.getFirstName());
                 åbenKontaktInfo(book);
             });
-            //Sætter rektanglen ind på det pane som passer til datoen
+            //Sætter rektanglet m. label + imageview ind på det pane som passer til datoen der vises i kalenderoversigt
             if (book.getBookingDate().isEqual(shownDate.with(DayOfWeek.MONDAY))){
                 manRectangles.add(r);
                 mandagPane.getChildren().add(r);
@@ -727,7 +726,7 @@ public class BookingController {
         }
     } //Indsætter bookings fra database i kalenderoversigt
 
-    public void removeVisuals(){
+    public void removeVisuals(){ //Fjerner alt visuelt der er indsat i kalenderoversigtet
         mandagPane.getChildren().removeAll(manRectangles);
         manRectangles.clear();
         tirsdagPane.getChildren().removeAll(tirsRectangles);

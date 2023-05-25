@@ -89,7 +89,7 @@ public class OpretFormularController {
 
     }
 
-    public void opsæt(LocalDate d, Time st, Time et) {
+    public void opsæt(LocalDate d, Time st, Time et) { //Opsætter felter med dato og tid udfyldt
         startTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
                 "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00");
         slutTid.getItems().addAll("07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
@@ -116,12 +116,12 @@ public class OpretFormularController {
         type = 'p';
     }
 
-    public void tjekCharacter(){
+    public void tjekCharacter(){ //Tjekker om der er blevet indsat de korrekte værdier i felterne
         eNavn.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("a-zæøå A-ZÆØÅ -*")) {
                 eNavn.setText(newValue.replaceAll("[^a-zæøå A-ZÆØÅ]", ""));
             }
-        });
+        }); //Indsættes der andet end bagstaver her, vil de blive erstattet med ingenting
 
         fNavn.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("a-zæøå A-ZÆØÅ*")) {
@@ -144,8 +144,8 @@ public class OpretFormularController {
         tlf.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 tlf.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-            if (tlf.getLength() > 8) {
+            } //Indsættes der andet en tal, erstattes det med ingenting
+            if (tlf.getLength() > 8) { //Hvis længden på nr overskrider 8, erstatters det med ingenting
                 String MAX = tlf.getText().substring(0,8);
                 tlf.setText(MAX);
             }
@@ -165,33 +165,33 @@ public class OpretFormularController {
             forplejningLink.setVisible(false);
             forp = 'n';
         }
-    }
+    } //Sætter forplejning til at være y eller n (yes eller no), ud fra radiobuttons
 
     @FXML
     void orgValgt(ActionEvent event) {
         if (orgBox.getSelectionModel().getSelectedIndex() == 5){
-            org.setVisible(true);
+            org.setVisible(true); //Er "andet" valgt, tilføjes et tekstfelt hvor man kan indtaste virksomhednavn
         } else {
             org.setVisible(false);
         }
         o1 = (Organisation) orgBox.getValue();
-    }
+    } //Sætter organisation for booking
 
     @FXML
     void formålValgt(ActionEvent event) {
         f1 = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
         if (formål.getSelectionModel().getSelectedIndex() == 1){
-            forløb.setVisible(true);
+            forløb.setVisible(true); //Hvis formålet er åbent skoleforløb, skal forløbne vises
         } else {
             forløb.setVisible(false);
             f1 = (Forløb) forløb.getItems().get(6); //Det index hvor forløb er "ingen"
         }
-    }
+    } //Vælger formål med booking
 
     @FXML
     void forløbValgt(ActionEvent event){
         f1 = (Forløb) forløb.getValue();
-    }
+    } //Er et skoleforløb valgt, indsætter vi det ved bookingen
 
     @FXML
     void hentForplejning(ActionEvent event) {
@@ -201,19 +201,20 @@ public class OpretFormularController {
         } catch (Exception e){
             System.out.println("Kunne ikke hente pdf" + e.getMessage());
         }
-    }
+    } //Åbner forplejningsformular med standart pdf program på pc
 
     @FXML
     void tjekDato(ActionEvent event) {
         if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
                 bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
                 bookingDato.getValue().getDayOfWeek() == DayOfWeek.SUNDAY){
+            //Ligger booking efter kl 18, eller i weekenden skal man anmode om booking, og typen sættes til temporary
             opretBookingKnap.setText("Anmod om booking");
             bemærkning.setVisible(true);
             type = 't';
             midlertidig = true;
 
-        }else {
+        }else { //Hvis booking er inden for normal åbningtid, kan den frit oprettes og bliver permanent
             opretBookingKnap.setText("Opret booking");
             bemærkning.setVisible(false);
             type = 'p';
@@ -225,7 +226,7 @@ public class OpretFormularController {
     void opdaterSlutTid(ActionEvent event) {
         if (slutTid.getSelectionModel().getSelectedIndex() <= startTid.getSelectionModel().getSelectedIndex()){
             slutTid.setValue(slutTid.getItems().get(startTid.getSelectionModel().getSelectedIndex() +1));
-        }
+        } //Hvis sluttid bliver sat lavere end start tid, ændres den til en time frem fra starttid
 
         if (slutTid.getSelectionModel().getSelectedIndex() >= 11 ||
                 bookingDato.getValue().getDayOfWeek() == DayOfWeek.SATURDAY ||
@@ -246,22 +247,23 @@ public class OpretFormularController {
     void opdaterStartTid(ActionEvent event) {
         if (startTid.getSelectionModel().getSelectedIndex() >= slutTid.getSelectionModel().getSelectedIndex()){
             startTid.setValue(startTid.getItems().get(slutTid.getSelectionModel().getSelectedIndex() -1));
-        }
+        } //Hvis starttid sættes til efter sluttid, ændres startid til en time før sluttid
     }
 
     @FXML
     void typeToggle(ActionEvent event) {
         if (bookingType.getSelectedToggle() == midlType){
-            type = 't';
+            type = 't'; //temporary
         } else if (bookingType.getSelectedToggle() == permType) {
             if (!midlertidig){
-                type = 'p';
+                type = 'p'; //Permanent
             }
         }
-    }
+    } //Radiobuttons vælger om man ønsker midlertidg eller permanent booking
 
     @FXML
     void opretBooking(ActionEvent event) throws InterruptedException, URISyntaxException {
+        //Er felter ikke udfyldt korrekt, sættes der en rød border på, og man får ikke lov at oprette
         if (fNavn.getLength() == 0) {
             fNavn.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
@@ -280,7 +282,7 @@ public class OpretFormularController {
         } else if (formål.getValue().equals("Åbent skoleforløb") && forløb.getValue().equals("Intet")) {
             forløb.setBorder(new Border(new BorderStroke(RED, BorderStrokeStyle.SOLID, null, null)));
 
-        } else {
+        } else { //Er felter udfyldt korrekt opretter vi booking med detajler fra udfyldte felter
             int nr = Integer.parseInt(tlf.getText());
             bKode = BookingCode.generateBookingCode();
             String organisation = org.getText();
@@ -291,7 +293,7 @@ public class OpretFormularController {
             boolean overlaps = false;
 
             for (Booking b : allBookings) {
-
+                //Tjekker om der allerede er en booking på valgt date + tidpunkt
                 String value = String.valueOf(b.getStartTid());
                 String strt = value.substring(0, 2);
                 int start = Integer.valueOf(strt);
@@ -309,12 +311,13 @@ public class OpretFormularController {
                 int comboSlt = Integer.valueOf(comboSlut);
 
                 if (bookingDato.getValue().equals(b.getBookingDate()) && comboSlt >= start && comboStrt <= slut) {
+                    //Overlapper hvis en booking i databasen har same dato og tidpunkt som den nye booking
                     overlaps = true;
                     break;
                 }
             }
 
-            if (!overlaps) {
+            if (!overlaps) { //Hvis ny booking ikke overlapper en allerede eksisterende booking opretter vi den nye
 
                 bdi.addBooking(fNavn.getText(), eNavn.getText(), email.getText(), nr,
                         type, forp, bookingDato.getValue(), bKode, Time.valueOf(startTid.getValue() + ":00"),
@@ -323,11 +326,11 @@ public class OpretFormularController {
                 bdi.addForløb(bKode, f1.getId());
                 odi.addOrg(bKode, o1.getId());
 
-                if (o1.getId() == 6) {
+                if (o1.getId() == 6) { //Hvis organisation ikke er valgt, opretter vi virksomhed
                     odi.addCompany(bKode, org.getText());
                 }
 
-                Dialog<ButtonType> dialog = new Dialog();
+                Dialog<ButtonType> dialog = new Dialog(); //Åbner vindue med bookingkode for ny booking
 
                 dialog.setTitle("Din bookingkode");
                 dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -351,10 +354,10 @@ public class OpretFormularController {
                 if (knap.get() == ButtonType.OK)
                     try {
                         content.putString(bKode);
-                        clipboard.setContent(content);
+                        clipboard.setContent(content); //Kopirerer bookingkode til udklipsholder
                     } catch (Exception e) {
                     }
-            } else {
+            } else { //Hvis booking overlapper en eksisterende, vises label der foreslår at vælge anden dato
                 optagetTekst.setVisible(true);
             }
         }
@@ -365,7 +368,7 @@ public class OpretFormularController {
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
-    }
+    } //Lukker formularen ned uden at oprette booking
 
     BookingDAO bdi = new BookingDAOImpl();
     OrganisationDAO odi = new OrganisationDAOImpl();

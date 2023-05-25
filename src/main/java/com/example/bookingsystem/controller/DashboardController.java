@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DashboardController {
-    private int listSize;
+    private int listSize; //længde på notifikationslisten
     private ListView recent = new ListView<>();
     private ListView upcoming = new ListView<>();
 
@@ -73,6 +73,7 @@ public class DashboardController {
 
     private SlideImage shownImage = null;
 
+    //Ikoner til forløb
     InputStream robot = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/robot.png");
     Image robotImg = new Image(robot);
     InputStream idea = new FileInputStream("src/main/resources/com/example/bookingsystem/icon/idea.png");
@@ -104,27 +105,27 @@ public class DashboardController {
     }
 
     public void passListsize(int size){
-        listSize = size;
+        listSize = size; //Overfører længde på notifikationsliste fra andre scener
     }
 
     public void statestikKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("statestik.fxml"));
         Scene statestikScene = new Scene(fxmlLoader.load());
         StatestikController stController = fxmlLoader.getController();
-        stController.passListsize(listSize);
+        stController.passListsize(listSize); //Overfører listsize fra denne scene til den nye
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
+        stage.setScene(statestikScene); //Åbner scene med statistik
     }
 
     public void weekviewKnap(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BookingApplication.class.getResource("weekView.fxml"));
-        Scene statestikScene = new Scene(fxmlLoader.load());
+        Scene weekScene = new Scene(fxmlLoader.load());
         BookingController boController = fxmlLoader.getController();
-        boController.passListsize(listSize);
+        boController.passListsize(listSize); //Overfører listsize fra denne scene til den nye
         Node source = (Node)  event.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
-        stage.setScene(statestikScene);
+        stage.setScene(weekScene); //Åbner scene med kalenderoversigt
     }
 
     public void opretBookingKnap(ActionEvent event) throws IOException {
@@ -136,26 +137,24 @@ public class DashboardController {
         Scene oversigtScene = new Scene(fxmlLoader.load());
         OpretFormularController formController = fxmlLoader.getController();
         Stage oversigtStage = new Stage();
-        oversigtStage.setScene(oversigtScene);
-        formController.opsæt(d, st, et);
+        oversigtStage.setScene(oversigtScene); //Åbner bookingformular
+        formController.opsæt(d, st, et); //Udfylder felter med dato og tid
 
-        // Hvis der klikkes udenfor vinduet, lukkes det
-       // oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            //if (! isNowFocused) {
-                //oversigtStage.hide();
-            //}
-        //});
-
-
+        //Hvis der klikkes udenfor vinduet, lukkes det
+        oversigtStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (! isNowFocused) {
+                oversigtStage.hide();
+            }
+        });
         oversigtStage.show();
     }
 
     public void mailKnap(ActionEvent event) throws IOException {
-        Desktop.getDesktop().mail();
+        Desktop.getDesktop().mail(); //Åbner default mailprogram på pc
     }
 
     public void updateNotifications(){
-
+        //Samme medtode som i BookingController
         recent.getItems().clear();
         List<Booking> notiBooking = bdi.recentlyCreated();
         for (Booking b : notiBooking)
@@ -171,17 +170,16 @@ public class DashboardController {
         }
     }
 
-    public void visKommende(){
-        List<Booking> ucBooking = bdi.upcoming();
+    public void visKommende(){ //Viser kommenede bookings i et listview
+        List<Booking> ucBooking = bdi.upcoming(); //Liste af bookings for de næste 7 dage
         dashBookingList.setStyle("-fx-font-family: monospace");
-        for (Booking b : ucBooking)
-        {
+        for (Booking b : ucBooking) {
             dashBookingList.getItems().add(String.format("%-10s %-1s", b.getFirstName(), b.getBookingDate()));
         }
     }
     @FXML
     void notifikationKnap(ActionEvent event) {
-
+        //Samme metode som i BookingController
         recent.setPrefHeight(200.0);
         recent.setStyle("-fx-font-family: monospace"); //Listview supporter ikke string.format uden monospace
         recent.setOnMouseClicked(mouseEvent ->{
@@ -227,7 +225,7 @@ public class DashboardController {
         notiStage.show();
     } //Viser seneste oprettet booking og kommende bookings
 
-    public void seKontaktInfo(ListView l){
+    public void seKontaktInfo(ListView l){ //Samme metode som i BookingController
         ObservableList valgtBooking = l.getSelectionModel().getSelectedIndices();
         if (valgtBooking.isEmpty()){
             System.out.println("Vælg booking");
@@ -239,7 +237,7 @@ public class DashboardController {
             }
     } // Får object fra notifikationer - åbner vindue
 
-    public void åbenKontaktInfo(Booking b){
+    public void åbenKontaktInfo(Booking b){ //Samme metode som i Booking Controller
         //Labels
         Label n = new Label();
         n.setFont(Font.font("ARIAL", FontWeight.BOLD, 13.0));
@@ -297,7 +295,7 @@ public class DashboardController {
     } //Åbner vindue med kontaktinfo fra object
 
     public void imageShow() {
-
+        //Henter billeder der skal på display
         File f1 = new File("src/main/resources/com/example/bookingsystem/image.png");
         File f2 = new File("src/main/resources/com/example/bookingsystem/image (1).png");
         File f3 = new File("src/main/resources/com/example/bookingsystem/image (2).png");
@@ -310,9 +308,8 @@ public class DashboardController {
         images.add(f4);
         images.add(f5);
 
-
         if (shownImage == null) {
-
+            //Kører på en thread som opdaterer hver 10. sekund. Indsætter nyt billede hver gang den kører
             shownImage = new SlideImage(images, currentImageIndex);
             shownImage.valueProperty().addListener((ov, oldImage, newImage) -> {
                 dashImage.setImage(newImage);
@@ -328,8 +325,8 @@ public class DashboardController {
         }
     }
 
-    public void generateData(){
-
+    public void generateData(){ //Se statestikController for uddybbende kommentare
+        //Viser barchart med data for hvor mange gange hver organisation har lejet mindfactory
         Axis<Number> xAxis = dashboardChart.getXAxis();
         xAxis.setLabel("Bookede forløb");
         Axis<String> yAxis = dashboardChart.getYAxis();
@@ -387,11 +384,12 @@ public class DashboardController {
             andetBar.getData().add(new XYChart.Data<>(andet,"Andet"));
         }
 
-
         dashboardChart.getData().addAll(eccoBar,folkeskoleBar,tønderGymBar,detBlåGymBar,tønderKomBar,andetBar);
     }
 
     public void insertTodaysBooking(){
+        //Indsætter bookings på samme måde som insertSystemBookings i BookingController
+        //Indsætter dog kun for dags dato
         List<Booking> bookings = bdi.showBooking(LocalDate.now());
 
         HashMap<Time, Double> locationMap = new HashMap<>();
